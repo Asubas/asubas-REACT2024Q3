@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  justify-content: space-evenly;
+  border: 1px solid black;
+}
+
+.header_search-container {
+  display: flex;
+  justify-content: center;
+}
+
+.header_logo-img {
+  max-width: 100px;
+}

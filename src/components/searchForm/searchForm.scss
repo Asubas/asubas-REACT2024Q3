@@ -1,0 +1,12 @@
+.search-form {
+  position: relative;
+  height: 100%;
+
+  .search-form_input {
+    position: absolute;
+    font-family: math;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
