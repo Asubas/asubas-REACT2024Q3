@@ -1,0 +1,25 @@
+import { Component, ReactNode } from 'react';
+import './contentSection.scss';
+import { IDogItem } from '../../interfaces/dogInterface';
+
+class ContentSection extends Component<{ data: IDogItem[] }> {
+  render(): ReactNode {
+    const { data } = this.props;
+    return (
+      <>
+        <section className="content">
+          {data &&
+            data.map((item: IDogItem, index: number) => (
+              <div className="content_item" key={item.id}>
+                <img className="content_item__picture" src={item.url} alt={`Dog ${index}`} />
+                <p className="content_item__title">{item.breeds[0].name}</p>
+              </div>
+            ))}
+        </section>
+        <div className="pagination"></div>
+      </>
+    );
+  }
+}
+
+export { ContentSection };
