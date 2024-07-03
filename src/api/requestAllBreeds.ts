@@ -9,16 +9,10 @@ const requestOptions: RequestInit = {
   redirect: 'follow',
 };
 
-async function fetchData(searchRequest: number = 0, page: number = 0) {
-  let url = `https://api.thedogapi.com/v1/images/search?size=med&mime_types=jpg&format=json&has_breeds=true&order=ASC&page=${page}&limit=9`;
-
-  if (searchRequest !== 0) {
-    url += `&breed_ids=${searchRequest}`;
-  }
-
-  return fetch(url, requestOptions)
+async function fetchDataBreeds() {
+  return fetch('https://api.thedogapi.com/v1/breeds', requestOptions)
     .then((result) => result.json())
     .catch((error) => console.log('error', error));
 }
 
-export { fetchData };
+export { fetchDataBreeds };

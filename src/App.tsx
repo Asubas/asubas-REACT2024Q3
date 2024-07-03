@@ -3,10 +3,23 @@ import './App.css';
 import { Header } from './components/header/header';
 import { IDogItem } from './interfaces/dogInterface';
 import { ContentSection } from './components/contentSection/contentSection';
+import { fetchData } from './api/requestApi';
+import { LoadingSnippet } from './components/loadingSnippet/loadingSnippet';
 
 class App extends Component {
   state: { data: IDogItem[] | null } = {
     data: null,
+  };
+
+  componentDidMount() {
+    this.fetchAndUpdateData();
+  }
+
+  fetchAndUpdateData = async () => {
+    const data = localStorage.getItem('resultSearch')
+      ? await fetchData(Number(localStorage.getItem('resultSearch')))
+      : await fetchData();
+    this.setState({ data });
   };
 
   handleDataChange = (data: IDogItem[] | null) => {
@@ -15,10 +28,11 @@ class App extends Component {
 
   render() {
     const { data } = this.state;
+
     return (
       <>
         <Header onDataChange={this.handleDataChange} />
-        {data ? <ContentSection data={data} /> : <div>Loading...</div>}
+        {data ? <ContentSection data={data} /> : <LoadingSnippet />}
       </>
     );
   }

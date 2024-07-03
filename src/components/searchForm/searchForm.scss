@@ -12,9 +12,15 @@
 
   .search-form_input {
     font-family: math;
+    padding-left: 5px;
 
     @media (max-width: 650px) {
       font-size: 90%;
     }
+  }
+
+  .search-form_button {
+    cursor: pointer;
+    z-index: 6;
   }
 }

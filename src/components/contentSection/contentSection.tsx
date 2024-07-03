@@ -1,5 +1,5 @@
-import { Component, ReactNode } from 'react';
 import './contentSection.scss';
+import { Component, ReactNode } from 'react';
 import { IDogItem } from '../../interfaces/dogInterface';
 
 class ContentSection extends Component<{ data: IDogItem[] }> {
