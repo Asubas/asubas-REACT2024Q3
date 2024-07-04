@@ -1,7 +1,7 @@
 .modal-boundary {
-  width: 30%;
-  height: 30%;
-  position: absolute;
+  width: 45%;
+  height: 45%;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -10,10 +10,11 @@
   border-radius: 5px;
   border: 1.5px solid black;
   text-align: center;
-  font-size: 150%;
+  font-size: 400%;
   padding: 15px;
   display: flex;
   align-items: center;
+  justify-content: center;
 
   span {
     font-size: 80%;
