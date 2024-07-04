@@ -1,13 +1,14 @@
+@import '../../App.scss';
+
 .search-form {
+  @include flex-positioning;
   position: relative;
   height: 100%;
-  display: flex;
-  align-items: center;
   gap: 15px;
 
   @media (max-width: 650px) {
     flex-direction: column;
-    justify-content: center;
+    margin: 10px 0;
   }
 
   .search-form_input {
@@ -16,11 +17,19 @@
 
     @media (max-width: 650px) {
       font-size: 90%;
+      font-family: inherit;
     }
   }
 
   .search-form_button {
+    @include flex-positioning;
     cursor: pointer;
     z-index: 6;
+
+    .search-form_button__svg {
+      width: 20px;
+      height: 20px;
+      margin-left: 5px;
+    }
   }
 }

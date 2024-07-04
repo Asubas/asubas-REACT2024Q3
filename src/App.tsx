@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import './App.css';
+import './App.scss';
 import { Header } from './components/header/header';
 import { IDogItem } from './interfaces/dogInterface';
 import { ContentSection } from './components/contentSection/contentSection';

@@ -7,7 +7,8 @@ import { LoadingSnippet } from '../loadingSnippet/loadingSnippet';
 import { fetchDataBreeds } from '../../api/requestAllBreeds';
 import { IBreedProps } from '../../interfaces/breedProps';
 import { ModalBoundary } from '../../modalBoundary/modalBoundary';
-
+import search from '../../assets/button-search-dog.svg';
+import resetSearch from '../../assets/button-search-dog-v2.svg';
 class SearchForm extends Component<ISearchFormProps> {
   state: ILoadState = {
     isLoading: false,
@@ -66,9 +67,11 @@ class SearchForm extends Component<ISearchFormProps> {
           ></input>
           <button className="search-form_button" type="submit">
             Search
+            <img className="search-form_button__svg" src={search} alt="dog svg" />
           </button>
           <button className="search-form_button" type="button" onClick={this.resetSearch}>
             Reset
+            <img className="search-form_button__svg" src={resetSearch} alt="dog svg crossed out" />
           </button>
         </form>
         {this.state.isLoading && <LoadingSnippet />}

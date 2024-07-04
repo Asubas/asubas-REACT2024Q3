@@ -1,24 +1,28 @@
+@import '../../App.scss';
+
 .header {
-  display: flex;
-  justify-content: space-between;
+  @include flex-positioning(space-between);
   border-bottom: 1px solid black;
   background-color: lightgray;
   margin-bottom: 20px;
-  align-items: center;
   padding: 0 15px;
+  position: relative;
 
   .header_title {
+    @include position-center;
     font-size: 350%;
+    margin: 0;
 
-    @media (max-width: 900px) {
+    @media (max-width: 1050px) {
+      position: static;
+      transform: translate(0);
       font-size: 200%;
     }
   }
 }
 
 .header_search-container {
-  display: flex;
-  justify-content: center;
+  @include flex-positioning;
 }
 
 .header_logo-img {

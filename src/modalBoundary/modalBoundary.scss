@@ -1,20 +1,17 @@
+@import '../App.scss';
+
 .modal-boundary {
   width: 45%;
   height: 45%;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   background-color: grey;
   z-index: 9;
-  border-radius: 5px;
-  border: 1.5px solid black;
   text-align: center;
   font-size: 400%;
   padding: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include position-center;
+  @include full-border-black;
+  @include flex-positioning;
+  position: fixed;
 
   span {
     font-size: 80%;

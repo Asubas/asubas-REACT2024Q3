@@ -1,7 +1,7 @@
+@import '../../App.scss';
+
 .footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-positioning(space-between);
   background-color: lightgray;
   margin-top: auto;
   min-height: 150px;
@@ -11,8 +11,13 @@
   .footer_rs-logo {
     width: 200px;
     transition: all 0.2s ease-out;
+
     &:hover {
       transform: rotate(5deg) translate(10px);
+    }
+
+    @media (max-width: 650px) {
+      margin-top: 15px;
     }
   }
 
@@ -23,14 +28,21 @@
   }
 
   .footer_author-link {
-    &::before {
-      content: ' ';
-      position: absolute;
-      top: 0px;
-      right: -30px;
-      width: 25px;
-      height: 25px;
-      background: url('../../assets/github.svg') no-repeat center / cover;
+    @media (min-width: 650px) {
+      &::before {
+        content: ' ';
+        position: absolute;
+        top: 0px;
+        right: -30px;
+        width: 25px;
+        height: 25px;
+        background: url('../../assets/github.svg') no-repeat center / cover;
+      }
     }
+  }
+
+  @media (max-width: 650px) {
+    flex-direction: column;
+    gap: 15px;
   }
 }
