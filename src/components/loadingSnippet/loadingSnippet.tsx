@@ -1,7 +1,7 @@
-import { Component, ReactNode } from 'react';
+import { PureComponent, ReactNode } from 'react';
 import './loadingSnippet.scss';
 
-class LoadingSnippet extends Component {
+class LoadingSnippet extends PureComponent {
   render(): ReactNode {
     return (
       <div className="loading">

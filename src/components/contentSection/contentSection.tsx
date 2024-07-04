@@ -1,8 +1,8 @@
 import './contentSection.scss';
-import { Component, ReactNode } from 'react';
+import { PureComponent, ReactNode } from 'react';
 import { IDogItem } from '../../interfaces/dogInterface';
 
-class ContentSection extends Component<{ data: IDogItem[] }> {
+class ContentSection extends PureComponent<{ data: IDogItem[] }> {
   render(): ReactNode {
     const { data } = this.props;
     return (

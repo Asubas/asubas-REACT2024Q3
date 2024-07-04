@@ -1,5 +1,5 @@
 import './searchForm.scss';
-import { Component, ReactNode } from 'react';
+import { PureComponent, ReactNode } from 'react';
 import { fetchData } from '../../api/requestApi';
 import { ISearchFormProps } from '../../interfaces/searchFormProps';
 import { ILoadState } from '../../interfaces/loadSate';
@@ -9,7 +9,7 @@ import { IBreedProps } from '../../interfaces/breedProps';
 import { ModalBoundary } from '../../modalBoundary/modalBoundary';
 import search from '../../assets/button-search-dog.svg';
 import resetSearch from '../../assets/button-search-dog-v2.svg';
-class SearchForm extends Component<ISearchFormProps> {
+class SearchForm extends PureComponent<ISearchFormProps> {
   state: ILoadState = {
     isLoading: false,
     searchQuery: '',

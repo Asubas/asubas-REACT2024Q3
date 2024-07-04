@@ -1,9 +1,9 @@
 import './footer.scss';
-import { Component, ReactNode } from 'react';
+import { PureComponent, ReactNode } from 'react';
 import rsLogo from '../../assets/rs_school_js.svg';
 import apiLogo from '../../assets/thedogapi-logo.svg';
 
-class Footer extends Component {
+class Footer extends PureComponent {
   render(): ReactNode {
     return (
       <footer className="footer">

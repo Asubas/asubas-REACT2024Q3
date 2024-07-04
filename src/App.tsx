@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import './App.scss';
 import { Header } from './components/header/header';
 import { IDogItem } from './interfaces/dogInterface';
@@ -7,7 +7,7 @@ import { fetchData } from './api/requestApi';
 import { LoadingSnippet } from './components/loadingSnippet/loadingSnippet';
 import { Footer } from './components/footer/footer';
 
-class App extends Component {
+class App extends PureComponent {
   state: { data: IDogItem[] | null } = {
     data: null,
   };

@@ -1,11 +1,11 @@
-import { Component, ReactNode } from 'react';
+import { PureComponent, ReactNode } from 'react';
 import headerLogo from '../../assets/header-logo.svg';
 import './header.scss';
 import { SearchForm } from '../searchForm/searchForm';
 import { IHeaderProps } from '../../interfaces/headerProps';
 import { IDogItem } from '../../interfaces/dogInterface';
 
-class Header extends Component<IHeaderProps> {
+class Header extends PureComponent<IHeaderProps> {
   handleDataChange = (data: IDogItem[] | null) => {
     this.props.onDataChange(data);
   };
