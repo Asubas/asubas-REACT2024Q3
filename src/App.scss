@@ -10,6 +10,8 @@ a {
   }
 }
 
+$vertical-margin: 10px 0;
+
 @mixin position-center {
   position: absolute;
   top: 50%;

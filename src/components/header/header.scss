@@ -3,17 +3,20 @@
 .header {
   @include flex-positioning(space-between);
   border-bottom: 1px solid black;
-  background-color: lightgray;
+  background-color: #d3d3d3;
   margin-bottom: 20px;
   padding: 0 15px;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  opacity: 0.9;
 
   .header_title {
     @include position-center;
     font-size: 350%;
     margin: 0;
 
-    @media (max-width: 1050px) {
+    @media (max-width: 1200px) {
       position: static;
       transform: translate(0);
       font-size: 200%;
@@ -27,4 +30,8 @@
 
 .header_logo-img {
   max-width: 100px;
+
+  @media (max-width: 1200px) {
+    max-width: 60px;
+  }
 }

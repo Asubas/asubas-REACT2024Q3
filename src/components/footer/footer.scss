@@ -2,7 +2,7 @@
 
 .footer {
   @include flex-positioning(space-between);
-  background-color: lightgray;
+  background-color: #d3d3d3;
   margin-top: auto;
   min-height: 150px;
   border-top: 1px solid black;
@@ -17,7 +17,7 @@
     }
 
     @media (max-width: 650px) {
-      margin-top: 15px;
+      margin: $vertical-margin;
     }
   }
 
@@ -25,6 +25,7 @@
   .footer_api {
     font-size: 150%;
     position: relative;
+    margin: $vertical-margin;
   }
 
   .footer_author-link {
