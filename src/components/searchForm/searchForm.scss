@@ -34,7 +34,6 @@
 
   .search-form_button {
     @include flex-positioning;
-    cursor: pointer;
     z-index: 6;
 
     @media (max-width: 1200px) {
@@ -42,9 +41,7 @@
     }
 
     .search-form_button__svg {
-      width: 20px;
-      height: 20px;
-      margin-left: 5px;
+      @include svg-button;
     }
   }
 }

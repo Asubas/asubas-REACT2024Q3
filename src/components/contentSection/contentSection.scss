@@ -5,6 +5,7 @@
   grid-gap: 20px;
   grid-auto-rows: 1fr;
   padding: 15px;
+  position: relative;
 
   .content_item {
     @include flex-positioning(start);

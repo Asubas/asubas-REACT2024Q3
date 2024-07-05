@@ -1,6 +1,7 @@
 import './contentSection.scss';
 import { PureComponent, ReactNode } from 'react';
 import { IDogItem } from '../../interfaces/dogInterface';
+import { ErrorBoundaryButton } from '../errorBoundary/errorBoundaryButton';
 
 class ContentSection extends PureComponent<{ data: IDogItem[] }> {
   render(): ReactNode {
@@ -8,6 +9,7 @@ class ContentSection extends PureComponent<{ data: IDogItem[] }> {
     return (
       <>
         <section className="content">
+          <ErrorBoundaryButton />
           {data &&
             data.map((item: IDogItem, index: number) => (
               <div className="content_item" key={item.id}>

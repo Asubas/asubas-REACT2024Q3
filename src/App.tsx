@@ -6,6 +6,7 @@ import { ContentSection } from './components/contentSection/contentSection';
 import { fetchData } from './api/requestApi';
 import { LoadingSnippet } from './components/loadingSnippet/loadingSnippet';
 import { Footer } from './components/footer/footer';
+import { ErrorBoundary } from './components/errorBoundary/errorBoundary';
 
 class App extends PureComponent {
   state: { data: IDogItem[] | null } = {
@@ -32,9 +33,11 @@ class App extends PureComponent {
 
     return (
       <>
-        <Header onDataChange={this.handleDataChange} />
-        {data ? <ContentSection data={data} /> : <LoadingSnippet />}
-        <Footer />
+        <ErrorBoundary>
+          <Header onDataChange={this.handleDataChange} />
+          {data ? <ContentSection data={data} /> : <LoadingSnippet />}
+          <Footer />
+        </ErrorBoundary>
       </>
     );
   }

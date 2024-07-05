@@ -34,3 +34,14 @@ $vertical-margin: 10px 0;
   border: 1px solid black;
   border-radius: 5px;
 }
+
+@mixin svg-button {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+}
+
+button {
+  cursor: pointer;
+  @include full-border-black;
+}

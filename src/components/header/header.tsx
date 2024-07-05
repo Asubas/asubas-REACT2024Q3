@@ -19,7 +19,7 @@ class Header extends PureComponent<IHeaderProps> {
               <img className="header_logo-img" src={headerLogo} alt="dog picture"></img>
             </a>
           </div>
-          <p className="header_title">Cute dogs</p>
+          <p className="header_title">Cute dogs</p>{' '}
           <div className="header_search-container">
             <SearchForm onDataChange={this.handleDataChange} />
           </div>
