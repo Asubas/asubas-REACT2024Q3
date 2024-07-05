@@ -12,6 +12,10 @@
   .error-boundary-content_button-svg {
     @include svg-button;
   }
+
+  @media (max-width: 390px) {
+    font-size: 80%;
+  }
 }
 
 .error-boundary-content_container {

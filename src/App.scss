@@ -43,5 +43,7 @@ $vertical-margin: 10px 0;
 
 button {
   cursor: pointer;
+  background-color: #f0f0f0;
+  color: #000000;
   @include full-border-black;
 }
