@@ -16,6 +16,12 @@ class SearchForm extends PureComponent<ISearchFormProps> {
     noHaveDog: false,
   };
 
+  componentDidMount() {
+    if (localStorage.getItem('textSearch')) {
+      this.setState({ searchQuery: localStorage.getItem('textSearch') || '' });
+    }
+  }
+
   handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ searchQuery: event.target.value });
   };
@@ -61,7 +67,7 @@ class SearchForm extends PureComponent<ISearchFormProps> {
           <input
             className="search-form_input"
             type="text"
-            value={localStorage.getItem('textSearch') || this.state.searchQuery.trim()}
+            value={this.state.searchQuery.trim()}
             onChange={this.handleInputChange}
             placeholder="Please enter search breed"
             autoFocus
