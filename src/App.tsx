@@ -35,7 +35,7 @@ class App extends PureComponent {
       <>
         <ErrorBoundary>
           <Header onDataChange={this.handleDataChange} />
-          {data ? <ContentSection data={data} /> : <LoadingSnippet />}
+          <main>{data ? <ContentSection data={data} /> : <LoadingSnippet />}</main>
           <Footer />
         </ErrorBoundary>
       </>

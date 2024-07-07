@@ -25,6 +25,7 @@ class SearchForm extends PureComponent<ISearchFormProps> {
     const data = await fetchData();
     this.props.onDataChange(data);
     localStorage.removeItem('resultSearch');
+    localStorage.removeItem('textSearch');
     this.setState({ isLoading: false });
   };
 
@@ -39,6 +40,7 @@ class SearchForm extends PureComponent<ISearchFormProps> {
     let data;
     if (firstMatch) {
       localStorage.setItem('resultSearch', firstMatch.id);
+      localStorage.setItem('textSearch', searchQuery.toLowerCase().trim());
       data = await fetchData(firstMatch.id);
     } else {
       this.setState({ isLoading: false });
@@ -59,12 +61,12 @@ class SearchForm extends PureComponent<ISearchFormProps> {
           <input
             className="search-form_input"
             type="text"
-            value={this.state.searchQuery.trim()}
+            value={localStorage.getItem('textSearch') || this.state.searchQuery.trim()}
             onChange={this.handleInputChange}
             placeholder="Please enter search breed"
             autoFocus
             required
-          ></input>
+          />
           <button className="search-form_button" type="submit">
             Search
             <img className="search-form_button__svg" src={search} alt="dog svg" />
