@@ -1,0 +1,49 @@
+@import '../../App.scss';
+
+.footer {
+  @include flex-positioning(space-between);
+  background-color: #d3d3d3;
+  margin-top: auto;
+  min-height: 150px;
+  border-top: 1px solid black;
+  padding: 0 15px;
+
+  .footer_rs-logo {
+    width: 200px;
+    transition: all 0.2s ease-out;
+
+    &:hover {
+      transform: rotate(5deg) translate(10px);
+    }
+
+    @media (max-width: 650px) {
+      margin: $vertical-margin;
+    }
+  }
+
+  .footer_author-link,
+  .footer_api {
+    font-size: 150%;
+    position: relative;
+    margin: $vertical-margin;
+  }
+
+  .footer_author-link {
+    @media (min-width: 650px) {
+      &::before {
+        content: ' ';
+        position: absolute;
+        top: 0px;
+        right: -30px;
+        width: 25px;
+        height: 25px;
+        background: url('../../assets/github.svg') no-repeat center / cover;
+      }
+    }
+  }
+
+  @media (max-width: 650px) {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
