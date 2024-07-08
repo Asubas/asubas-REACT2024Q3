@@ -1,37 +1,35 @@
 import './searchForm.scss';
-import { PureComponent, ReactNode } from 'react';
 import { fetchData } from '../../api/requestApi';
-import { ISearchFormProps } from '../../interfaces/searchFormProps';
-import { ILoadState } from '../../interfaces/loadSate';
 import { LoadingSnippet } from '../loadingSnippet/loadingSnippet';
 import { fetchDataBreeds } from '../../api/requestAllBreeds';
 import { IBreedProps } from '../../interfaces/breedProps';
 import { ModalBoundary } from '../../modalBoundary/modalBoundary';
 import search from '../../assets/button-search-dog.svg';
-import resetSearch from '../../assets/button-search-dog-v2.svg';
-class SearchForm extends PureComponent<ISearchFormProps> {
-  state: ILoadState = {
-    isLoading: false,
-    searchQuery: '',
-    noHaveDog: false,
+import resetSearchImg from '../../assets/button-search-dog-v2.svg';
+import { IDogItem } from '../../interfaces/dogInterface';
+import { useState } from 'react';
+
+function SearchForm({ onDataChange }: { onDataChange: (data: IDogItem[]) => void }) {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isHaveDog, setIsHaveDog] = useState(false);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
   };
 
-  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ searchQuery: event.target.value });
-  };
-
-  resetSearch = async () => {
-    this.setState({ searchQuery: '', isLoading: true });
+  const resetSearch = async () => {
+    setSearchQuery('');
+    setIsLoading(true);
     const data = await fetchData();
-    this.props.onDataChange(data);
+    onDataChange(data);
     localStorage.removeItem('resultSearch');
-    this.setState({ isLoading: false });
+    setIsLoading(false);
   };
 
-  handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    this.setState({ isLoading: true });
-    const { searchQuery } = this.state;
+    setIsLoading(true);
     const responseBreeds = await fetchDataBreeds();
     const firstMatch = responseBreeds.find((dog: IBreedProps) =>
       dog.name.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -41,44 +39,42 @@ class SearchForm extends PureComponent<ISearchFormProps> {
       localStorage.setItem('resultSearch', firstMatch.id);
       data = await fetchData(firstMatch.id);
     } else {
-      this.setState({ isLoading: false });
-      this.setState({ noHaveDog: true });
+      setIsLoading(false);
+      setIsHaveDog(true);
       setTimeout(() => {
-        this.setState({ noHaveDog: false });
+        setIsHaveDog(false);
       }, 3000);
       data = await fetchData();
     }
-    this.props.onDataChange(data);
-    this.setState({ isLoading: false });
+    onDataChange(data);
+    setIsLoading(false);
   };
 
-  render(): ReactNode {
-    return (
-      <>
-        <form className="search-form" onSubmit={this.handleSubmit}>
-          <input
-            className="search-form_input"
-            type="text"
-            value={this.state.searchQuery.trim()}
-            onChange={this.handleInputChange}
-            placeholder="Please enter search breed"
-            autoFocus
-            required
-          ></input>
-          <button className="search-form_button" type="submit">
-            Search
-            <img className="search-form_button__svg" src={search} alt="dog svg" />
-          </button>
-          <button className="search-form_button" type="button" onClick={this.resetSearch}>
-            Reset
-            <img className="search-form_button__svg" src={resetSearch} alt="dog svg crossed out" />
-          </button>
-        </form>
-        {this.state.isLoading && <LoadingSnippet />}
-        {this.state.noHaveDog && <ModalBoundary />}
-      </>
-    );
-  }
+  return (
+    <>
+      <form className="search-form" onSubmit={handleSubmit}>
+        <input
+          className="search-form_input"
+          type="text"
+          value={searchQuery.trim()}
+          onChange={handleInputChange}
+          placeholder="Please enter search breed"
+          autoFocus
+          required
+        ></input>
+        <button className="search-form_button" type="submit">
+          Search
+          <img className="search-form_button__svg" src={search} alt="dog svg" />
+        </button>
+        <button className="search-form_button" type="button" onClick={resetSearch}>
+          Reset
+          <img className="search-form_button__svg" src={resetSearchImg} alt="dog svg crossed out" />
+        </button>
+      </form>
+      {isLoading && <LoadingSnippet />}
+      {isHaveDog && <ModalBoundary />}
+    </>
+  );
 }
 
 export { SearchForm };
