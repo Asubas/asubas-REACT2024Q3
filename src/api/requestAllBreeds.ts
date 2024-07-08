@@ -12,7 +12,9 @@ const requestOptions: RequestInit = {
 async function fetchDataBreeds() {
   return fetch('https://api.thedogapi.com/v1/breeds', requestOptions)
     .then((result) => result.json())
-    .catch((error) => console.log('error', error));
+    .catch((error) => {
+      throw new Error(error);
+    });
 }
 
 export { fetchDataBreeds };
