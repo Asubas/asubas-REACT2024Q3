@@ -1,5 +1,5 @@
-import headerLogo from '../../assets/header-logo.svg';
 import './header.scss';
+import headerLogo from '../../assets/header-logo.svg';
 import { SearchForm } from '../searchForm/searchForm';
 import { IDogItem } from '../../interfaces/dogInterface';
 

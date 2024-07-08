@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
 import './App.scss';
+import { useEffect, useState } from 'react';
 import { Header } from './components/header/header';
 import { IDogItem } from './interfaces/dogInterface';
 import { ContentSection } from './components/contentSection/contentSection';
-
 import { LoadingSnippet } from './components/loadingSnippet/loadingSnippet';
 import { Footer } from './components/footer/footer';
 import { ErrorBoundary } from './components/errorBoundary/errorBoundary';

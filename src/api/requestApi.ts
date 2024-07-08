@@ -18,7 +18,9 @@ async function fetchData(searchRequest: number = 0, page: number = 0) {
 
   return fetch(url, requestOptions)
     .then((result) => result.json())
-    .catch((error) => console.log('error', error));
+    .catch((error) => {
+      throw new Error(error);
+    });
 }
 
 export { fetchData };

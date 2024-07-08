@@ -7,7 +7,7 @@ import { ModalBoundary } from '../../modalBoundary/modalBoundary';
 import search from '../../assets/button-search-dog.svg';
 import resetSearchImg from '../../assets/button-search-dog-v2.svg';
 import { IDogItem } from '../../interfaces/dogInterface';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function SearchForm({ onDataChange }: { onDataChange: (data: IDogItem[]) => void }) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -18,12 +18,20 @@ function SearchForm({ onDataChange }: { onDataChange: (data: IDogItem[]) => void
     setSearchQuery(event.target.value);
   };
 
+  useEffect(() => {
+    const storedSearchText = localStorage.getItem('textSearch');
+    if (storedSearchText) {
+      setSearchQuery(storedSearchText);
+    }
+  }, []);
+
   const resetSearch = async () => {
     setSearchQuery('');
     setIsLoading(true);
     const data = await fetchData();
     onDataChange(data);
     localStorage.removeItem('resultSearch');
+    localStorage.removeItem('textSearch');
     setIsLoading(false);
   };
 
@@ -37,6 +45,7 @@ function SearchForm({ onDataChange }: { onDataChange: (data: IDogItem[]) => void
     let data;
     if (firstMatch) {
       localStorage.setItem('resultSearch', firstMatch.id);
+      localStorage.setItem('textSearch', searchQuery.toLowerCase().trim());
       data = await fetchData(firstMatch.id);
     } else {
       setIsLoading(false);
