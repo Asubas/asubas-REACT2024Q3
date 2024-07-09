@@ -24,15 +24,20 @@ function ContentSection({ data }: { data: IDogItem[] }) {
 
   return (
     <>
-      <section className="content">
-        <ErrorBoundaryButton />
-        {data &&
-          data.map((item: IDogItem) => (
-            <ContentItem key={item.id} item={item} showDetail={showDetail} />
-          ))}
-        {currentDetailId && <Outlet />}
-      </section>
-      <Pagination />
+      <main>
+        <div className="container-content">
+          <section className={`content ${currentDetailId ? 'leftSide' : ''}`}>
+            <ErrorBoundaryButton />
+
+            {data &&
+              data.map((item: IDogItem) => (
+                <ContentItem key={item.id} item={item} showDetail={showDetail} />
+              ))}
+          </section>
+          {currentDetailId && <Outlet />}
+        </div>
+        <Pagination />
+      </main>
     </>
   );
 }

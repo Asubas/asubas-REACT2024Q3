@@ -1,10 +1,11 @@
+import './detailsPerDog.scss';
 import { useParams } from 'react-router-dom';
 
 function DetailsPerDog() {
   const { id } = useParams();
   return (
     <>
-      <p>details page {id}</p>
+      <div className="details">details page {id}</div>
     </>
   );
 }
