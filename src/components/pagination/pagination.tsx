@@ -2,15 +2,17 @@ import './pagination.scss';
 import { useContext, useLayoutEffect, useState } from 'react';
 import { fetchData } from '../../api/requestApi';
 import { IPageContextInterface } from '../../interfaces/pageContextInterface';
-import { PageContext } from '../../App';
+import { DetailsContext, PageContext } from '../../App';
 import { useNavigate, useParams } from 'react-router-dom';
 import { LoadingSnippet } from '../loadingSnippet/loadingSnippet';
+import { IDetailSectionContext } from '../../interfaces/detailsSectionInterfaces';
 
 function Pagination() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const totalPages = 10;
   const pageContext = useContext<IPageContextInterface>(PageContext);
+  const { setDetailId } = useContext<IDetailSectionContext>(DetailsContext);
   const navigate = useNavigate();
 
   const handlePageChange = async (page: number) => {
@@ -19,6 +21,7 @@ function Pagination() {
     pageContext?.setState(await fetchData(0, page));
     navigate(`/page/${page}`);
     setIsLoading(false);
+    setDetailId('');
   };
 
   const handlePrevPage = () => {

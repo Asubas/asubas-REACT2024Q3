@@ -1,3 +1,59 @@
+@import '../../../App.scss';
+
 .details {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 15px;
+
+  .details_img {
+    margin: 0 2%;
+    border-radius: 5px;
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-gap: 1rem 2rem;
+    font-size: 1.1rem;
+    color: #555555;
+    margin-top: 0;
+  }
+
+  dt {
+    font-weight: bold;
+    color: #333333;
+    text-align: left;
+    align-self: center;
+  }
+
+  dd {
+    margin-left: 0;
+    border-left: 2px solid #ddd;
+    text-align: center;
+  }
+
+  dl {
+    padding: 2rem;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+
+  dt,
+  dd {
+    padding: 1rem;
+  }
+
+  dt:last-of-type,
+  dd:last-of-type {
+    padding-bottom: 0;
+  }
+
+  .details_close {
+    position: absolute;
+    right: 2%;
+    top: 70%;
+  }
 }

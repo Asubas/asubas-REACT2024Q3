@@ -1,7 +1,6 @@
 import './errorBoundary.scss';
 import { ErrorInfo, PureComponent } from 'react';
 import { ErrorBoundaryProps, ErrorBoundaryState } from '../../interfaces/errorBoundaryInterfaces';
-import serviceDog from '../../assets/service-dog.svg';
 import sadnessDog from '../../assets/sadness-dog.jpg';
 
 class ErrorBoundary extends PureComponent<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -49,18 +48,6 @@ class ErrorBoundary extends PureComponent<ErrorBoundaryProps, ErrorBoundaryState
           <div className="error-boundary-content_img">
             <img src={sadnessDog} alt="sadness Dog" />
           </div>
-          <button
-            className="error-boundary-content_button"
-            type="button"
-            onClick={this.handleClickF}
-          >
-            Reload
-            <img
-              className="error-boundary-content_button-svg"
-              src={serviceDog}
-              alt="dog svg labrador serviceDog"
-            />
-          </button>
         </div>
       );
     }

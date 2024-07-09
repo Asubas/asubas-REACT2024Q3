@@ -6,9 +6,8 @@
 
 .content {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-gap: 20px;
-  grid-auto-rows: 1fr;
   padding: 15px;
   position: relative;
 
@@ -34,17 +33,33 @@
       border-radius: 5px;
       aspect-ratio: 1 / 1;
     }
+
+    .content_item__title {
+      text-align: center;
+    }
   }
 
   @media (max-width: 1200px) {
     grid-template-columns: repeat(2, 1fr);
+
+    .pagination {
+      grid-row: 6 / 7;
+    }
   }
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
+    .pagination {
+      grid-row: auto;
+    }
   }
 
   &.leftSide {
     width: 450px;
+    grid-template-columns: repeat(3, 1fr);
   }
+}
+
+.content:has(> *:first-child:last-child) {
+  display: none;
 }

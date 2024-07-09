@@ -13,8 +13,8 @@ import { useNavigate } from 'react-router-dom';
 import { IDetailSectionContext } from '../../interfaces/detailsSectionInterfaces';
 
 function SearchForm() {
-  const pageContext = useContext<IPageContextInterface>(PageContext);
-  const detailContext = useContext<IDetailSectionContext>(DetailsContext);
+  const { setState } = useContext<IPageContextInterface>(PageContext);
+  const { setDetailId } = useContext<IDetailSectionContext>(DetailsContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isHaveDog, setIsHaveDog] = useState(false);
@@ -35,12 +35,12 @@ function SearchForm() {
     setSearchQuery('');
     setIsLoading(true);
     fetchData().then((res) => {
-      pageContext?.setState(res);
+      setState(res);
     });
     localStorage.clear();
     setIsLoading(false);
     navigate('/page/1');
-    detailContext?.setDetailId('');
+    setDetailId('');
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -54,7 +54,7 @@ function SearchForm() {
     if (firstMatch) {
       localStorage.setItem('resultSearch', firstMatch.id);
       localStorage.setItem('textSearch', searchQuery.toLowerCase().trim());
-      data = await fetchData(firstMatch.id);
+      data = await fetchData(firstMatch.id, 0);
     } else {
       setIsLoading(false);
       setIsHaveDog(true);
@@ -63,7 +63,7 @@ function SearchForm() {
       }, 3000);
       data = await fetchData();
     }
-    pageContext?.setState(data);
+    setState(data);
     setIsLoading(false);
   };
 

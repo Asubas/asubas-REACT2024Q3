@@ -1,11 +1,14 @@
 @import '../../App.scss';
 
 .pagination {
-  width: 40%;
-  height: 50px;
-  border: 2px solid black;
-  margin: 0 auto;
   @include flex-positioning($justify-content: space-around);
+  height: 50px;
+  grid-column: 1 / -1;
+  grid-row: 5 / 6;
+  margin-top: 15px;
+  max-width: 350px;
+  justify-self: center;
+  gap: 5px;
 
   button {
     @include flex-positioning;
@@ -14,14 +17,22 @@
     border-radius: 50%;
 
     &.active {
-      background-color: green;
+      background-color: #7da8e6;
     }
 
     &.noActive {
-      background-color: gray;
+      background-color: #808080;
       user-select: none;
       cursor: auto;
       pointer-events: none;
     }
+
+    &:hover {
+      background-color: #b2b2ed;
+    }
+  }
+
+  &:only-child {
+    display: none;
   }
 }
