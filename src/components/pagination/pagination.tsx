@@ -10,7 +10,7 @@ function Pagination() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const totalPages = 10;
-  const pageContext = useContext<IPageContextInterface | null>(PageContext);
+  const pageContext = useContext<IPageContextInterface>(PageContext);
   const navigate = useNavigate();
 
   const handlePageChange = async (page: number) => {

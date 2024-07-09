@@ -8,11 +8,13 @@ import search from '../../assets/button-search-dog.svg';
 import resetSearchImg from '../../assets/button-search-dog-v2.svg';
 import { useContext, useEffect, useState } from 'react';
 import { IPageContextInterface } from '../../interfaces/pageContextInterface';
-import { PageContext } from '../../App';
+import { PageContext, DetailsContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
+import { IDetailSectionContext } from '../../interfaces/detailsSectionInterfaces';
 
 function SearchForm() {
-  const pageContext = useContext<IPageContextInterface | null>(PageContext);
+  const pageContext = useContext<IPageContextInterface>(PageContext);
+  const detailContext = useContext<IDetailSectionContext>(DetailsContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isHaveDog, setIsHaveDog] = useState(false);
@@ -38,6 +40,7 @@ function SearchForm() {
     localStorage.clear();
     setIsLoading(false);
     navigate('/page/1');
+    detailContext?.setDetailId('');
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
