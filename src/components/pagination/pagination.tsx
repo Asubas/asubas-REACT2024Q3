@@ -1,9 +1,9 @@
 import './pagination.scss';
-import { useContext, useState } from 'react';
+import { useContext, useLayoutEffect, useState } from 'react';
 import { fetchData } from '../../api/requestApi';
 import { IPageContextInterface } from '../../interfaces/pageContextInterface';
 import { PageContext } from '../../App';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function Pagination() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,7 +14,6 @@ function Pagination() {
   const handlePageChange = async (page: number) => {
     setCurrentPage(page);
     pageContext?.setState(await fetchData(0, page));
-    console.log(page);
     navigate(`/page/${page}`);
   };
 
@@ -29,6 +28,10 @@ function Pagination() {
       handlePageChange(currentPage + 1);
     }
   };
+  const { pageNumber } = useParams();
+  useLayoutEffect(() => {
+    setCurrentPage(Number(pageNumber));
+  }, [pageNumber]);
 
   return (
     <>

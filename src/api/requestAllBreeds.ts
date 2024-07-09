@@ -17,4 +17,12 @@ async function fetchDataBreeds() {
     });
 }
 
-export { fetchDataBreeds };
+async function fetchDataDetails(sub_id: string) {
+  return fetch(`https://api.thedogapi.com/v1/images/${sub_id}`, requestOptions)
+    .then((result) => result.json())
+    .catch((error) => {
+      throw new Error(error);
+    });
+}
+
+export { fetchDataBreeds, fetchDataDetails };
