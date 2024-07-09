@@ -6,10 +6,12 @@ import { IBreedProps } from '../../interfaces/breedProps';
 import { ModalBoundary } from '../../modalBoundary/modalBoundary';
 import search from '../../assets/button-search-dog.svg';
 import resetSearchImg from '../../assets/button-search-dog-v2.svg';
-import { IDogItem } from '../../interfaces/dogInterface';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { IPageContextInterface } from '../../interfaces/pageContextInterface';
+import { PageContext } from '../../App';
 
-function SearchForm({ onDataChange }: { onDataChange: (data: IDogItem[]) => void }) {
+function SearchForm() {
+  const pageContext = useContext<IPageContextInterface | null>(PageContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isHaveDog, setIsHaveDog] = useState(false);
@@ -28,7 +30,9 @@ function SearchForm({ onDataChange }: { onDataChange: (data: IDogItem[]) => void
   const resetSearch = async () => {
     setSearchQuery('');
     setIsLoading(true);
-    onDataChange(await fetchData());
+    fetchData().then((res) => {
+      pageContext?.setState(res);
+    });
     localStorage.clear();
     setIsLoading(false);
   };
@@ -53,7 +57,7 @@ function SearchForm({ onDataChange }: { onDataChange: (data: IDogItem[]) => void
       }, 3000);
       data = await fetchData();
     }
-    onDataChange(data);
+    pageContext?.setState(data);
     setIsLoading(false);
   };
 

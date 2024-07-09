@@ -4,17 +4,21 @@ import { fetchData } from '../../api/requestApi';
 import { IPageContextInterface } from '../../interfaces/pageContextInterface';
 import { PageContext } from '../../App';
 import { useNavigate, useParams } from 'react-router-dom';
+import { LoadingSnippet } from '../loadingSnippet/loadingSnippet';
 
 function Pagination() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   const totalPages = 10;
   const pageContext = useContext<IPageContextInterface | null>(PageContext);
   const navigate = useNavigate();
 
   const handlePageChange = async (page: number) => {
+    setIsLoading(true);
     setCurrentPage(page);
     pageContext?.setState(await fetchData(0, page));
     navigate(`/page/${page}`);
+    setIsLoading(false);
   };
 
   const handlePrevPage = () => {
@@ -59,6 +63,7 @@ function Pagination() {
           +
         </button>
       </div>
+      {isLoading && <LoadingSnippet />}
     </>
   );
 }

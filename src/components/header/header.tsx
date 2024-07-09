@@ -1,17 +1,9 @@
 import './header.scss';
 import headerLogo from '../../assets/header-logo.svg';
 import { SearchForm } from '../searchForm/searchForm';
-import { IDogItem } from '../../interfaces/dogInterface';
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
-import { PageContext } from '../../App';
-import { IPageContextInterface } from '../../interfaces/pageContextInterface';
 
 function Header() {
-  const pageContext = useContext<IPageContextInterface | null>(PageContext);
-  const handleDataChange = (data: IDogItem[] | null) => {
-    if (pageContext?.setState) pageContext.setState(data);
-  };
   return (
     <>
       <header className="header">
@@ -22,7 +14,7 @@ function Header() {
         </div>
         <p className="header_title">Cute dogs</p>{' '}
         <div className="header_search-container">
-          <SearchForm onDataChange={handleDataChange} />
+          <SearchForm />
         </div>
       </header>
     </>
