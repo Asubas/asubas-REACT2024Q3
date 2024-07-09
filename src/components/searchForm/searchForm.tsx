@@ -28,10 +28,8 @@ function SearchForm({ onDataChange }: { onDataChange: (data: IDogItem[]) => void
   const resetSearch = async () => {
     setSearchQuery('');
     setIsLoading(true);
-    const data = await fetchData();
-    onDataChange(data);
-    localStorage.removeItem('resultSearch');
-    localStorage.removeItem('textSearch');
+    onDataChange(await fetchData());
+    localStorage.clear();
     setIsLoading(false);
   };
 

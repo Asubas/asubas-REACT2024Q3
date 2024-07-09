@@ -2,6 +2,7 @@ import './header.scss';
 import headerLogo from '../../assets/header-logo.svg';
 import { SearchForm } from '../searchForm/searchForm';
 import { IDogItem } from '../../interfaces/dogInterface';
+import { Link } from 'react-router-dom';
 
 function Header({ onDataChange }: { onDataChange: (data: IDogItem[]) => void }) {
   const handleDataChange = (data: IDogItem[] | null) => {
@@ -11,9 +12,9 @@ function Header({ onDataChange }: { onDataChange: (data: IDogItem[]) => void }) 
     <>
       <header className="header">
         <div className="header_logo">
-          <a href=" ">
+          <Link to="/">
             <img className="header_logo-img" src={headerLogo} alt="dog picture"></img>
-          </a>
+          </Link>
         </div>
         <p className="header_title">Cute dogs</p>{' '}
         <div className="header_search-container">
