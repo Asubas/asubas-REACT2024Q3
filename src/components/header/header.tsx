@@ -3,10 +3,14 @@ import headerLogo from '../../assets/header-logo.svg';
 import { SearchForm } from '../searchForm/searchForm';
 import { IDogItem } from '../../interfaces/dogInterface';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { PageContext } from '../../App';
+import { IPageContextInterface } from '../../interfaces/pageContextInterface';
 
-function Header({ onDataChange }: { onDataChange: (data: IDogItem[]) => void }) {
+function Header() {
+  const pageContext = useContext<IPageContextInterface | null>(PageContext);
   const handleDataChange = (data: IDogItem[] | null) => {
-    if (data) onDataChange(data);
+    if (pageContext?.setState) pageContext.setState(data);
   };
   return (
     <>

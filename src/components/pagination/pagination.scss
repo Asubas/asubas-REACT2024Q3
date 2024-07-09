@@ -1,0 +1,27 @@
+@import '../../App.scss';
+
+.pagination {
+  width: 40%;
+  height: 50px;
+  border: 2px solid black;
+  margin: 0 auto;
+  @include flex-positioning($justify-content: space-around);
+
+  button {
+    @include flex-positioning;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+
+    &.active {
+      background-color: green;
+    }
+
+    &.noActive {
+      background-color: gray;
+      user-select: none;
+      cursor: auto;
+      pointer-events: none;
+    }
+  }
+}

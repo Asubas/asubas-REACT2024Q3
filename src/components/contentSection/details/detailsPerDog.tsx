@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-function Details() {
+function DetailsPerDog() {
   const { id } = useParams();
   return (
     <>
@@ -9,4 +9,4 @@ function Details() {
   );
 }
 
-export { Details };
+export { DetailsPerDog };

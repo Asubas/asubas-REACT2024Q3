@@ -1,5 +1,5 @@
 import './App.scss';
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { Header } from './components/header/header';
 import { IDogItem } from './interfaces/dogInterface';
 import { ContentSection } from './components/contentSection/contentSection';
@@ -9,7 +9,10 @@ import { ErrorBoundary } from './components/errorBoundary/errorBoundary';
 import { useReturnData } from './userHooks/useReturnData';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Page404 } from './components/page404/page404';
-import { Details } from './components/details/details';
+import { DetailsPerDog } from './components/contentSection/details/detailsPerDog';
+import { IPageContextInterface } from './interfaces/pageContextInterface';
+
+const PageContext = createContext<IPageContextInterface | null>(null);
 
 function App() {
   const data = useReturnData();
@@ -19,28 +22,26 @@ function App() {
     setState(data);
   }, [data]);
 
-  const handleDataChange = (newData: IDogItem[] | null) => {
-    setState(newData);
-  };
-
   return (
     <>
       <ErrorBoundary>
-        <Header onDataChange={handleDataChange} />
-        <Routes>
-          <Route path="/" element={<Navigate to="/page1" replace />} />
-          <Route
-            path="/page1"
-            element={state ? <ContentSection data={state} /> : <LoadingSnippet />}
-          >
-            <Route path="details/:id" element={<Details />} />
-          </Route>
-          <Route path="*" element={<Page404 />} />
-        </Routes>
-        <Footer />
+        <PageContext.Provider value={{ setState }}>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Navigate to="/page/1" replace />} />
+            <Route
+              path="/page/:pageNumber"
+              element={state ? <ContentSection data={state} /> : <LoadingSnippet />}
+            >
+              <Route path="details/:id" element={<DetailsPerDog />} />
+            </Route>
+            <Route path="*" element={<Page404 />} />
+          </Routes>
+          <Footer />
+        </PageContext.Provider>
       </ErrorBoundary>
     </>
   );
 }
 
-export { App };
+export { App, PageContext };
