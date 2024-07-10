@@ -9,7 +9,7 @@ import resetSearchImg from '../../assets/button-search-dog-v2.svg';
 import { useContext, useEffect, useState } from 'react';
 import { IPageContextInterface } from '../../interfaces/pageContextInterface';
 import { PageContext, DetailsContext } from '../../App';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { IDetailSectionContext } from '../../interfaces/detailsSectionInterfaces';
 import { useSearchQuery } from '../../userHooks/useSearchQuery';
 
@@ -21,7 +21,6 @@ function SearchForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [isHaveDog, setIsHaveDog] = useState(false);
   const navigate = useNavigate();
-  const { pathname } = useLocation();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -56,10 +55,6 @@ function SearchForm() {
       localStorage.setItem('resultSearch', firstMatch.id);
       localStorage.setItem('textSearch', searchQuery.toLowerCase().trim());
       data = await fetchData(firstMatch.id, 0);
-
-      const pathParts = pathname.split('page');
-      const urlPart = pathParts[1].split('/');
-      navigate(`page${urlPart[0]}/search/&breed_ids=${firstMatch.id}`);
     } else {
       setIsLoading(false);
       setIsHaveDog(true);
