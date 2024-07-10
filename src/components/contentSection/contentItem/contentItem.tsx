@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { IContentItemProps } from '../../../interfaces/contentItemProps';
 import { LoadingSnippet } from '../../loadingSnippet/loadingSnippet';
 
@@ -7,12 +7,14 @@ const ContentItem = memo(
   function ContentItem({ item, showDetail }: IContentItemProps) {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
-    const { pageNumber } = useParams();
+    const { pathname } = useLocation();
+    const pathParts = pathname.split('/');
     const handleClick = (e: React.MouseEvent) => {
+      e.preventDefault();
       e.stopPropagation();
       setIsLoading(true);
       showDetail(item.id);
-      navigate(`/page/${pageNumber}/details/${item.id}`);
+      navigate(`/${pathParts[1]}/${item.id}`);
       setTimeout(() => {
         setIsLoading(false);
       }, 3000);

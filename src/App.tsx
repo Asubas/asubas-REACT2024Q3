@@ -36,12 +36,12 @@ function App() {
           <DetailsContext.Provider value={{ detailId, setDetailId }}>
             <Header />
             <Routes>
-              <Route path="/" element={<Navigate to="/page/1" replace />} />
+              <Route path="/" element={<Navigate to="/page0" replace />} />
               <Route
-                path="/page/:pageNumber"
+                path=":id"
                 element={state ? <ContentSection data={state} /> : <LoadingSnippet />}
               >
-                <Route path="details/:id" element={<DetailsPerDog />} />
+                <Route path=":id" element={<DetailsPerDog />} />
               </Route>
               <Route path="*" element={<Page404 />} />
             </Routes>

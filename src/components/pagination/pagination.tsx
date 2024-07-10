@@ -8,36 +8,36 @@ import { LoadingSnippet } from '../loadingSnippet/loadingSnippet';
 import { IDetailSectionContext } from '../../interfaces/detailsSectionInterfaces';
 
 function Pagination() {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const totalPages = 10;
-  const pageContext = useContext<IPageContextInterface>(PageContext);
+  const { setState } = useContext<IPageContextInterface>(PageContext);
   const { setDetailId } = useContext<IDetailSectionContext>(DetailsContext);
   const navigate = useNavigate();
 
   const handlePageChange = async (page: number) => {
     setIsLoading(true);
     setCurrentPage(page);
-    pageContext?.setState(await fetchData(0, page));
-    navigate(`/page/${page}`);
+    setState(await fetchData(0, page));
+    navigate(`/page${page}`);
     setIsLoading(false);
     setDetailId('');
   };
 
   const handlePrevPage = () => {
-    if (currentPage > 1) {
+    if (currentPage !== 0) {
       handlePageChange(currentPage - 1);
     }
   };
 
   const handleNextPage = () => {
-    if (currentPage < totalPages) {
+    if (currentPage < totalPages - 1) {
       handlePageChange(currentPage + 1);
     }
   };
   const { pageNumber } = useParams();
   useLayoutEffect(() => {
-    setCurrentPage(Number(pageNumber));
+    setCurrentPage(Number(pageNumber) ? Number(pageNumber) : 0);
   }, [pageNumber]);
 
   return (
@@ -45,7 +45,7 @@ function Pagination() {
       <div className="pagination">
         <button
           onClick={handlePrevPage}
-          className={`pageNumber ${currentPage === 1 && 'noActive'}`}
+          className={`pageNumber ${currentPage === 0 && 'noActive'}`}
         >
           -
         </button>
@@ -53,15 +53,15 @@ function Pagination() {
           <button
             type="button"
             key={index}
-            onClick={() => handlePageChange(index + 1)}
-            className={`pageNumber ${currentPage === index + 1 && 'active'}`}
+            onClick={() => handlePageChange(index)}
+            className={`pageNumber ${currentPage === index && 'active'}`}
           >
-            {index + 1}
+            {index}
           </button>
         ))}
         <button
           onClick={handleNextPage}
-          className={`pageNumber ${currentPage === totalPages && 'noActive'}`}
+          className={`pageNumber ${currentPage === totalPages - 1 && 'noActive'}`}
         >
           +
         </button>

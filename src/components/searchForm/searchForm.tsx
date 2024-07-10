@@ -39,7 +39,7 @@ function SearchForm() {
     });
     localStorage.clear();
     setIsLoading(false);
-    navigate('/page/1');
+    navigate('/page0');
     setDetailId('');
   };
 

@@ -11,6 +11,7 @@ function DetailsPerDog() {
     setDetailId('');
   };
   const { details } = useOutletContext<IOutletContextProps>();
+  if (!details.id) return;
   return (
     <>
       <div className="details">

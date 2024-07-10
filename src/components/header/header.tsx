@@ -13,7 +13,7 @@ function Header() {
       <header className="header">
         <div className="header_logo">
           <Link
-            to="page/1"
+            to="/page0"
             onClick={() => {
               localStorage.clear();
               setDetailId('');

@@ -25,8 +25,8 @@ function ContentSection({ data }: { data: IDogItem[] }) {
   const { pathname } = useLocation();
   useEffect(() => {
     const pathParts = pathname.split('/');
-    if (pathParts[3]) {
-      fetchDataDetails(pathParts[4]).then((res) => {
+    if (pathParts[2]) {
+      fetchDataDetails(pathParts[2]).then((res) => {
         setResult(res);
         setDetailId('detail');
       });
