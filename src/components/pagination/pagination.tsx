@@ -1,9 +1,9 @@
 import './pagination.scss';
-import { useContext, useLayoutEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { fetchData } from '../../api/requestApi';
 import { IPageContextInterface } from '../../interfaces/pageContextInterface';
 import { DetailsContext, PageContext } from '../../App';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { LoadingSnippet } from '../loadingSnippet/loadingSnippet';
 import { IDetailSectionContext } from '../../interfaces/detailsSectionInterfaces';
 
@@ -35,10 +35,11 @@ function Pagination() {
       handlePageChange(currentPage + 1);
     }
   };
-  const { pageNumber } = useParams();
-  useLayoutEffect(() => {
-    setCurrentPage(Number(pageNumber) ? Number(pageNumber) : 0);
-  }, [pageNumber]);
+  const { pathname } = useLocation();
+  const numberPage = pathname.split('page')[1];
+  useEffect(() => {
+    setCurrentPage(Number(numberPage) ? Number(numberPage) : 0);
+  }, [numberPage]);
 
   return (
     <>

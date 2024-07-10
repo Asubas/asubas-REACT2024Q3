@@ -9,27 +9,28 @@ import resetSearchImg from '../../assets/button-search-dog-v2.svg';
 import { useContext, useEffect, useState } from 'react';
 import { IPageContextInterface } from '../../interfaces/pageContextInterface';
 import { PageContext, DetailsContext } from '../../App';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { IDetailSectionContext } from '../../interfaces/detailsSectionInterfaces';
+import { useSearchQuery } from '../../userHooks/useSearchQuery';
 
 function SearchForm() {
   const { setState } = useContext<IPageContextInterface>(PageContext);
   const { setDetailId } = useContext<IDetailSectionContext>(DetailsContext);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useSearchQuery('') as [string, (newQuery: string) => void];
+  const [inputValue, setInputValue] = useState(searchQuery);
   const [isLoading, setIsLoading] = useState(false);
   const [isHaveDog, setIsHaveDog] = useState(false);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
     setSearchQuery(event.target.value);
   };
 
   useEffect(() => {
-    const storedSearchText = localStorage.getItem('textSearch');
-    if (storedSearchText) {
-      setSearchQuery(storedSearchText);
-    }
-  }, []);
+    setInputValue(searchQuery);
+  }, [searchQuery]);
 
   const resetSearch = async () => {
     setSearchQuery('');
@@ -55,6 +56,10 @@ function SearchForm() {
       localStorage.setItem('resultSearch', firstMatch.id);
       localStorage.setItem('textSearch', searchQuery.toLowerCase().trim());
       data = await fetchData(firstMatch.id, 0);
+
+      const pathParts = pathname.split('page');
+      const urlPart = pathParts[1].split('/');
+      navigate(`page${urlPart[0]}/search/&breed_ids=${firstMatch.id}`);
     } else {
       setIsLoading(false);
       setIsHaveDog(true);
@@ -73,7 +78,7 @@ function SearchForm() {
         <input
           className="search-form_input"
           type="text"
-          value={searchQuery.trim()}
+          value={inputValue}
           onChange={handleInputChange}
           placeholder="Please enter search breed"
           autoFocus
