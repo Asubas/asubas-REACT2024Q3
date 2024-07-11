@@ -10,13 +10,11 @@ describe('useReturnData', () => {
     const mockFetchData = jest
       .spyOn(services, 'fetchData')
       .mockImplementation(async (page, urlPart) => [{ id: `item-${page}-${urlPart}` }]);
-
     const { result } = renderHook(() => useReturnData(), {
       wrapper: ({ children }) => (
         <MemoryRouter initialEntries={['/page0/']}>{children}</MemoryRouter>
       ),
     });
-
     await waitFor(() => {
       expect(mockFetchData).toHaveBeenCalledTimes(1);
       expect(mockFetchData).toHaveBeenCalledWith(0, 0);
