@@ -46,7 +46,7 @@ describe('DetailsPerDog', () => {
     expect(screen.getByText('25-36 kG')).toBeInTheDocument();
     expect(screen.getByText('55-62 centimeter')).toBeInTheDocument();
     expect(screen.getByText('Companion')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
+    expect(screen.getByText('Close details')).toBeInTheDocument();
   });
 
   test('should not render if details.id is falsy', () => {
