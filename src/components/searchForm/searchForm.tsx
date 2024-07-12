@@ -14,7 +14,8 @@ import { IDetailSectionContext } from '../../interfaces/detailsSectionInterfaces
 import { useSearchQuery } from '../../userHooks/useSearchQuery';
 
 function SearchForm() {
-  const { setState } = useContext<IPageContextInterface>(PageContext);
+  const { setState, setIsPagination, isReset, setIsReset } =
+    useContext<IPageContextInterface>(PageContext);
   const { setDetailId } = useContext<IDetailSectionContext>(DetailsContext);
   const [searchQuery, setSearchQuery] = useSearchQuery('') as [string, (newQuery: string) => void];
   const [inputValue, setInputValue] = useState(searchQuery);
@@ -29,11 +30,14 @@ function SearchForm() {
 
   useEffect(() => {
     setInputValue(searchQuery);
-  }, [searchQuery]);
+    setIsReset(false);
+  }, [searchQuery, setIsReset]);
 
   const resetSearch = async () => {
     setSearchQuery('');
     setIsLoading(true);
+    setIsPagination(true);
+    setInputValue('');
     fetchData().then((res) => {
       setState(res);
     });
@@ -52,6 +56,8 @@ function SearchForm() {
     );
     let data;
     if (firstMatch) {
+      setIsPagination(false);
+      setDetailId('');
       localStorage.setItem('resultSearch', firstMatch.id);
       localStorage.setItem('textSearch', searchQuery.toLowerCase().trim());
       data = await fetchData(firstMatch.id, 0);
@@ -73,7 +79,7 @@ function SearchForm() {
         <input
           className="search-form_input"
           type="text"
-          value={inputValue}
+          value={isReset ? '' : inputValue}
           onChange={handleInputChange}
           placeholder="Please enter search breed"
           autoFocus

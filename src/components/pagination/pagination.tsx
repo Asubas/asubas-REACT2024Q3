@@ -11,7 +11,7 @@ function Pagination() {
   const [currentPage, setCurrentPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const totalPages = 10;
-  const { setState } = useContext<IPageContextInterface>(PageContext);
+  const { setState, isPagination } = useContext<IPageContextInterface>(PageContext);
   const { setDetailId } = useContext<IDetailSectionContext>(DetailsContext);
   const navigate = useNavigate();
 
@@ -43,30 +43,34 @@ function Pagination() {
 
   return (
     <>
-      <div className="pagination">
-        <button
-          onClick={handlePrevPage}
-          className={`pageNumber ${currentPage === 0 && 'noActive'}`}
-        >
-          -
-        </button>
-        {[...Array(totalPages)].map((_, index) => (
+      {isPagination ? (
+        <div className="pagination">
           <button
-            type="button"
-            key={index}
-            onClick={() => handlePageChange(index)}
-            className={`pageNumber ${currentPage === index && 'active'}`}
+            onClick={handlePrevPage}
+            className={`pageNumber ${currentPage === 0 && 'noActive'}`}
           >
-            {index}
+            -
           </button>
-        ))}
-        <button
-          onClick={handleNextPage}
-          className={`pageNumber ${currentPage === totalPages - 1 && 'noActive'}`}
-        >
-          +
-        </button>
-      </div>
+          {[...Array(totalPages)].map((_, index) => (
+            <button
+              type="button"
+              key={index}
+              onClick={() => handlePageChange(index)}
+              className={`pageNumber ${currentPage === index && 'active'}`}
+            >
+              {index}
+            </button>
+          ))}
+          <button
+            onClick={handleNextPage}
+            className={`pageNumber ${currentPage === totalPages - 1 && 'noActive'}`}
+          >
+            +
+          </button>
+        </div>
+      ) : (
+        <div></div>
+      )}
       {isLoading && <LoadingSnippet />}
     </>
   );

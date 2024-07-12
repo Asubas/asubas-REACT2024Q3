@@ -10,6 +10,7 @@ import { DetailsContext } from '../../App';
 
 function ContentSection({ data }: { data: IDogItem[] }) {
   const { setDetailId, detailId } = useContext<IDetailSectionContext>(DetailsContext);
+
   const [result, setResult] = useState<IDogItem>({
     breeds: [],
     height: 0,

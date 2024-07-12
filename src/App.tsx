@@ -14,8 +14,13 @@ import { IPageContextInterface } from './interfaces/pageContextInterface';
 import { IDetailSectionContext } from './interfaces/detailsSectionInterfaces';
 
 const PageContext = createContext<IPageContextInterface>({
+  isPagination: true,
+  isReset: false,
+  setIsReset: () => {},
   setState: () => {},
+  setIsPagination: () => {},
 });
+
 const DetailsContext = createContext<IDetailSectionContext>({
   detailId: '',
   setDetailId: () => {},
@@ -24,6 +29,8 @@ function App() {
   const data = useReturnData();
   const [state, setState] = useState<IDogItem[] | null>(data);
   const [detailId, setDetailId] = useState('');
+  const [isPagination, setIsPagination] = useState(true);
+  const [isReset, setIsReset] = useState(false);
 
   useEffect(() => {
     setState(data);
@@ -32,7 +39,9 @@ function App() {
   return (
     <>
       <ErrorBoundary>
-        <PageContext.Provider value={{ setState }}>
+        <PageContext.Provider
+          value={{ setState, isPagination, setIsPagination, isReset, setIsReset }}
+        >
           <DetailsContext.Provider value={{ detailId, setDetailId }}>
             <Header />
             <Routes>
