@@ -46,7 +46,7 @@ function ContentSection({ data }: { data: IDogItem[] }) {
       <main>
         <div className="container-content">
           <section
-            className={`content ${detailId ? 'leftSide' : ''}`}
+            className={`content ${detailId ? 'leftSide' : ''} ${data.length > 1 ? '' : 'once'}`}
             onClick={(e) => handleClickSection(e)}
           >
             {data &&

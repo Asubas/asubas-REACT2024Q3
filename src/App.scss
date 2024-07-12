@@ -24,10 +24,11 @@ $vertical-margin: 10px 0;
   height: 100%;
 }
 
-@mixin flex-positioning($justify-content: center, $align-items: center) {
+@mixin flex-positioning($justify-content: center, $align-items: center, $flex-direction: row) {
   display: flex;
   justify-content: $justify-content;
   align-items: $align-items;
+  flex-direction: $flex-direction;
 }
 
 @mixin full-border-black {

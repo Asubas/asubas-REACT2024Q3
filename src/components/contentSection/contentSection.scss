@@ -60,6 +60,6 @@
   }
 }
 
-.content:has(> *:first-child:last-child) {
-  display: none;
+.content.leftSide.once {
+  display: flex;
 }
