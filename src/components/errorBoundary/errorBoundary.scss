@@ -1,0 +1,42 @@
+@import '../../App.scss';
+
+.check-error-boundary_button,
+.error-boundary-content_button {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  @include flex-positioning;
+
+  .check-error-boundary_svg,
+  .error-boundary-content_button-svg {
+    @include svg-button;
+  }
+
+  @media (max-width: 390px) {
+    font-size: 80%;
+  }
+}
+
+.error-boundary-content_container {
+  @include flex-positioning;
+  flex-direction: column;
+
+  .error-boundary-content_button {
+    position: static;
+    transform: none;
+  }
+}
+
+.error-boundary-content_img {
+  width: 50%;
+  height: 50%;
+  margin-bottom: 15px;
+  @include full-border-black;
+  @include flex-positioning;
+
+  img {
+    @include full-size;
+    object-fit: cover;
+  }
+}

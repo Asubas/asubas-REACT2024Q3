@@ -1,0 +1,65 @@
+@import '../../App.scss';
+
+.container-content {
+  display: flex;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 20px;
+  padding: 15px;
+  position: relative;
+
+  .content_item {
+    @include flex-positioning(start);
+    @include full-border-black;
+    flex-direction: column;
+    width: 100%;
+    max-height: 100%;
+    transition: 0.5s;
+    cursor: pointer;
+    overflow: hidden;
+
+    &:hover {
+      z-index: 2;
+      scale: 1.02;
+      overflow: hidden;
+    }
+
+    .content_item__picture {
+      @include full-size;
+      object-fit: cover;
+      border-radius: 5px;
+      aspect-ratio: 1 / 1;
+    }
+
+    .content_item__title {
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+
+    .pagination {
+      grid-row: 6 / 7;
+    }
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    .pagination {
+      grid-row: auto;
+    }
+  }
+
+  &.leftSide {
+    width: 450px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.content.leftSide.once {
+  display: flex;
+}

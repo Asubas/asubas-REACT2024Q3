@@ -1,0 +1,47 @@
+@import '../../App.scss';
+
+.search-form {
+  @include flex-positioning;
+  position: relative;
+  height: 100%;
+  gap: 15px;
+
+  @media (max-width: 1200px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    margin: $vertical-margin;
+  }
+
+  @media (max-width: 650px) {
+    flex-direction: column;
+    margin: $vertical-margin;
+  }
+
+  .search-form_input {
+    font-family: math;
+    padding-left: 5px;
+
+    @media (max-width: 1200px) {
+      grid-column: 1/-1;
+    }
+
+    @media (max-width: 650px) {
+      font-size: 90%;
+      font-family: inherit;
+    }
+  }
+
+  .search-form_button {
+    @include flex-positioning;
+    z-index: 6;
+
+    @media (max-width: 1200px) {
+      grid-row-start: 2;
+    }
+
+    .search-form_button__svg {
+      @include svg-button;
+    }
+  }
+}
