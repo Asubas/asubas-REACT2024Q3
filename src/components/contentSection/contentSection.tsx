@@ -40,7 +40,7 @@ function ContentSection() {
     } else if (data && !isLoading) {
       dispatch(setData(data));
     }
-  }, [data, details, dispatch, isLoading, pathParts]);
+  }, [data, details, dispatch, isLoading, pathParts, pathPartsToPage]);
 
   const handleClickSection = (e: React.MouseEvent) => {
     if (e.target instanceof HTMLElement && !e.target.classList.contains('content_item')) {

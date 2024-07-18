@@ -3,26 +3,24 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { LoadingSnippet } from '../loadingSnippet/loadingSnippet';
 import { useDispatch, useSelector } from 'react-redux';
-import { setData } from '../../app/slices/dataSlice';
-import { useFetchImagesQuery } from '../../app/slices/apiSlice';
+import { useLazyFetchImagesQuery } from '../../app/slices/apiSlice';
 import { RootState } from '../../app/store';
 import { setDetails } from '../../app/slices/detailsSlice';
 
 function Pagination() {
   const [currentPage, setCurrentPage] = useState(0);
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [callApi] = useLazyFetchImagesQuery();
   const totalPages = 10;
   const isPagination = useSelector((state: RootState) => state.rootReducer.reset);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const { data, isLoading } = useFetchImagesQuery({ searchRequest: 0, page: currentPage });
   const handlePageChange = async (page: number) => {
-    // console.log(isLoading);
-    // setIsLoading(true);
+    setIsLoading(true);
+    await callApi({ searchRequest: 0, page: page });
     setCurrentPage(page);
-    // dispatch(setData(useFetchImagesQuery({ searchRequest: 0, page: currentPage })));
     navigate(`/page${page}`);
-    // setIsLoading(false);
+    setIsLoading(false);
     dispatch(setDetails(''));
   };
 
@@ -73,7 +71,7 @@ function Pagination() {
       ) : (
         <div></div>
       )}
-      {/* {isLoading && <LoadingSnippet />} */}
+      {isLoading && <LoadingSnippet />}
     </>
   );
 }

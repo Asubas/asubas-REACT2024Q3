@@ -31,4 +31,9 @@ export const apiDog = createApi({
   }),
 });
 
-export const { useFetchBreedsQuery, useFetchDetailsQuery, useFetchImagesQuery } = apiDog;
+export const {
+  useFetchBreedsQuery,
+  useFetchDetailsQuery,
+  useFetchImagesQuery,
+  useLazyFetchImagesQuery,
+} = apiDog;

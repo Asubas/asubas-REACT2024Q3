@@ -40,7 +40,7 @@ function SearchForm() {
     setIsLoading(true);
     dispatch(setIsPagination(true));
     setInputValue('');
-    dispatch(setData(useFetchBreedsQuery({})));
+    dispatch(setData(null));
     localStorage.clear();
     setIsLoading(false);
     navigate('/page0');
