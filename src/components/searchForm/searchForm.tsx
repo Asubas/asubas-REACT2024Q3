@@ -17,7 +17,7 @@ import { setDetails } from '../../app/slices/detailsSlice';
 
 function SearchForm() {
   const dispatch = useDispatch();
-  useSelector((state: RootState) => state.rootReducer.data);
+  // useSelector((state: RootState) => state.rootReducer.data);
   const isReset = useSelector((state: RootState) => state.rootReducer.reset);
   const [searchQuery, setSearchQuery] = useSearchQuery('') as [string, (newQuery: string) => void];
   const [inputValue, setInputValue] = useState(searchQuery);

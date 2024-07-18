@@ -20,7 +20,7 @@ function Pagination() {
     // console.log(isLoading);
     // setIsLoading(true);
     setCurrentPage(page);
-    dispatch(setData());
+    // dispatch(setData(useFetchImagesQuery({ searchRequest: 0, page: currentPage })));
     navigate(`/page${page}`);
     // setIsLoading(false);
     dispatch(setDetails(''));
