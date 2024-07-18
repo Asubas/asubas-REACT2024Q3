@@ -15,12 +15,12 @@ function Pagination() {
   const isPagination = useSelector((state: RootState) => state.rootReducer.reset);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data, isLoading } = useFetchImagesQuery({ searchRequest: 0, page: currentPage });
+  // const { data, isLoading } = useFetchImagesQuery({ searchRequest: 0, page: currentPage });
   const handlePageChange = async (page: number) => {
-    console.log(isLoading);
+    // console.log(isLoading);
     // setIsLoading(true);
     setCurrentPage(page);
-    dispatch(setData(data));
+    dispatch(setData());
     navigate(`/page${page}`);
     // setIsLoading(false);
     dispatch(setDetails(''));
@@ -73,7 +73,7 @@ function Pagination() {
       ) : (
         <div></div>
       )}
-      {isLoading && <LoadingSnippet />}
+      {/* {isLoading && <LoadingSnippet />} */}
     </>
   );
 }

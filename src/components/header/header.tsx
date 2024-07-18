@@ -3,7 +3,6 @@ import headerLogo from '../../assets/header-logo.svg';
 import { SearchForm } from '../searchForm/searchForm';
 import { Link, useNavigate } from 'react-router-dom';
 import { setData } from '../../app/slices/dataSlice';
-import { useFetchImagesQuery } from '../../app/slices/apiSlice';
 import { useDispatch } from 'react-redux';
 import { setIsPagination } from '../../app/slices/paginationSlice';
 import { setIsReset } from '../../app/slices/resetSlice';
@@ -15,7 +14,6 @@ import { useContext } from 'react';
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data } = useFetchImagesQuery({});
   const { theme, setTheme } = useContext<ITheme>(ThemeContext);
 
   const handleClick = async () => {
@@ -24,7 +22,7 @@ function Header() {
     dispatch(setDetails(''));
     dispatch(setIsPagination(true));
     dispatch(setIsReset(true));
-    dispatch(setData(data));
+    dispatch(setData(null));
   };
 
   const handleThemeChange = () => {
