@@ -12,11 +12,15 @@ import { PageContext, DetailsContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
 import { IDetailSectionContext } from '../../interfaces/detailsSectionInterfaces';
 import { useSearchQuery } from '../../userHooks/useSearchQuery';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../app/store';
+import { setData } from '../../app/dataSlice';
 
 function SearchForm() {
-  const { setState, setIsPagination, isReset, setIsReset } =
-    useContext<IPageContextInterface>(PageContext);
+  const { setIsPagination, isReset, setIsReset } = useContext<IPageContextInterface>(PageContext);
   const { setDetailId } = useContext<IDetailSectionContext>(DetailsContext);
+  const dispatch = useDispatch();
+  useSelector((state: RootState) => state.data);
   const [searchQuery, setSearchQuery] = useSearchQuery('') as [string, (newQuery: string) => void];
   const [inputValue, setInputValue] = useState(searchQuery);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,7 +43,7 @@ function SearchForm() {
     setIsPagination(true);
     setInputValue('');
     fetchData().then((res) => {
-      setState(res);
+      dispatch(setData(res));
     });
     localStorage.clear();
     setIsLoading(false);
@@ -69,7 +73,7 @@ function SearchForm() {
       }, 3000);
       data = await fetchData();
     }
-    setState(data);
+    dispatch(setData(data));
     setIsLoading(false);
   };
 
