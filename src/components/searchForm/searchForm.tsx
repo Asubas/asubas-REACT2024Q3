@@ -1,26 +1,26 @@
 import './searchForm.scss';
-import { fetchData } from '../../api/requestApi';
 import { LoadingSnippet } from '../loadingSnippet/loadingSnippet';
-import { fetchDataBreeds } from '../../api/requestAllBreeds';
 import { IBreedProps } from '../../interfaces/breedProps';
 import { ModalBoundary } from '../../modalBoundary/modalBoundary';
 import search from '../../assets/button-search-dog.svg';
 import resetSearchImg from '../../assets/button-search-dog-v2.svg';
 import { useContext, useEffect, useState } from 'react';
-import { IPageContextInterface } from '../../interfaces/pageContextInterface';
-import { PageContext, DetailsContext } from '../../App';
+import { DetailsContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
 import { IDetailSectionContext } from '../../interfaces/detailsSectionInterfaces';
 import { useSearchQuery } from '../../userHooks/useSearchQuery';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
-import { setData } from '../../app/dataSlice';
+import { setData } from '../../app/slices/dataSlice';
+import { useFetchBreedsQuery, useFetchDetailsQuery } from '../../app/slices/apiSlice';
+import { setIsPagination } from '../../app/slices/paginationSlice';
+import { setIsReset } from '../../app/slices/resetSlice';
 
 function SearchForm() {
-  const { setIsPagination, isReset, setIsReset } = useContext<IPageContextInterface>(PageContext);
   const { setDetailId } = useContext<IDetailSectionContext>(DetailsContext);
   const dispatch = useDispatch();
-  useSelector((state: RootState) => state.data);
+  useSelector((state: RootState) => state.rootReducer.data);
+  const isReset = useSelector((state: RootState) => state.rootReducer.reset);
   const [searchQuery, setSearchQuery] = useSearchQuery('') as [string, (newQuery: string) => void];
   const [inputValue, setInputValue] = useState(searchQuery);
   const [isLoading, setIsLoading] = useState(false);
@@ -34,17 +34,15 @@ function SearchForm() {
 
   useEffect(() => {
     setInputValue(searchQuery);
-    setIsReset(false);
-  }, [searchQuery, setIsReset]);
+    dispatch(setIsReset(false));
+  }, [dispatch, searchQuery]);
 
   const resetSearch = async () => {
     setSearchQuery('');
     setIsLoading(true);
-    setIsPagination(true);
+    dispatch(setIsPagination(true));
     setInputValue('');
-    fetchData().then((res) => {
-      dispatch(setData(res));
-    });
+    dispatch(setData(useFetchBreedsQuery({})));
     localStorage.clear();
     setIsLoading(false);
     navigate('/page0');
@@ -54,26 +52,28 @@ function SearchForm() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-    const responseBreeds = await fetchDataBreeds();
-    const firstMatch = responseBreeds.find((dog: IBreedProps) =>
+    const { data, error, isLoading } = useFetchBreedsQuery({});
+
+    const firstMatch = data.find((dog: IBreedProps) =>
       dog.name.toLowerCase().includes(searchQuery.toLowerCase()),
     );
-    let data;
+    let data1;
     if (firstMatch) {
-      setIsPagination(false);
+      dispatch(setIsPagination(false));
+
       setDetailId('');
       localStorage.setItem('resultSearch', firstMatch.id);
       localStorage.setItem('textSearch', searchQuery.toLowerCase().trim());
-      data = await fetchData(firstMatch.id, 0);
+      data1 = useFetchDetailsQuery({ sub_id: firstMatch.id });
     } else {
       setIsLoading(false);
       setIsHaveDog(true);
       setTimeout(() => {
         setIsHaveDog(false);
       }, 3000);
-      data = await fetchData();
+      data1 = useFetchBreedsQuery({});
     }
-    dispatch(setData(data));
+    dispatch(setData(data1));
     setIsLoading(false);
   };
 

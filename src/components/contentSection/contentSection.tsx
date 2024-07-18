@@ -7,7 +7,7 @@ import { useContext, useEffect } from 'react';
 import { IDetailSectionContext } from '../../interfaces/detailsSectionInterfaces';
 import { useDispatch } from 'react-redux';
 import { DetailsContext } from '../../App';
-import { setData } from '../../app/dataSlice';
+import { setData } from '../../app/slices/dataSlice';
 import { useFetchDetailsQuery, useFetchImagesQuery } from '../../app/slices/apiSlice';
 import { LoadingSnippet } from '../loadingSnippet/loadingSnippet';
 import { Page404 } from '../page404/page404';
@@ -18,9 +18,11 @@ function ContentSection() {
   const pathParts = pathname.split('/');
   const pathPartsToPage = pathname.split('page');
   const { setDetailId, detailId } = useContext<IDetailSectionContext>(DetailsContext);
-  console.log(typeof detailId);
-  const { data: details } = useFetchDetailsQuery({ sub_id: detailId?.toString() });
-  console.log(details);
+  const {
+    data: details,
+    error: detailsError,
+    isLoading: detailsLoading,
+  } = useFetchDetailsQuery({ sub_id: detailId });
   const { data, error, isLoading } = useFetchImagesQuery({
     searchRequest: 0,
     page: Number(pathPartsToPage[1]),
@@ -28,12 +30,10 @@ function ContentSection() {
 
   const showDetail = (id: string) => {
     setDetailId(id);
-    console.log(typeof id);
   };
   useEffect(() => {
     if (pathParts[2]) {
       dispatch(setData(details));
-      // setDetailId('detail');
     } else if (data && !isLoading) {
       dispatch(setData(data));
     }
@@ -47,8 +47,8 @@ function ContentSection() {
     e.preventDefault();
   };
 
-  if (isLoading) return <LoadingSnippet />;
-  if (error) return <Page404 />;
+  if (isLoading || detailsLoading) return <LoadingSnippet />;
+  if (error || detailsError) return <Page404 />;
   return (
     <>
       <main>
@@ -64,7 +64,7 @@ function ContentSection() {
               ))}
             <Pagination />
           </section>
-          {detailId && <Outlet context={{ details: detailId }} />}
+          {details && <Outlet context={{ details: details }} />}
         </div>
       </main>
     </>

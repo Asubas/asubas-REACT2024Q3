@@ -17,7 +17,7 @@ export const apiDog = createApi({
       query: () => 'breeds',
     }),
     fetchDetails: builder.query({
-      query: (sub_id) => `images/${sub_id.toString()}`,
+      query: (sub_id) => `images/${sub_id.sub_id}`,
     }),
     fetchImages: builder.query({
       query: ({ searchRequest = 0, page = 0 }) => {

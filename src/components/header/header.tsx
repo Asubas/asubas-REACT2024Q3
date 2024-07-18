@@ -4,23 +4,26 @@ import { SearchForm } from '../searchForm/searchForm';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { IDetailSectionContext } from '../../interfaces/detailsSectionInterfaces';
-import { DetailsContext, PageContext } from '../../App';
-import { IPageContextInterface } from '../../interfaces/pageContextInterface';
-import { fetchData } from '../../api/requestApi';
+import { DetailsContext } from '../../App';
+import { setData } from '../../app/slices/dataSlice';
+import { useFetchImagesQuery } from '../../app/slices/apiSlice';
+import { useDispatch } from 'react-redux';
+import { setIsPagination } from '../../app/slices/paginationSlice';
+import { setIsReset } from '../../app/slices/resetSlice';
 
 function Header() {
   const { setDetailId } = useContext<IDetailSectionContext>(DetailsContext);
-  const { setState, setIsPagination, setIsReset } = useContext<IPageContextInterface>(PageContext);
+  const dispatch = useDispatch();
+  const { data } = useFetchImagesQuery({});
 
   const navigate = useNavigate();
   const handleClick = async () => {
     localStorage.clear();
     navigate('/page0');
     setDetailId('');
-    setIsPagination(true);
-    setIsReset(true);
-    const data = await fetchData();
-    setState(data);
+    dispatch(setIsPagination(true));
+    dispatch(setIsReset(true));
+    dispatch(setData(data));
   };
   return (
     <>
