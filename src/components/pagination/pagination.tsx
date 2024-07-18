@@ -1,30 +1,29 @@
 import './pagination.scss';
-import { useContext, useEffect, useState } from 'react';
-import { DetailsContext } from '../../App';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { LoadingSnippet } from '../loadingSnippet/loadingSnippet';
-import { IDetailSectionContext } from '../../interfaces/detailsSectionInterfaces';
 import { useDispatch, useSelector } from 'react-redux';
 import { setData } from '../../app/slices/dataSlice';
-import { useFetchBreedsQuery } from '../../app/slices/apiSlice';
+import { useFetchImagesQuery } from '../../app/slices/apiSlice';
 import { RootState } from '../../app/store';
+import { setDetails } from '../../app/slices/detailsSlice';
 
 function Pagination() {
   const [currentPage, setCurrentPage] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const totalPages = 10;
   const isPagination = useSelector((state: RootState) => state.rootReducer.reset);
-  const { setDetailId } = useContext<IDetailSectionContext>(DetailsContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { data, isLoading } = useFetchImagesQuery({ searchRequest: 0, page: currentPage });
   const handlePageChange = async (page: number) => {
-    setIsLoading(true);
+    console.log(isLoading);
+    // setIsLoading(true);
     setCurrentPage(page);
-    const { data } = useFetchBreedsQuery({});
     dispatch(setData(data));
     navigate(`/page${page}`);
-    setIsLoading(false);
-    setDetailId('');
+    // setIsLoading(false);
+    dispatch(setDetails(''));
   };
 
   const handlePrevPage = () => {

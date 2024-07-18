@@ -1,10 +1,14 @@
 import './footer.scss';
 import rsLogo from '../../assets/rs_school_js.svg';
 import apiLogo from '../../assets/thedogapi-logo.svg';
+import { useContext } from 'react';
+import { ThemeContext } from '../../App';
+import { ITheme } from '../../interfaces/themeProps';
 
 function Footer() {
+  const { theme } = useContext<ITheme>(ThemeContext);
   return (
-    <footer className="footer">
+    <footer className={`footer ${theme}`}>
       <a className="footer_rs-logo" href="https://rs.school/" target="_blank" rel="noreferrer">
         <img src={rsLogo} alt="RS Logo" />
       </a>

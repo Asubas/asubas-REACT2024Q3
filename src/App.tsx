@@ -1,5 +1,4 @@
 import './App.scss';
-import { createContext, useState } from 'react';
 import { Header } from './components/header/header';
 import { ContentSection } from './components/contentSection/contentSection';
 import { LoadingSnippet } from './components/loadingSnippet/loadingSnippet';
@@ -8,22 +7,23 @@ import { ErrorBoundary } from './components/errorBoundary/errorBoundary';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Page404 } from './components/page404/page404';
 import { DetailsPerDog } from './components/contentSection/details/detailsPerDog';
-import { IDetailSectionContext } from './interfaces/detailsSectionInterfaces';
 import { useSelector } from 'react-redux';
 import { RootState } from './app/store';
+import { ITheme } from './interfaces/themeProps';
+import { createContext, useState } from 'react';
 
-const DetailsContext = createContext<IDetailSectionContext>({
-  detailId: '',
-  setDetailId: () => {},
+const ThemeContext = createContext<ITheme>({
+  theme: '',
+  setTheme: () => {},
 });
 function App() {
   const data = useSelector((state: RootState) => state.rootReducer.data);
-  const [detailId, setDetailId] = useState('');
+  const [theme, setTheme] = useState('');
 
   return (
     <>
       <ErrorBoundary>
-        <DetailsContext.Provider value={{ detailId, setDetailId }}>
+        <ThemeContext.Provider value={{ theme, setTheme }}>
           <Header />
           <Routes>
             <Route path="/" element={<Navigate to="/page0" replace />} />
@@ -33,10 +33,10 @@ function App() {
             <Route path="*" element={<Page404 />} />
           </Routes>
           <Footer />
-        </DetailsContext.Provider>
+        </ThemeContext.Provider>
       </ErrorBoundary>
     </>
   );
 }
 
-export { App, DetailsContext };
+export { App, ThemeContext };

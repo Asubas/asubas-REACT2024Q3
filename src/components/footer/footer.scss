@@ -46,4 +46,12 @@
     flex-direction: column;
     gap: 15px;
   }
+
+  &.dark {
+    background-color: #7b7b7b;
+
+    .footer_author-link {
+      color: #faebd7;
+    }
+  }
 }

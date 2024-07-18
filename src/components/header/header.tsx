@@ -2,37 +2,45 @@ import './header.scss';
 import headerLogo from '../../assets/header-logo.svg';
 import { SearchForm } from '../searchForm/searchForm';
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
-import { IDetailSectionContext } from '../../interfaces/detailsSectionInterfaces';
-import { DetailsContext } from '../../App';
 import { setData } from '../../app/slices/dataSlice';
 import { useFetchImagesQuery } from '../../app/slices/apiSlice';
 import { useDispatch } from 'react-redux';
 import { setIsPagination } from '../../app/slices/paginationSlice';
 import { setIsReset } from '../../app/slices/resetSlice';
+import { setDetails } from '../../app/slices/detailsSlice';
+import { ITheme } from '../../interfaces/themeProps';
+import { ThemeContext } from '../../App';
+import { useContext } from 'react';
 
 function Header() {
-  const { setDetailId } = useContext<IDetailSectionContext>(DetailsContext);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { data } = useFetchImagesQuery({});
+  const { theme, setTheme } = useContext<ITheme>(ThemeContext);
 
-  const navigate = useNavigate();
   const handleClick = async () => {
     localStorage.clear();
     navigate('/page0');
-    setDetailId('');
+    dispatch(setDetails(''));
     dispatch(setIsPagination(true));
     dispatch(setIsReset(true));
     dispatch(setData(data));
   };
+
+  const handleThemeChange = () => {
+    theme ? setTheme('') : setTheme('dark');
+  };
   return (
     <>
-      <header className="header">
+      <header className={`header ${theme}`}>
         <div className="header_logo">
           <Link to="/page0" onClick={handleClick}>
             <img className="header_logo-img" src={headerLogo} alt="dog picture"></img>
           </Link>
         </div>
+        <button type="button" className="changeTheme" onClick={handleThemeChange}>
+          theme
+        </button>
         <p className="header_title">Cute dogs</p>{' '}
         <div className="header_search-container">
           <SearchForm />

@@ -4,7 +4,6 @@
   @include flex-positioning(space-between);
   border-bottom: 1px solid black;
   background-color: #d3d3d3;
-  margin-bottom: 20px;
   padding: 0 15px;
   position: sticky;
   top: 0;
@@ -20,6 +19,18 @@
       position: static;
       transform: translate(0);
       font-size: 200%;
+    }
+  }
+
+  &.dark {
+    background-color: #7b7b7b;
+
+    button {
+      background-color: #ffffff;
+    }
+
+    .header_title {
+      color: #faebd7;
     }
   }
 }

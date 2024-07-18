@@ -1,15 +1,14 @@
 import './detailsPerDog.scss';
 import { IOutletContextProps } from '../../../interfaces/outletContentProps';
 import { useOutletContext } from 'react-router-dom';
-import { useContext } from 'react';
-import { IDetailSectionContext } from '../../../interfaces/detailsSectionInterfaces';
-import { DetailsContext } from '../../../App';
 import svgDog from '../../../assets/svg-dog-icon.svg';
+import { useDispatch } from 'react-redux';
+import { setDetails } from '../../../app/slices/detailsSlice';
 
 function DetailsPerDog() {
-  const { setDetailId } = useContext<IDetailSectionContext>(DetailsContext);
+  const dispatch = useDispatch();
   const handleClose = () => {
-    setDetailId('');
+    dispatch(setDetails(''));
   };
   const { details } = useOutletContext<IOutletContextProps>();
   if (!details.id) return;
