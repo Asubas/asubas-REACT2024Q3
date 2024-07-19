@@ -3,15 +3,18 @@ import { setData } from '../app/slices/dataSlice';
 import { setDetails } from '../app/slices/detailsSlice';
 import { setIsPagination } from '../app/slices/paginationSlice';
 import { useLazyFetchImagesQuery } from './api';
+
 interface ResetButtonProps {
   onReset: () => void;
   onResetSearch: () => void;
+  children?: React.ReactNode;
+  className: string;
+  type: 'button';
 }
 function ResetButton(props: ResetButtonProps) {
   const [callSearchFetch] = useLazyFetchImagesQuery();
   const dispatch = useDispatch();
   const reset = async () => {
-    console.log('а тут');
     localStorage.clear();
     dispatch(setIsPagination(true));
     dispatch(setDetails(''));
@@ -25,10 +28,7 @@ function ResetButton(props: ResetButtonProps) {
         props.onResetSearch();
       }}
       {...props}
-    >
-      {' '}
-      RESETTTS{' '}
-    </button>
+    ></button>
   );
 }
 
