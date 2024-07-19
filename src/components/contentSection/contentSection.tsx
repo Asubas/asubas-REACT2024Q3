@@ -6,13 +6,13 @@ import { ContentItem } from './contentItem/contentItem';
 import { useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setData } from '../../app/slices/dataSlice';
-import { useFetchDetailsQuery, useFetchImagesQuery } from '../../app/slices/apiSlice';
 import { LoadingSnippet } from '../loadingSnippet/loadingSnippet';
 import { Page404 } from '../page404/page404';
 import { setDetails } from '../../app/slices/detailsSlice';
 import { RootState } from '../../app/store';
 import { ThemeContext } from '../../App';
 import { ITheme } from '../../interfaces/themeProps';
+import { useFetchDetailsQuery, useFetchImagesQuery, useLazyFetchImagesQuery } from '../../api/api';
 
 function ContentSection() {
   const dispatch = useDispatch();
@@ -21,26 +21,27 @@ function ContentSection() {
   const pathPartsToPage = pathname.split('page');
   const { theme } = useContext<ITheme>(ThemeContext);
   const detailId = useSelector((state: RootState) => state.rootReducer.details);
+  console.log(pathParts);
+  const { data, error, isLoading } = useFetchImagesQuery({
+    searchRequest: 0,
+    page: Number(pathPartsToPage[1]),
+  });
+  const newData = useSelector((state: RootState) => state.rootReducer.data);
   const {
     data: details,
     error: detailsError,
     isLoading: detailsLoading,
   } = useFetchDetailsQuery({ sub_id: detailId.initialData });
-  const { data, error, isLoading } = useFetchImagesQuery({
-    searchRequest: 0,
-    page: Number(pathPartsToPage[1]),
-  });
-
+  // const [lazyData] = useLazyFetchImagesQuery();
   const showDetail = (id: string) => {
     dispatch(setDetails(id));
   };
   useEffect(() => {
-    if (pathParts[2]) {
-      dispatch(setData(details));
-    } else if (data && !isLoading) {
-      dispatch(setData(data));
-    }
-  }, [data, details, dispatch, isLoading, pathParts, pathPartsToPage]);
+    // if (pathParts[2]) {
+    //   pathParts[2].split('page')[1];
+    // }
+    dispatch(setData(data));
+  }, [data, dispatch]);
 
   const handleClickSection = (e: React.MouseEvent) => {
     if (e.target instanceof HTMLElement && !e.target.classList.contains('content_item')) {
@@ -52,6 +53,8 @@ function ContentSection() {
 
   if (isLoading || detailsLoading) return <LoadingSnippet />;
   if (error || detailsError) return <Page404 />;
+
+  console.log(newData.initialData);
   return (
     <>
       <main className={`${theme}`}>
@@ -62,7 +65,7 @@ function ContentSection() {
           >
             {data &&
               !isLoading &&
-              data.map((item: IDogItem) => (
+              newData.initialData.map((item: IDogItem) => (
                 <ContentItem key={item.id} item={item} showDetail={showDetail} />
               ))}
             <Pagination />

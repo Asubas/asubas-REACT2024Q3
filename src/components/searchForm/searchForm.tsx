@@ -10,15 +10,16 @@ import { useSearchQuery } from '../../userHooks/useSearchQuery';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import { setData } from '../../app/slices/dataSlice';
-import { useFetchBreedsQuery, useFetchDetailsQuery } from '../../app/slices/apiSlice';
+import { useLazyFetchBreedsQuery, useLazyFetchImagesQuery } from '../../api/api';
 import { setIsPagination } from '../../app/slices/paginationSlice';
 import { setIsReset } from '../../app/slices/resetSlice';
 import { setDetails } from '../../app/slices/detailsSlice';
 
 function SearchForm() {
   const dispatch = useDispatch();
-  // useSelector((state: RootState) => state.rootReducer.data);
   const isReset = useSelector((state: RootState) => state.rootReducer.reset);
+  const [callAllBreeds] = useLazyFetchBreedsQuery();
+  const [callSearchFetch] = useLazyFetchImagesQuery();
   const [searchQuery, setSearchQuery] = useSearchQuery('') as [string, (newQuery: string) => void];
   const [inputValue, setInputValue] = useState(searchQuery);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +30,6 @@ function SearchForm() {
     setInputValue(event.target.value);
     setSearchQuery(event.target.value);
   };
-
   useEffect(() => {
     setInputValue(searchQuery);
     dispatch(setIsReset(false));
@@ -40,7 +40,6 @@ function SearchForm() {
     setIsLoading(true);
     dispatch(setIsPagination(true));
     setInputValue('');
-    dispatch(setData(null));
     localStorage.clear();
     setIsLoading(false);
     navigate('/page0');
@@ -50,28 +49,24 @@ function SearchForm() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-    const { data, error, isLoading } = useFetchBreedsQuery({});
-
-    const firstMatch = data.find((dog: IBreedProps) =>
+    const allBreeds = await callAllBreeds({});
+    const firstMatch = allBreeds.data.find((dog: IBreedProps) =>
       dog.name.toLowerCase().includes(searchQuery.toLowerCase()),
     );
-    let data1;
     if (firstMatch) {
       dispatch(setIsPagination(false));
-
       dispatch(setDetails(''));
       localStorage.setItem('resultSearch', firstMatch.id);
       localStorage.setItem('textSearch', searchQuery.toLowerCase().trim());
-      data1 = useFetchDetailsQuery({ sub_id: firstMatch.id });
+      const test = await callSearchFetch({ searchRequest: firstMatch.id, page: 0 });
+      dispatch(setData(test.data));
     } else {
       setIsLoading(false);
       setIsHaveDog(true);
       setTimeout(() => {
         setIsHaveDog(false);
       }, 3000);
-      data1 = useFetchBreedsQuery({});
     }
-    dispatch(setData(data1));
     setIsLoading(false);
   };
 
@@ -81,7 +76,7 @@ function SearchForm() {
         <input
           className="search-form_input"
           type="text"
-          value={isReset ? '' : inputValue}
+          value={isReset.isReset ? '' : inputValue}
           onChange={handleInputChange}
           placeholder="Please enter search breed"
           autoFocus

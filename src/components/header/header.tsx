@@ -2,7 +2,6 @@ import './header.scss';
 import headerLogo from '../../assets/header-logo.svg';
 import { SearchForm } from '../searchForm/searchForm';
 import { Link, useNavigate } from 'react-router-dom';
-import { setData } from '../../app/slices/dataSlice';
 import { useDispatch } from 'react-redux';
 import { setIsPagination } from '../../app/slices/paginationSlice';
 import { setIsReset } from '../../app/slices/resetSlice';
@@ -22,7 +21,6 @@ function Header() {
     dispatch(setDetails(''));
     dispatch(setIsPagination(true));
     dispatch(setIsReset(true));
-    dispatch(setData(null));
   };
 
   const handleThemeChange = () => {

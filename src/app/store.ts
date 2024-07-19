@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { apiDog } from './slices/apiSlice';
+import { apiDog } from '../api/api';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { rootReducer } from './rootReducer';
 export const store = configureStore({

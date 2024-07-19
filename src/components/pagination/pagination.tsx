@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { LoadingSnippet } from '../loadingSnippet/loadingSnippet';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLazyFetchImagesQuery } from '../../app/slices/apiSlice';
 import { RootState } from '../../app/store';
 import { setDetails } from '../../app/slices/detailsSlice';
+import { useLazyFetchImagesQuery } from '../../api/api';
 
 function Pagination() {
   const [currentPage, setCurrentPage] = useState(0);
