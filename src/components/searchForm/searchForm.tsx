@@ -14,9 +14,11 @@ import { useLazyFetchBreedsQuery, useLazyFetchImagesQuery } from '../../api/api'
 import { setIsPagination } from '../../app/slices/paginationSlice';
 import { setIsReset } from '../../app/slices/resetSlice';
 import { setDetails } from '../../app/slices/detailsSlice';
+import { ResetButton, Resettt } from '../../api/reset';
 
 function SearchForm() {
   const dispatch = useDispatch();
+  // const test123 = useReset();
   const isReset = useSelector((state: RootState) => state.rootReducer.reset);
   const [callAllBreeds] = useLazyFetchBreedsQuery();
   const [callSearchFetch] = useLazyFetchImagesQuery();
@@ -35,15 +37,19 @@ function SearchForm() {
     dispatch(setIsReset(false));
   }, [dispatch, searchQuery]);
 
-  const resetSearch = async () => {
+  const resetSearch = () => {
+    console.log('и тута');
     setSearchQuery('');
     setIsLoading(true);
-    dispatch(setIsPagination(true));
-    setInputValue('');
-    localStorage.clear();
-    setIsLoading(false);
     navigate('/page0');
-    dispatch(setDetails(''));
+    // test123;
+    // dispatch(setIsPagination(true));
+    setInputValue('');
+    // localStorage.clear();
+    setIsLoading(false);
+    // dispatch(setDetails(''));
+    // const test = await callSearchFetch({ searchRequest: 0, page: 0 });
+    // dispatch(setData(test.data));
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -91,6 +97,7 @@ function SearchForm() {
           <img className="search-form_button__svg" src={resetSearchImg} alt="dog svg crossed out" />
         </button>
       </form>
+      <ResetButton onReset={resetSearch} onResetSearch={resetSearch} />
       {isLoading && <LoadingSnippet />}
       {isHaveDog && <ModalBoundary />}
     </>

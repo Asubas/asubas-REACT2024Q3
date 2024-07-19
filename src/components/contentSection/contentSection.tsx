@@ -12,7 +12,7 @@ import { setDetails } from '../../app/slices/detailsSlice';
 import { RootState } from '../../app/store';
 import { ThemeContext } from '../../App';
 import { ITheme } from '../../interfaces/themeProps';
-import { useFetchDetailsQuery, useFetchImagesQuery, useLazyFetchImagesQuery } from '../../api/api';
+import { useFetchDetailsQuery, useFetchImagesQuery } from '../../api/api';
 
 function ContentSection() {
   const dispatch = useDispatch();
@@ -21,7 +21,6 @@ function ContentSection() {
   const pathPartsToPage = pathname.split('page');
   const { theme } = useContext<ITheme>(ThemeContext);
   const detailId = useSelector((state: RootState) => state.rootReducer.details);
-  console.log(pathParts);
   const { data, error, isLoading } = useFetchImagesQuery({
     searchRequest: 0,
     page: Number(pathPartsToPage[1]),
@@ -32,14 +31,10 @@ function ContentSection() {
     error: detailsError,
     isLoading: detailsLoading,
   } = useFetchDetailsQuery({ sub_id: detailId.initialData });
-  // const [lazyData] = useLazyFetchImagesQuery();
   const showDetail = (id: string) => {
     dispatch(setDetails(id));
   };
   useEffect(() => {
-    // if (pathParts[2]) {
-    //   pathParts[2].split('page')[1];
-    // }
     dispatch(setData(data));
   }, [data, dispatch]);
 
@@ -54,7 +49,6 @@ function ContentSection() {
   if (isLoading || detailsLoading) return <LoadingSnippet />;
   if (error || detailsError) return <Page404 />;
 
-  console.log(newData.initialData);
   return (
     <>
       <main className={`${theme}`}>
