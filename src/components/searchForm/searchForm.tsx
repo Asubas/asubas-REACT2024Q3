@@ -85,12 +85,7 @@ function SearchForm() {
           Search
           <img className="search-form_button__svg" src={search} alt="dog svg" />
         </button>
-        <ResetButton
-          onReset={resetSearch}
-          onResetSearch={resetSearch}
-          className="search-form_button"
-          type="button"
-        >
+        <ResetButton onReset={resetSearch} className="search-form_button" type="button">
           Reset
           <img className="search-form_button__svg" src={resetSearchImg} alt="dog svg crossed out" />
         </ResetButton>
