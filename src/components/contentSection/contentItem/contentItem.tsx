@@ -32,11 +32,10 @@ const ContentItem = memo(
         setIsLoading(false);
       }
     };
-    const handleCheckboxChange = () => {
-      isChecked ? setChecked(false) : setChecked(true);
-      isChecked ? dispatch(removeFavorite(item)) : dispatch(addFavorite(item));
+    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setChecked(e.target.checked);
+      e.target.checked ? dispatch(addFavorite(item)) : dispatch(removeFavorite(item));
     };
-
     useEffect(() => {
       favoriteDogsArray.initFavoriteArr.forEach((el) => {
         if (el.id === item.id) {
