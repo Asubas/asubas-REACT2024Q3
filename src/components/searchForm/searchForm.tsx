@@ -14,7 +14,7 @@ import { useLazyFetchBreedsQuery, useLazyFetchImagesQuery } from '../../api/api'
 import { setIsPagination } from '../../app/slices/paginationSlice';
 import { setIsReset } from '../../app/slices/resetSlice';
 import { setDetails } from '../../app/slices/detailsSlice';
-import { ResetButton } from '../../api/reset';
+import { ResetButton } from '../resetButton/resetButton';
 
 function SearchForm() {
   const dispatch = useDispatch();

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { ITheme } from '../../interfaces/themeProps';
 import { ThemeContext } from '../../App';
 import { useContext } from 'react';
-import { ResetButton } from '../../api/reset';
+import { ResetButton } from '../resetButton/resetButton';
 
 function Header() {
   const navigate = useNavigate();

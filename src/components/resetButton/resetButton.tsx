@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
-import { setData } from '../app/slices/dataSlice';
-import { setDetails } from '../app/slices/detailsSlice';
-import { setIsPagination } from '../app/slices/paginationSlice';
-import { useLazyFetchImagesQuery } from './api';
+import { setData } from '../../app/slices/dataSlice';
+import { setDetails } from '../../app/slices/detailsSlice';
+import { setIsPagination } from '../../app/slices/paginationSlice';
+import { useLazyFetchImagesQuery } from '../../api/api';
 
 interface ResetButtonProps {
   onReset: () => void;
