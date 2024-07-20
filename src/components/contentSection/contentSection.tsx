@@ -42,7 +42,7 @@ function ContentSection() {
     } else {
       dispatch(setData(data));
     }
-  }, [data, dispatch, pathParts]);
+  }, [data, detailId.initialData, dispatch, pathParts]);
 
   const handleClickSection = (e: React.MouseEvent) => {
     if (e.target instanceof HTMLElement && !e.target.classList.contains('content_item')) {
@@ -54,13 +54,13 @@ function ContentSection() {
 
   if (isLoading || detailsLoading) return <LoadingSnippet />;
   if (error || detailsError) return <Page404 />;
-
+  console.log(detailId);
   return (
     <>
       <main className={`${theme}`}>
         <div className="container-content">
           <section
-            className={`content ${pathParts[2] ? 'leftSide' : ''} ${data && data.length > 1 ? '' : 'once'}`}
+            className={`content ${detailId.initialData ? 'leftSide' : ''} ${data && data.length > 1 ? '' : 'once'}`}
             onClick={(e) => handleClickSection(e)}
           >
             {newData &&
@@ -71,7 +71,7 @@ function ContentSection() {
               ))}
             <Pagination />
           </section>
-          {details && <Outlet context={{ details: details }} />}
+          {detailId.initialData && <Outlet context={{ details: details }} />}
           <FavoriteModal />
         </div>
       </main>
