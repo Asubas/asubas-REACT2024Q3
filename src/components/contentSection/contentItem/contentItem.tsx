@@ -9,15 +9,13 @@ const ContentItem = memo(
     const [isLoading, setIsLoading] = useState(false);
     const { pathname } = useLocation();
     const pathParts = pathname.split('/');
-    const handleClick = (e: React.MouseEvent) => {
+    const handleClick = async (e: React.MouseEvent) => {
       e.preventDefault();
       e.stopPropagation();
       setIsLoading(true);
       showDetail(item.id);
       navigate(`/${pathParts[1]}/${item.id}`);
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 3000);
+      setIsLoading(false);
     };
 
     return (

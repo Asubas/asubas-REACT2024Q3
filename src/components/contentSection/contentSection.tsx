@@ -35,8 +35,13 @@ function ContentSection() {
     dispatch(setDetails(id));
   };
   useEffect(() => {
-    dispatch(setData(data));
-  }, [data, dispatch]);
+    if (pathParts[2]) {
+      dispatch(setData(data));
+      dispatch(setDetails(pathParts[2]));
+    } else {
+      dispatch(setData(data));
+    }
+  }, [data, dispatch, pathParts]);
 
   const handleClickSection = (e: React.MouseEvent) => {
     if (e.target instanceof HTMLElement && !e.target.classList.contains('content_item')) {
@@ -48,13 +53,13 @@ function ContentSection() {
 
   if (isLoading || detailsLoading) return <LoadingSnippet />;
   if (error || detailsError) return <Page404 />;
-  console.log(newData);
+
   return (
     <>
       <main className={`${theme}`}>
         <div className="container-content">
           <section
-            className={`content ${details.length !== 0 ? 'leftSide' : ''} ${data && data.length > 1 ? '' : 'once'}`}
+            className={`content ${pathParts[2] ? 'leftSide' : ''} ${data && data.length > 1 ? '' : 'once'}`}
             onClick={(e) => handleClickSection(e)}
           >
             {newData &&
