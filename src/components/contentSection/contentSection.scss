@@ -57,6 +57,11 @@
   &.leftSide {
     width: 450px;
     grid-template-columns: repeat(3, 1fr);
+    .content_item {
+      .content_item__components {
+        flex-wrap: wrap;
+      }
+    }
   }
 }
 
