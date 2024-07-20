@@ -22,16 +22,19 @@ function ContentSection() {
   const pathPartsToPage = pathname.split('page');
   const { theme } = useContext<ITheme>(ThemeContext);
   const detailId = useSelector((state: RootState) => state.rootReducer.details);
-  const { data, error, isLoading } = useFetchImagesQuery({
-    searchRequest: 0,
-    page: Number(pathPartsToPage[1]),
-  });
+  const { data, error, isLoading } = useFetchImagesQuery(
+    {
+      searchRequest: 0,
+      page: Number(pathPartsToPage[1]),
+    },
+    { skip: pathParts[2] !== undefined, refetchOnMountOrArgChange: true },
+  );
   const newData = useSelector((state: RootState) => state.rootReducer.data);
   const {
     data: details,
     error: detailsError,
     isLoading: detailsLoading,
-  } = useFetchDetailsQuery({ sub_id: detailId.initialData });
+  } = useFetchDetailsQuery({ sub_id: detailId.initialData }, { skip: !detailId.initialData });
   const showDetail = (id: string) => {
     dispatch(setDetails(id));
   };
