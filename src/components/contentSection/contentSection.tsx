@@ -48,7 +48,7 @@ function ContentSection() {
 
   if (isLoading || detailsLoading) return <LoadingSnippet />;
   if (error || detailsError) return <Page404 />;
-
+  console.log(newData);
   return (
     <>
       <main className={`${theme}`}>
@@ -57,7 +57,8 @@ function ContentSection() {
             className={`content ${details.length !== 0 ? 'leftSide' : ''} ${data && data.length > 1 ? '' : 'once'}`}
             onClick={(e) => handleClickSection(e)}
           >
-            {data &&
+            {newData &&
+              Array.isArray(newData.initialData) &&
               !isLoading &&
               newData.initialData.map((item: IDogItem) => (
                 <ContentItem key={item.id} item={item} showDetail={showDetail} />

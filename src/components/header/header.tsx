@@ -1,26 +1,18 @@
 import './header.scss';
 import headerLogo from '../../assets/header-logo.svg';
 import { SearchForm } from '../searchForm/searchForm';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setIsPagination } from '../../app/slices/paginationSlice';
-import { setIsReset } from '../../app/slices/resetSlice';
-import { setDetails } from '../../app/slices/detailsSlice';
+import { useNavigate } from 'react-router-dom';
 import { ITheme } from '../../interfaces/themeProps';
 import { ThemeContext } from '../../App';
 import { useContext } from 'react';
+import { ResetButton } from '../../api/reset';
 
 function Header() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { theme, setTheme } = useContext<ITheme>(ThemeContext);
 
   const handleClick = async () => {
-    localStorage.clear();
     navigate('/page0');
-    dispatch(setDetails(''));
-    dispatch(setIsPagination(true));
-    dispatch(setIsReset(true));
   };
 
   const handleThemeChange = () => {
@@ -30,15 +22,13 @@ function Header() {
     <>
       <header className={`header ${theme}`}>
         <div className="header_logo">
-          <Link to="/page0" onClick={handleClick}>
+          <ResetButton className="header_logo__button" type="button" onReset={handleClick}>
             <img className="header_logo-img" src={headerLogo} alt="dog picture"></img>
-          </Link>
+          </ResetButton>
         </div>
-        <button type="button" className="changeTheme" onClick={handleThemeChange}>
-          theme
-        </button>
         <p className="header_title">Cute dogs</p>{' '}
         <div className="header_search-container">
+          <button type="button" className={`changeTheme ${theme}`} onClick={handleThemeChange} />
           <SearchForm />
         </div>
       </header>

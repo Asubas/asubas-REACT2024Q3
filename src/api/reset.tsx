@@ -7,7 +7,7 @@ import { useLazyFetchImagesQuery } from './api';
 interface ResetButtonProps {
   onReset: () => void;
   children?: React.ReactNode;
-  className: string;
+  className?: string;
   type: 'button' | 'submit';
 }
 function ResetButton(props: ResetButtonProps) {
