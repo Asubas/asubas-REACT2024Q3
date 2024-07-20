@@ -22,13 +22,10 @@ function ContentSection() {
   const pathPartsToPage = pathname.split('page');
   const { theme } = useContext<ITheme>(ThemeContext);
   const detailId = useSelector((state: RootState) => state.rootReducer.details);
-  const { data, error, isLoading } = useFetchImagesQuery(
-    {
-      searchRequest: 0,
-      page: Number(pathPartsToPage[1]),
-    },
-    { skip: pathParts[2] !== undefined, refetchOnMountOrArgChange: true },
-  );
+  const { data, isLoading, error } = useFetchImagesQuery({
+    searchRequest: 0,
+    page: Number(pathPartsToPage[1]),
+  });
   const newData = useSelector((state: RootState) => state.rootReducer.data);
   const {
     data: details,

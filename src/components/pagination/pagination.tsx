@@ -1,28 +1,22 @@
 import './pagination.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { LoadingSnippet } from '../loadingSnippet/loadingSnippet';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../app/store';
+import { useDispatch } from 'react-redux';
 import { setDetails } from '../../app/slices/detailsSlice';
-import { useLazyFetchImagesQuery } from '../../api/api';
 
 function Pagination() {
   const [currentPage, setCurrentPage] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const [callApi] = useLazyFetchImagesQuery();
-  const totalPages = 10;
-  const isPagination = useSelector((state: RootState) => state.rootReducer.reset);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handlePageChange = async (page: number) => {
-    setIsLoading(true);
-    await callApi({ searchRequest: 0, page: page });
-    setCurrentPage(page);
-    navigate(`/page${page}`);
-    setIsLoading(false);
-    dispatch(setDetails(''));
-  };
+
+  const handlePageChange = useCallback(
+    async (page: number) => {
+      setCurrentPage(page);
+      navigate(`/page${page}`);
+      dispatch(setDetails(''));
+    },
+    [dispatch, navigate],
+  );
 
   const handlePrevPage = () => {
     if (currentPage !== 0) {
@@ -31,47 +25,45 @@ function Pagination() {
   };
 
   const handleNextPage = () => {
-    if (currentPage < totalPages - 1) {
+    if (currentPage < 9) {
       handlePageChange(currentPage + 1);
     }
   };
+
   const { pathname } = useLocation();
-  const numberPage = pathname.split('page')[1];
+  let numberPage = pathname.split('page')[1];
+  if (!Number(numberPage)) numberPage = numberPage.split('/')[0];
+
   useEffect(() => {
     setCurrentPage(Number(numberPage) ? Number(numberPage) : 0);
-  }, [numberPage]);
+  }, [dispatch, numberPage]);
 
   return (
     <>
-      {isPagination ? (
-        <div className="pagination">
+      <div className="pagination">
+        <button
+          onClick={handlePrevPage}
+          className={`pageNumber ${currentPage === 0 && 'noActive'}`}
+        >
+          -
+        </button>
+        {[...Array(10)].map((_, index) => (
           <button
-            onClick={handlePrevPage}
-            className={`pageNumber ${currentPage === 0 && 'noActive'}`}
+            type="button"
+            key={index}
+            onClick={() => handlePageChange(index)}
+            className={`pageNumber ${currentPage === index && 'active'}`}
           >
-            -
+            {index}
           </button>
-          {[...Array(totalPages)].map((_, index) => (
-            <button
-              type="button"
-              key={index}
-              onClick={() => handlePageChange(index)}
-              className={`pageNumber ${currentPage === index && 'active'}`}
-            >
-              {index}
-            </button>
-          ))}
-          <button
-            onClick={handleNextPage}
-            className={`pageNumber ${currentPage === totalPages - 1 && 'noActive'}`}
-          >
-            +
-          </button>
-        </div>
-      ) : (
-        <div></div>
-      )}
-      {isLoading && <LoadingSnippet />}
+        ))}
+        <button
+          onClick={handleNextPage}
+          className={`pageNumber ${currentPage === 9 && 'noActive'}`}
+        >
+          +
+        </button>
+      </div>
     </>
   );
 }
