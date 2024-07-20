@@ -4,14 +4,21 @@ import { useOutletContext } from 'react-router-dom';
 import svgDog from '../../../assets/svg-dog-icon.svg';
 import { useDispatch } from 'react-redux';
 import { setDetails } from '../../../app/slices/detailsSlice';
+import { useContext } from 'react';
+import { ThemeContext } from '../../../App';
+import { ITheme } from '../../../interfaces/themeProps';
 
 function DetailsPerDog() {
   const dispatch = useDispatch();
+  const { details } = useOutletContext<IOutletContextProps>();
+  const { theme } = useContext<ITheme>(ThemeContext);
+
   const handleClose = () => {
     dispatch(setDetails(''));
   };
-  const { details } = useOutletContext<IOutletContextProps>();
+
   if (!details.id) return;
+
   return (
     <>
       <div className="details">
@@ -23,7 +30,7 @@ function DetailsPerDog() {
           alt={details.breeds[0].name}
         />
         <div className="details_list-container">
-          <dl className="details_list">
+          <dl className={`details_list ${theme}`}>
             <dt>Breed</dt>
             <dd>{details.breeds[0].name}</dd>
             <dt>Weight</dt>

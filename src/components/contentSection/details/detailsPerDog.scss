@@ -19,6 +19,19 @@
     font-size: 1.1rem;
     color: #555555;
     margin-top: 0;
+    padding: 2rem;
+    background-color: #d3d3d3;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+
+    &.dark {
+      background-color: #7b7b7b;
+
+      dt,
+      dd {
+        color: #faebd7;
+      }
+    }
   }
 
   dt {
@@ -30,15 +43,8 @@
 
   dd {
     margin-left: 0;
-    border-left: 2px solid #ddd;
+    border-left: 2px solid #333333;
     text-align: center;
-  }
-
-  dl {
-    padding: 2rem;
-    background-color: #f9f9f9;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
   }
 
   dt,
