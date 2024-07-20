@@ -1,13 +1,18 @@
 import './contentItem.scss';
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IContentItemProps } from '../../../interfaces/contentItemProps';
 import { LoadingSnippet } from '../../loadingSnippet/loadingSnippet';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFavorite, removeFavorite } from '../../../app/slices/favoriteSlice';
+import { RootState } from '../../../app/store';
 
 const ContentItem = memo(
   function ContentItem({ item, showDetail }: IContentItemProps) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [isChecked, setChecked] = useState(false);
+    const favoriteDogsArray = useSelector((state: RootState) => state.rootReducer.favorite);
     const [isLoading, setIsLoading] = useState(false);
     const { pathname } = useLocation();
     const pathParts = pathname.split('/');
@@ -29,8 +34,16 @@ const ContentItem = memo(
     };
     const handleCheckboxChange = () => {
       isChecked ? setChecked(false) : setChecked(true);
+      isChecked ? dispatch(removeFavorite(item)) : dispatch(addFavorite(item));
     };
 
+    useEffect(() => {
+      favoriteDogsArray.initFavoriteArr.forEach((el) => {
+        if (el.id === item.id) {
+          setChecked(true);
+        }
+      });
+    }, [favoriteDogsArray.initFavoriteArr, item.id]);
     return (
       <>
         <div className="content_item" onClick={(e) => handleClick(e)}>

@@ -13,6 +13,7 @@ import { RootState } from '../../app/store';
 import { ThemeContext } from '../../App';
 import { ITheme } from '../../interfaces/themeProps';
 import { useFetchDetailsQuery, useFetchImagesQuery } from '../../api/api';
+import { FavoriteModal } from './favoriteModal/favoriteModal';
 
 function ContentSection() {
   const dispatch = useDispatch();
@@ -71,6 +72,7 @@ function ContentSection() {
             <Pagination />
           </section>
           {details && <Outlet context={{ details: details }} />}
+          <FavoriteModal />
         </div>
       </main>
     </>
