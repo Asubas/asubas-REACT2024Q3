@@ -54,7 +54,6 @@ function ContentSection() {
     e.stopPropagation();
     e.preventDefault();
   };
-
   if (isFetching || detailsFetching) return <LoadingSnippet />;
   if (error || detailsError) return <Page404 />;
   return (
@@ -63,7 +62,7 @@ function ContentSection() {
         <div className="container-content">
           <section
             className={`content ${detailId.initialData ? 'leftSide' : ''} ${data && data.length > 1 ? '' : 'once'}`}
-            onClick={(e) => handleClickSection(e)}
+            onClick={handleClickSection}
           >
             {newData &&
               Array.isArray(newData.initialData) &&

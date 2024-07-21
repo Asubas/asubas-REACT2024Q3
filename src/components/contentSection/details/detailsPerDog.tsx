@@ -1,6 +1,6 @@
 import './detailsPerDog.scss';
 import { IOutletContextProps } from '../../../interfaces/outletContentProps';
-import { useOutletContext } from 'react-router-dom';
+import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import svgDog from '../../../assets/svg-dog-icon.svg';
 import { useDispatch } from 'react-redux';
 import { setDetails } from '../../../app/slices/detailsSlice';
@@ -12,9 +12,13 @@ function DetailsPerDog() {
   const dispatch = useDispatch();
   const { details } = useOutletContext<IOutletContextProps>();
   const { theme } = useContext<ITheme>(ThemeContext);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const pathParts = pathname.split('/');
 
   const handleClose = () => {
     dispatch(setDetails(''));
+    navigate(`/${pathParts[1]}`);
   };
 
   if (!details.id) return;

@@ -18,6 +18,11 @@ function Pagination() {
     [dispatch, navigate],
   );
 
+  const handlePageChangeClick = (index: number) => (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    handlePageChange(index);
+  };
+
   const handlePrevPage = () => {
     if (currentPage !== 0) {
       handlePageChange(currentPage - 1);
@@ -51,7 +56,7 @@ function Pagination() {
           <button
             type="button"
             key={index}
-            onClick={() => handlePageChange(index)}
+            onClick={handlePageChangeClick(index)}
             className={`pageNumber ${currentPage === index && 'active'}`}
           >
             {index}

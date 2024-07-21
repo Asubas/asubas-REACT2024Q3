@@ -28,14 +28,15 @@ function SearchForm() {
   const [isHaveDog, setIsHaveDog] = useState(false);
   const navigate = useNavigate();
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-    setSearchQuery(event.target.value);
-  };
   useEffect(() => {
     setInputValue(searchQuery);
     dispatch(setIsReset(false));
   }, [dispatch, searchQuery]);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+    setSearchQuery(event.target.value);
+  };
 
   const resetSearch = () => {
     setSearchQuery('');
@@ -52,6 +53,7 @@ function SearchForm() {
     const firstMatch = allBreeds.data.find((dog: IBreedProps) =>
       dog.name.toLowerCase().includes(searchQuery.toLowerCase()),
     );
+
     if (firstMatch) {
       dispatch(setIsPagination(false));
       dispatch(setDetails(''));
@@ -69,6 +71,7 @@ function SearchForm() {
     }
     setIsLoading(false);
   };
+
   return (
     <>
       <form className="search-form" onSubmit={handleSubmit}>
