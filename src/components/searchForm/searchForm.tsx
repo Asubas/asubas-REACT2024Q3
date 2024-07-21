@@ -20,7 +20,6 @@ import { setIsSearchResult } from '../../app/slices/searchResult';
 function SearchForm() {
   const dispatch = useDispatch();
   const isReset = useSelector((state: RootState) => state.rootReducer.reset);
-  const searchResult = useSelector((state: RootState) => state.rootReducer.searchResult);
   const [callAllBreeds] = useLazyFetchBreedsQuery();
   const [callSearchFetch] = useLazyFetchImagesQuery();
   const [searchQuery, setSearchQuery] = useSearchQuery('') as [string, (newQuery: string) => void];
@@ -70,7 +69,6 @@ function SearchForm() {
     }
     setIsLoading(false);
   };
-  console.log(searchResult.isResult);
   return (
     <>
       <form className="search-form" onSubmit={handleSubmit}>
