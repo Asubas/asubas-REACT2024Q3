@@ -2,7 +2,6 @@ import './contentItem.scss';
 import { memo, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IContentItemProps } from '../../../interfaces/contentItemProps';
-import { LoadingSnippet } from '../../loadingSnippet/loadingSnippet';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFavorite, removeFavorite } from '../../../app/slices/favoriteSlice';
 import { RootState } from '../../../app/store';
@@ -13,7 +12,6 @@ const ContentItem = memo(
     const dispatch = useDispatch();
     const [isChecked, setChecked] = useState(false);
     const favoriteDogsArray = useSelector((state: RootState) => state.rootReducer.favorite);
-    const [isLoading, setIsLoading] = useState(false);
     const { pathname } = useLocation();
     const pathParts = pathname.split('/');
     const handleClick = async (e: React.MouseEvent) => {
@@ -26,10 +24,8 @@ const ContentItem = memo(
       } else {
         e.preventDefault();
         e.stopPropagation();
-        setIsLoading(true);
         showDetail(item.id);
         navigate(`/${pathParts[1]}/${item.id}`);
-        setIsLoading(false);
       }
     };
     const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,7 +64,6 @@ const ContentItem = memo(
             />
           </div>
         </div>
-        {isLoading && <LoadingSnippet />}
       </>
     );
   },

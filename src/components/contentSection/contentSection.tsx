@@ -19,30 +19,33 @@ function ContentSection() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const pathParts = pathname.split('/');
-  const pathPartsToPage = pathname.split('page');
+  let pathPartsToPage = pathname.split('page')[1];
+  if (pathParts[2]) pathPartsToPage = pathname.split('page')[1].split('/')[0];
   const { theme } = useContext<ITheme>(ThemeContext);
   const detailId = useSelector((state: RootState) => state.rootReducer.details);
-  const { data, isLoading, error } = useFetchImagesQuery({
+  const resultSearch = useSelector((state: RootState) => state.rootReducer.searchResult);
+  const { data, isFetching, error } = useFetchImagesQuery({
     searchRequest: 0,
-    page: Number(pathPartsToPage[1]),
+    page: Number(pathPartsToPage),
   });
   const newData = useSelector((state: RootState) => state.rootReducer.data);
   const {
     data: details,
     error: detailsError,
-    isLoading: detailsLoading,
+    isFetching: detailsFetching,
   } = useFetchDetailsQuery({ sub_id: detailId.initialData }, { skip: !detailId.initialData });
   const showDetail = (id: string) => {
     dispatch(setDetails(id));
   };
   useEffect(() => {
+    if (resultSearch.isResult) return;
     if (pathParts[2]) {
       dispatch(setData(data));
       dispatch(setDetails(pathParts[2]));
     } else {
       dispatch(setData(data));
     }
-  }, [data, detailId.initialData, dispatch, pathParts]);
+  }, [data, detailId.initialData, dispatch, pathParts, resultSearch]);
 
   const handleClickSection = (e: React.MouseEvent) => {
     if (e.target instanceof HTMLElement && !e.target.classList.contains('content_item')) {
@@ -52,9 +55,8 @@ function ContentSection() {
     e.preventDefault();
   };
 
-  if (isLoading || detailsLoading) return <LoadingSnippet />;
+  if (isFetching || detailsFetching) return <LoadingSnippet />;
   if (error || detailsError) return <Page404 />;
-  console.log(detailId);
   return (
     <>
       <main className={`${theme}`}>
@@ -65,7 +67,7 @@ function ContentSection() {
           >
             {newData &&
               Array.isArray(newData.initialData) &&
-              !isLoading &&
+              !isFetching &&
               newData.initialData.map((item: IDogItem) => (
                 <ContentItem key={item.id} item={item} showDetail={showDetail} />
               ))}

@@ -15,11 +15,12 @@ import { setIsPagination } from '../../app/slices/paginationSlice';
 import { setIsReset } from '../../app/slices/resetSlice';
 import { setDetails } from '../../app/slices/detailsSlice';
 import { ResetButton } from '../resetButton/resetButton';
+import { setIsSearchResult } from '../../app/slices/searchResult';
 
 function SearchForm() {
   const dispatch = useDispatch();
-  // const test123 = useReset();
   const isReset = useSelector((state: RootState) => state.rootReducer.reset);
+  const searchResult = useSelector((state: RootState) => state.rootReducer.searchResult);
   const [callAllBreeds] = useLazyFetchBreedsQuery();
   const [callSearchFetch] = useLazyFetchImagesQuery();
   const [searchQuery, setSearchQuery] = useSearchQuery('') as [string, (newQuery: string) => void];
@@ -55,6 +56,7 @@ function SearchForm() {
     if (firstMatch) {
       dispatch(setIsPagination(false));
       dispatch(setDetails(''));
+      dispatch(setIsSearchResult(true));
       localStorage.setItem('resultSearch', firstMatch.id);
       localStorage.setItem('textSearch', searchQuery.toLowerCase().trim());
       const test = await callSearchFetch({ searchRequest: firstMatch.id, page: 0 });
@@ -68,7 +70,7 @@ function SearchForm() {
     }
     setIsLoading(false);
   };
-
+  console.log(searchResult.isResult);
   return (
     <>
       <form className="search-form" onSubmit={handleSubmit}>

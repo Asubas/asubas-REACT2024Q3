@@ -4,6 +4,7 @@ import paginationSlice from './slices/paginationSlice';
 import resetSlice from './slices/resetSlice';
 import detailsSlice from './slices/detailsSlice';
 import favoriteSlice from './slices/favoriteSlice';
+import searchResult from './slices/searchResult';
 
 const rootReducer = combineReducers({
   data: dataSlice,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   reset: resetSlice,
   details: detailsSlice,
   favorite: favoriteSlice,
+  searchResult: searchResult,
 });
 
 export { rootReducer };

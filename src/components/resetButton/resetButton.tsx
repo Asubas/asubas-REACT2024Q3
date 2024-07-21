@@ -3,6 +3,7 @@ import { setData } from '../../app/slices/dataSlice';
 import { setDetails } from '../../app/slices/detailsSlice';
 import { setIsPagination } from '../../app/slices/paginationSlice';
 import { useLazyFetchImagesQuery } from '../../api/api';
+import { setIsSearchResult } from '../../app/slices/searchResult';
 
 interface ResetButtonProps {
   onReset: () => void;
@@ -17,6 +18,7 @@ function ResetButton(props: ResetButtonProps) {
     localStorage.clear();
     dispatch(setIsPagination(true));
     dispatch(setDetails(''));
+    dispatch(setIsSearchResult(false));
     const test = await callSearchFetch({ searchRequest: 0, page: 0 });
     dispatch(setData(test.data));
   };
