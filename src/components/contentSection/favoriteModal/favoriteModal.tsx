@@ -8,6 +8,8 @@ import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../../../App';
 import { ITheme } from '../../../interfaces/themeProps';
 import close from '../../../assets/close-button-dog.svg';
+import resetSvg from '../../../assets/paw-empty.svg';
+import { DownloadButton } from './downloadButton';
 
 function FavoriteModal() {
   const { theme } = useContext<ITheme>(ThemeContext);
@@ -60,10 +62,10 @@ function FavoriteModal() {
           onReset={handleResetClick}
         >
           Reset store
+          <img className="favorite-modal_button-reset_svg" src={resetSvg} alt="dog svg" />
         </ResetButton>
-        <button className="favorite-modal_button-download" type="button">
-          Download
-        </button>
+        <span>Fed to the dogs: {favoriteDogsArray.initFavoriteArr.length} </span>
+        <DownloadButton />
       </div>
       <button className="favorite-modal_button-close" type="button" onClick={handleClose}>
         <img className="favorite-modal_button-close__svg" src={close} alt="dog svg" />

@@ -47,4 +47,11 @@ button {
   background-color: #f0f0f0;
   color: #000000;
   @include full-border-black;
+  transition: 0.5s;
+
+  &:hover {
+    background-color: #b2b2ed;
+    color: #f0f0f0;
+    transition: 0.5s;
+  }
 }

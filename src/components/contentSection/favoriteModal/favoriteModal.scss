@@ -83,6 +83,15 @@
       }
     }
   }
+
+  .favorite-modal_button-reset,
+  .favorite-modal_button-download {
+    @include flex-positioning;
+    .favorite-modal_button-reset_svg,
+    .favorite-modal_button-download_svg {
+      @include svg-button;
+    }
+  }
 }
 
 @keyframes rotate {
