@@ -39,7 +39,6 @@ const ContentItem = memo(
         }
       });
     }, [favoriteDogsArray.initFavoriteArr, item.id]);
-    console.log(item);
     return (
       <>
         <div className="content_item" onClick={(e) => handleClick(e)}>
