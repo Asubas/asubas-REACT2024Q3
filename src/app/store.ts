@@ -10,5 +10,6 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiDog.middleware),
 });
 export type RootState = ReturnType<typeof store.getState>;
+export type AppStore = ReturnType<typeof store.replaceReducer>;
 export type AppDispatch = typeof store.dispatch;
 setupListeners(store.dispatch);

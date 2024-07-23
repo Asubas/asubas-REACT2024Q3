@@ -17,7 +17,7 @@ const ThemeContext = createContext<ITheme>({
   setTheme: () => {},
 });
 function App() {
-  const data = useSelector((state: RootState) => state.rootReducer.data);
+  const data = useSelector((state: RootState) => state.rootReducer);
   const [theme, setTheme] = useState('');
 
   return (

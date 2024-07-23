@@ -72,6 +72,7 @@ function SearchForm() {
     setIsLoading(false);
   };
 
+  if (!isReset) return null;
   return (
     <>
       <form className="search-form" onSubmit={handleSubmit}>

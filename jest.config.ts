@@ -8,4 +8,5 @@ export default {
     '\\.(gif|ttf|eot|svg|png|jpg)$': '<rootDir>/src/test/__ mocks __/fileMock.js',
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
   },
+  setupFilesAfterEnv: ['<rootDir>/src/tests/setupTests.ts'],
 };
