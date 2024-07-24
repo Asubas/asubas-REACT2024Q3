@@ -50,6 +50,7 @@ function SearchForm() {
     event.preventDefault();
     setIsLoading(true);
     const allBreeds = await callAllBreeds({});
+    if (!allBreeds.data || !Array.isArray(allBreeds.data)) return;
     const firstMatch = allBreeds.data.find((dog: IBreedProps) =>
       dog.name.toLowerCase().includes(searchQuery.toLowerCase()),
     );

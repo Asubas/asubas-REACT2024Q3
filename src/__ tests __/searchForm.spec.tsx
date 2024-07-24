@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { SearchForm } from '../components/searchForm/searchForm';
 import { MemoryRouter } from 'react-router-dom';
 import fetchMock from 'jest-fetch-mock';
@@ -33,8 +33,25 @@ test('SearchForm', async () => {
   const inputElement = screen.getByRole('textbox');
   await user.type(inputElement, 'labr');
   expect(inputElement).toHaveValue('labr');
-  await user.click(screen.getByRole('button', { name: /search/i }));
+  await waitFor(() => {
+    user.click(screen.getByRole('button', { name: /search/i }));
+  });
+  const modal = await screen.findByText(/Please wait, dogs coming to you 🐕🐕🐕/i, {
+    exact: false,
+  });
+  expect(modal).toBeInTheDocument();
+  const element = await screen.findByText(/Search/i, {
+    exact: false,
+  });
+  expect(element).toBeInTheDocument();
 
   await user.click(screen.getByRole('button', { name: /reset/i }));
   expect(inputElement).toHaveValue('');
+
+  await user.type(inputElement, 'asfz');
+  expect(inputElement).toHaveValue('asfz');
+  await user.click(screen.getByRole('button', { name: /search/i }));
+  await waitFor(() => {
+    expect(screen.getByText(/Please wait, dogs coming to you 🐕🐕🐕/i)).toBeInTheDocument();
+  });
 });
