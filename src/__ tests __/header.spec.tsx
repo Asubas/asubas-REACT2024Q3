@@ -48,10 +48,15 @@ describe('Header', () => {
 
     expect(element).toBeDefined();
     await act(async () => {
-      const evgenButton = getByTestId('theme-button');
-      fireEvent.click(evgenButton);
+      const themeButton = getByTestId('theme-button');
+      fireEvent.click(themeButton);
     });
 
     expect(getByTestId('header')).toHaveClass('dark');
+    await act(async () => {
+      const themeButton = getByTestId('theme-button');
+      fireEvent.click(themeButton);
+    });
+    expect(getByTestId('header')).not.toHaveClass('dark');
   });
 });
