@@ -35,11 +35,7 @@ function ContentSection() {
     isFetching: detailsFetching,
   } = useFetchDetailsQuery({ sub_id: detailId.initialData }, { skip: !detailId.initialData });
 
-  console.log('Fetched data:', data);
-  console.log('Fetched details:', details);
-
   const showDetail = (id: string) => {
-    console.log('Show detail for id:', id);
     dispatch(setDetails(id));
   };
 
@@ -48,6 +44,7 @@ function ContentSection() {
     if (pathParts[2]) {
       dispatch(setData(data));
       dispatch(setDetails(pathParts[2]));
+      console.log(pathParts[2]);
     } else {
       dispatch(setData(data));
     }
