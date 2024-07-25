@@ -8,16 +8,16 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { Page404 } from './components/page404/page404';
 import { DetailsPerDog } from './components/contentSection/details/detailsPerDog';
 import { useSelector } from 'react-redux';
-import { RootState } from './app/store';
 import { ITheme } from './interfaces/themeProps';
 import { createContext, useState } from 'react';
+import { RootState } from './app/store';
 
 const ThemeContext = createContext<ITheme>({
   theme: '',
   setTheme: () => {},
 });
 function App() {
-  const data = useSelector((state: RootState) => state.rootReducer);
+  const data = useSelector((state: RootState) => state.data);
   const [theme, setTheme] = useState('');
 
   return (

@@ -1,28 +1,30 @@
 import '@testing-library/jest-dom';
-import React, { PropsWithChildren } from 'react';
 import { render } from '@testing-library/react';
-import type { RenderOptions } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import type { AppStore, RootState } from '../app/store';
-import { store as setupStore } from '../app/store';
+import { ThemeContext } from '../App';
+import { configureStore } from '@reduxjs/toolkit';
+import { rootReducer } from '../app/rootReducer';
+import { testState } from './testStore';
+import { apiDog } from '../api/api';
+import { RootState } from '../app/store';
 
-interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
-  preloadedState?: Partial<RootState>;
-  store?: AppStore;
-}
+export const renderWithRedux = (ui: JSX.Element, preloadedState?: Partial<RootState>) => {
+  const store = configureStore({
+    reducer: rootReducer,
+    preloadedState: preloadedState || testState,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiDog.middleware),
+  });
 
-export function renderWithProviders(
-  ui: React.ReactElement,
-  extendedRenderOptions: ExtendedRenderOptions = {},
-) {
-  const { store = setupStore, ...renderOptions } = extendedRenderOptions;
+  const { container, rerender, ...rest } = render(ui, {
+    wrapper: ({ children }) => (
+      <Provider store={store}>
+        <ThemeContext.Provider value={{ theme: 'light', setTheme: jest.fn() }}>
+          {children}
+        </ThemeContext.Provider>
+      </Provider>
+    ),
+  });
 
-  const Wrapper = ({ children }: PropsWithChildren) => (
-    <Provider store={store}>{children}</Provider>
-  );
-
-  return {
-    store,
-    ...render(ui, { wrapper: Wrapper, ...renderOptions }),
-  };
-}
+  const element = container;
+  return { store, element, rerender, ...rest };
+};

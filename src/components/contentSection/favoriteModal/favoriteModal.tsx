@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './favoriteModal.scss';
-import { RootState } from '../../../app/store';
 import { removeFavorite } from '../../../app/slices/favoriteSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ResetButton } from '../../resetButton/resetButton';
@@ -10,10 +9,11 @@ import { ITheme } from '../../../interfaces/themeProps';
 import close from '../../../assets/close-button-dog.svg';
 import resetSvg from '../../../assets/paw-empty.svg';
 import { DownloadButton } from './downloadButton';
+import { RootState } from '../../../app/store';
 
 function FavoriteModal() {
   const { theme } = useContext<ITheme>(ThemeContext);
-  const favoriteDogsArray = useSelector((state: RootState) => state.rootReducer.favorite);
+  const favoriteDogsArray = useSelector((state: RootState) => state.favorite);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const navigate = useNavigate();

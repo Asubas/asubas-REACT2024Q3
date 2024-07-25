@@ -5,6 +5,7 @@ import resetSlice from './slices/resetSlice';
 import detailsSlice from './slices/detailsSlice';
 import favoriteSlice from './slices/favoriteSlice';
 import searchResult from './slices/searchResult';
+import { apiDog } from '../api/api';
 
 const rootReducer = combineReducers({
   data: dataSlice,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   details: detailsSlice,
   favorite: favoriteSlice,
   searchResult: searchResult,
+  [apiDog.reducerPath]: apiDog.reducer,
 });
 
 export { rootReducer };
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootStateReducer = ReturnType<typeof rootReducer>;

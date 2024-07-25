@@ -11,7 +11,7 @@ const ContentItem = memo(
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isChecked, setChecked] = useState(false);
-    const favoriteDogsArray = useSelector((state: RootState) => state.rootReducer.favorite);
+    const favoriteDogsArray = useSelector((state: RootState) => state.favorite);
     const { pathname } = useLocation();
     const pathParts = pathname.split('/');
     const handleClick = async (e: React.MouseEvent) => {

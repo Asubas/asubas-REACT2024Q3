@@ -1,12 +1,12 @@
 import './favoriteModal.scss';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../app/store';
 import { IDogItem } from '../../../interfaces/dogInterface';
 import { useState } from 'react';
 import downloadSvg from '../../../assets/paw.svg';
+import { RootState } from '../../../app/store';
 
 function DownloadButton() {
-  const favoriteDogsArray = useSelector((state: RootState) => state.rootReducer.favorite);
+  const favoriteDogsArray = useSelector((state: RootState) => state.favorite);
   const [url, setUrl] = useState('');
 
   const handleDownload = () => {

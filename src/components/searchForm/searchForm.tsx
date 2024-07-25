@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSearchQuery } from '../../userHooks/useSearchQuery';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../app/store';
 import { setData } from '../../app/slices/dataSlice';
 import { useLazyFetchBreedsQuery, useLazyFetchImagesQuery } from '../../api/api';
 import { setIsPagination } from '../../app/slices/paginationSlice';
@@ -16,10 +15,11 @@ import { setIsReset } from '../../app/slices/resetSlice';
 import { setDetails } from '../../app/slices/detailsSlice';
 import { ResetButton } from '../resetButton/resetButton';
 import { setIsSearchResult } from '../../app/slices/searchResult';
+import { RootState } from '../../app/store';
 
 function SearchForm() {
   const dispatch = useDispatch();
-  const isReset = useSelector((state: RootState) => state.rootReducer.reset);
+  const isReset = useSelector((state: RootState) => state.reset);
   const [callAllBreeds] = useLazyFetchBreedsQuery();
   const [callSearchFetch] = useLazyFetchImagesQuery();
   const [searchQuery, setSearchQuery] = useSearchQuery('') as [string, (newQuery: string) => void];

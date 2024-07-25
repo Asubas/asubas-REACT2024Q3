@@ -9,11 +9,11 @@ import { setData } from '../../app/slices/dataSlice';
 import { LoadingSnippet } from '../loadingSnippet/loadingSnippet';
 import { Page404 } from '../page404/page404';
 import { setDetails } from '../../app/slices/detailsSlice';
-import { RootState } from '../../app/store';
 import { ThemeContext } from '../../App';
 import { ITheme } from '../../interfaces/themeProps';
 import { useFetchDetailsQuery, useFetchImagesQuery } from '../../api/api';
 import { FavoriteModal } from './favoriteModal/favoriteModal';
+import { RootState } from '../../app/store';
 
 function ContentSection() {
   const dispatch = useDispatch();
@@ -22,21 +22,27 @@ function ContentSection() {
   let pathPartsToPage = pathname.split('page')[1];
   if (pathParts[2]) pathPartsToPage = pathname.split('page')[1].split('/')[0];
   const { theme } = useContext<ITheme>(ThemeContext);
-  const detailId = useSelector((state: RootState) => state.rootReducer.details);
-  const resultSearch = useSelector((state: RootState) => state.rootReducer.searchResult);
+  const detailId = useSelector((state: RootState) => state.details);
+  const resultSearch = useSelector((state: RootState) => state.searchResult);
   const { data, isFetching, error } = useFetchImagesQuery({
     searchRequest: 0,
     page: Number(pathPartsToPage),
   });
-  const newData = useSelector((state: RootState) => state.rootReducer.data);
+  const newData = useSelector((state: RootState) => state.data);
   const {
     data: details,
     error: detailsError,
     isFetching: detailsFetching,
   } = useFetchDetailsQuery({ sub_id: detailId.initialData }, { skip: !detailId.initialData });
+
+  console.log('Fetched data:', data);
+  console.log('Fetched details:', details);
+
   const showDetail = (id: string) => {
+    console.log('Show detail for id:', id);
     dispatch(setDetails(id));
   };
+
   useEffect(() => {
     if (resultSearch.isResult) return;
     if (pathParts[2]) {
@@ -54,8 +60,10 @@ function ContentSection() {
     e.stopPropagation();
     e.preventDefault();
   };
+
   if (isFetching || detailsFetching) return <LoadingSnippet />;
   if (error || detailsError) return <Page404 />;
+
   return (
     <>
       <main className={`${theme}`}>
