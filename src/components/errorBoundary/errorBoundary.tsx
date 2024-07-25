@@ -21,18 +21,6 @@ class ErrorBoundary extends PureComponent<ErrorBoundaryProps, ErrorBoundaryState
     );
   }
 
-  handleClickF = () => {
-    this.setState(
-      {
-        error: null,
-        errorInfo: null,
-      },
-      () => {
-        this.forceUpdate();
-      },
-    );
-  };
-
   render() {
     if (this.state.errorInfo) {
       return (

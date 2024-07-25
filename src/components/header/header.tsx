@@ -20,15 +20,25 @@ function Header() {
   };
   return (
     <>
-      <header className={`header ${theme}`}>
+      <header className={`header ${theme}`} data-testid="header">
         <div className="header_logo">
-          <ResetButton className="header_logo__button" type="button" onReset={handleClick}>
+          <ResetButton
+            className="header_logo__button"
+            type="button"
+            data-testid="header-logo-button"
+            onReset={handleClick}
+          >
             <img className="header_logo-img" src={headerLogo} alt="dog picture"></img>
           </ResetButton>
         </div>
         <p className="header_title">Cute dogs</p>{' '}
         <div className="header_search-container">
-          <button type="button" className={`changeTheme ${theme}`} onClick={handleThemeChange} />
+          <button
+            type="button"
+            data-testid="theme-button"
+            className={`changeTheme ${theme}`}
+            onClick={handleThemeChange}
+          />
           <SearchForm />
         </div>
       </header>
