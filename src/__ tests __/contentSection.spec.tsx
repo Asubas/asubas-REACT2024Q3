@@ -1,9 +1,10 @@
 import '@testing-library/jest-dom';
-import { act, fireEvent, screen } from '@testing-library/react';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import * as detailsSlice from '../app/slices/detailsSlice';
 import { ContentSection } from '../components/contentSection/contentSection';
 import { renderWithRedux } from '../tests/test-utils';
+import { testState } from '../tests/testStore';
 // import { testState } from '../tests/testStore';
 
 jest.mock('react-router-dom', () => ({
@@ -44,64 +45,64 @@ describe('ContentSection', () => {
     });
   });
 
-  // it('if path[2] contains in url should be dispayed new content,', async () => {
-  //   const mockStore = testState;
-  //   const { getByText } = renderWithRedux(
-  //     <MemoryRouter initialEntries={['/page1/labrador']}>
-  //       <ContentSection />
-  //     </MemoryRouter>,
-  //     mockStore,
-  //   );
-  //   await act(async () => {
-  //     await waitFor(() => {
-  //       const resultElement = getByText(/Please wait, dogs coming to you 🐕🐕🐕/i);
-  //       expect(resultElement).toBeInTheDocument();
-  //     });
-  //   });
-  // });
-  // it('should dispatch setDetails and setData actions when pathParts[2] exists', async () => {
-  //   const mockNavigate = jest.fn().mockReturnValue(['/page1/labrador']);
-  //   jest.requireMock('react-router-dom').useNavigate.mockReturnValue(mockNavigate);
+  it('if path[2] contains in url should be dispayed new content,', async () => {
+    const mockStore = testState;
+    const { getByText } = renderWithRedux(
+      <MemoryRouter initialEntries={['/page1/labrador']}>
+        <ContentSection />
+      </MemoryRouter>,
+      mockStore,
+    );
+    await act(async () => {
+      await waitFor(() => {
+        const resultElement = getByText(/Please wait, dogs coming to you 🐕🐕🐕/i);
+        expect(resultElement).toBeInTheDocument();
+      });
+    });
+  });
+  it('should dispatch setDetails and setData actions when pathParts[2] exists', async () => {
+    const mockNavigate = jest.fn().mockReturnValue(['/page1/labrador']);
+    jest.requireMock('react-router-dom').useNavigate.mockReturnValue(mockNavigate);
 
-  //   renderWithRedux(
-  //     <MemoryRouter initialEntries={['/page1']}>
-  //       <ContentSection />
-  //     </MemoryRouter>,
-  //   );
+    renderWithRedux(
+      <MemoryRouter initialEntries={['/page1']}>
+        <ContentSection />
+      </MemoryRouter>,
+    );
 
-  //   // Your existing test assertions
-  //   const labradors = await screen.findAllByText(/Labrador Retriever/i);
-  //   await act(async () => {
-  //     fireEvent.click(labradors[0]);
-  //   });
-  //   expect(detailsSlice.setDetails).toHaveBeenCalledWith('1');
-  //   expect(detailsSlice.setDetails).toHaveBeenCalledTimes(2);
+    // Your existing test assertions
+    const labradors = await screen.findAllByText(/Labrador Retriever/i);
+    await act(async () => {
+      fireEvent.click(labradors[0]);
+    });
+    expect(detailsSlice.setDetails).toHaveBeenCalledWith('1');
+    expect(detailsSlice.setDetails).toHaveBeenCalledTimes(2);
 
-  //   // Additional assertions for setData
-  //   expect(detailsSlice.setDetails).toHaveBeenCalledWith('1');
-  //   expect(detailsSlice.setDetails).toHaveBeenCalledTimes(2);
-  // });
+    // Additional assertions for setData
+    expect(detailsSlice.setDetails).toHaveBeenCalledWith('1');
+    expect(detailsSlice.setDetails).toHaveBeenCalledTimes(2);
+  });
 
-  // it('should dispatch setData action when pathParts[2] does not exist', async () => {
-  //   const mockNavigate = jest.fn().mockReturnValue(['/page1/']);
-  //   jest.requireMock('react-router-dom').useNavigate.mockReturnValue(mockNavigate);
+  it('should dispatch setData action when pathParts[2] does not exist', async () => {
+    const mockNavigate = jest.fn().mockReturnValue(['/page1/']);
+    jest.requireMock('react-router-dom').useNavigate.mockReturnValue(mockNavigate);
 
-  //   renderWithRedux(
-  //     <MemoryRouter initialEntries={['/page1']}>
-  //       <ContentSection />
-  //     </MemoryRouter>,
-  //   );
+    renderWithRedux(
+      <MemoryRouter initialEntries={['/page1']}>
+        <ContentSection />
+      </MemoryRouter>,
+    );
 
-  //   // Your existing test assertions
-  //   const labradors = await screen.findAllByText(/Labrador Retriever/i);
-  //   await act(async () => {
-  //     fireEvent.click(labradors[0]);
-  //   });
-  //   expect(detailsSlice.setDetails).toHaveBeenCalledWith('1'); // Ensure setDetails called with empty string
-  //   expect(detailsSlice.setDetails).toHaveBeenCalledTimes(3);
+    // Your existing test assertions
+    const labradors = await screen.findAllByText(/Labrador Retriever/i);
+    await act(async () => {
+      fireEvent.click(labradors[0]);
+    });
+    expect(detailsSlice.setDetails).toHaveBeenCalledWith('1'); // Ensure setDetails called with empty string
+    expect(detailsSlice.setDetails).toHaveBeenCalledTimes(3);
 
-  //   // Additional assertions for setData
-  //   expect(detailsSlice.setDetails).toHaveBeenCalledWith('1');
-  //   expect(detailsSlice.setDetails).toHaveBeenCalledTimes(3);
-  // });
+    // Additional assertions for setData
+    expect(detailsSlice.setDetails).toHaveBeenCalledWith('1');
+    expect(detailsSlice.setDetails).toHaveBeenCalledTimes(3);
+  });
 });

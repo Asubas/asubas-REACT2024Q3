@@ -54,6 +54,7 @@ const ContentItem = memo(
             <label
               htmlFor={`${item.id}`}
               className={`content_item__favorites-label ${isChecked ? 'is-checked' : ''}`}
+              data-testid="label"
             />
             <input
               type="checkbox"
@@ -61,6 +62,7 @@ const ContentItem = memo(
               id={`${item.id}`}
               checked={isChecked}
               onChange={handleCheckboxChange}
+              data-testid="checkbox-input"
             />
           </div>
         </div>
