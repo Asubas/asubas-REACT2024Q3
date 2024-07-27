@@ -36,6 +36,7 @@ function FavoriteModal() {
   return (
     <div
       className={`${favoriteDogsArray.initFavoriteArr.length > 0 && isModalOpen ? 'show-modal' : 'unShow-modal'} favorite-modal ${theme}`}
+      data-testid="favorite-modal"
     >
       <p className="favorite-modal_title">
         Congratulations! You feed these dogs! Would you like to reset and do it again or download?

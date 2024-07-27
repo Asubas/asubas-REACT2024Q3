@@ -41,7 +41,7 @@ const ContentItem = memo(
     }, [favoriteDogsArray.initFavoriteArr, item.id]);
     return (
       <>
-        <div className="content_item" onClick={(e) => handleClick(e)}>
+        <div className="content_item" onClick={(e) => handleClick(e)} data-testid="favorite-card">
           <img
             className="content_item__picture"
             src={item.url}

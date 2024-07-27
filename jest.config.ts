@@ -9,4 +9,9 @@ export default {
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
   },
   setupFilesAfterEnv: ['<rootDir>/src/tests/setupTests.ts'],
+  coveragePathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+    '<rootDir>/src/vite-env.d\\.ts$',
+    '<rootDir>/src/main\\.tsx$',
+  ],
 };
