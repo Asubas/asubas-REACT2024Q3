@@ -37,7 +37,6 @@ describe('Redux Toolkit Query Tests', () => {
 
     const { result } = renderHook(() => useFetchBreedsQuery({}), { wrapper: Wrapper });
 
-    // Initial state check
     expect(result.current).toMatchObject({
       status: 'pending',
       endpointName: 'fetchBreeds',
@@ -48,12 +47,10 @@ describe('Redux Toolkit Query Tests', () => {
       isFetching: true,
     });
 
-    // Wait for the hook to resolve and verify the final state
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true);
     });
 
-    // Additional checks after hook has resolved
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(result.current).toMatchObject({
       status: 'fulfilled',
@@ -73,7 +70,6 @@ describe('Redux Toolkit Query Tests', () => {
       wrapper: Wrapper,
     });
 
-    // Initial state check
     expect(result.current).toMatchObject({
       status: 'pending',
       endpointName: 'fetchDetails',
@@ -84,12 +80,10 @@ describe('Redux Toolkit Query Tests', () => {
       isFetching: true,
     });
 
-    // Wait for the hook to resolve and verify the final state
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true);
     });
 
-    // Additional checks after hook has resolved
     expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(result.current).toMatchObject({
       status: 'fulfilled',
@@ -109,7 +103,6 @@ describe('Redux Toolkit Query Tests', () => {
       wrapper: Wrapper,
     });
 
-    // Initial state check
     expect(result.current).toMatchObject({
       status: 'pending',
       endpointName: 'fetchImages',
@@ -120,12 +113,10 @@ describe('Redux Toolkit Query Tests', () => {
       isFetching: true,
     });
 
-    // Wait for the hook to resolve and verify the final state
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true);
     });
 
-    // Additional checks after hook has resolved
     expect(fetchMock).toHaveBeenCalledTimes(3);
     expect(result.current).toMatchObject({
       status: 'fulfilled',

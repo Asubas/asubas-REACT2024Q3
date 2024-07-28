@@ -44,7 +44,6 @@ function ContentSection() {
     if (pathParts[2]) {
       dispatch(setData(data));
       dispatch(setDetails(pathParts[2]));
-      console.log(pathParts[2]);
     } else {
       dispatch(setData(data));
     }
