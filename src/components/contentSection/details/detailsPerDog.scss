@@ -1,0 +1,72 @@
+@import '../../../App.scss';
+
+.details {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 15px;
+
+  .details_img {
+    margin: 0 2%;
+    border-radius: 5px;
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-gap: 1rem 2rem;
+    font-size: 1.1rem;
+    color: #555555;
+    margin-top: 0;
+    padding: 2rem;
+    background-color: #d3d3d3;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+
+    &.dark {
+      background-color: #7b7b7b;
+
+      dt,
+      dd {
+        color: #faebd7;
+      }
+    }
+  }
+
+  dt {
+    font-weight: bold;
+    color: #333333;
+    text-align: left;
+    align-self: center;
+  }
+
+  dd {
+    margin-left: 0;
+    border-left: 2px solid #333333;
+    text-align: center;
+  }
+
+  dt,
+  dd {
+    padding: 1rem;
+  }
+
+  dt:last-of-type,
+  dd:last-of-type {
+    padding-bottom: 0;
+  }
+
+  .details_list-container {
+    @include flex-positioning($flex-direction: column);
+  }
+  .details_close {
+    width: 35%;
+    height: 30px;
+    @include flex-positioning;
+
+    .details_close-svg {
+      @include svg-button;
+    }
+  }
+}

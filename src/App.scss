@@ -1,0 +1,57 @@
+body {
+  background-color: #a2a4c3;
+}
+
+a {
+  text-decoration: none;
+
+  &:visited {
+    color: black;
+  }
+}
+
+$vertical-margin: 10px 0;
+
+@mixin position-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin full-size {
+  width: 100%;
+  height: 100%;
+}
+
+@mixin flex-positioning($justify-content: center, $align-items: center, $flex-direction: row) {
+  display: flex;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  flex-direction: $flex-direction;
+}
+
+@mixin full-border-black {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+@mixin svg-button {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+}
+
+button {
+  cursor: pointer;
+  background-color: #f0f0f0;
+  color: #000000;
+  @include full-border-black;
+  transition: 0.5s;
+
+  &:hover {
+    background-color: #b2b2ed;
+    color: #f0f0f0;
+    transition: 0.5s;
+  }
+}

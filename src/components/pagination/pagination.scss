@@ -1,0 +1,38 @@
+@import '../../App.scss';
+
+.pagination {
+  @include flex-positioning($justify-content: space-around);
+  height: 50px;
+  grid-column: 1 / -1;
+  grid-row: 5 / 6;
+  margin-top: 15px;
+  max-width: 350px;
+  justify-self: center;
+  gap: 5px;
+
+  button {
+    @include flex-positioning;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+
+    &.active {
+      background-color: #7da8e6;
+    }
+
+    &.noActive {
+      background-color: #808080;
+      user-select: none;
+      cursor: auto;
+      pointer-events: none;
+    }
+
+    &:hover {
+      background-color: #b2b2ed;
+    }
+  }
+
+  &:only-child {
+    display: none;
+  }
+}
