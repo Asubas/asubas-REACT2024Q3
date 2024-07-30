@@ -1,8 +1,9 @@
 import './favoriteModal.scss';
+import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { IDogItem } from '../../../interfaces/dogInterface';
 import { useState } from 'react';
-import downloadSvg from '../../../assets/paw.svg';
+import downloadSvg from '../../../../src/assets/paw.svg';
 import { RootState } from '../../../app/store';
 
 function DownloadButton() {
@@ -38,7 +39,11 @@ function DownloadButton() {
       <a href={url} download={`${favoriteDogsArray.initFavoriteArr.length}-cute-dog.csv`}>
         <button className="favorite-modal_button-download" type="button" onClick={handleDownload}>
           Download
-          <img className="favorite-modal_button-download_svg" src={downloadSvg} alt="dog svg" />
+          <Image
+            className="favorite-modal_button-download_svg"
+            src={downloadSvg.src}
+            alt="dog svg"
+          />
         </button>
       </a>
     </>

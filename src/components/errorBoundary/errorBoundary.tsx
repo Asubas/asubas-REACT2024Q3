@@ -1,7 +1,8 @@
 import './errorBoundary.scss';
+import Image from 'next/image';
 import { ErrorInfo, PureComponent } from 'react';
 import { ErrorBoundaryProps, ErrorBoundaryState } from '../../interfaces/errorBoundaryInterfaces';
-import sadnessDog from '../../assets/sadness-dog.jpg';
+import sadnessDog from '../../../src/assets/sadness-dog.jpg';
 
 class ErrorBoundary extends PureComponent<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
@@ -34,7 +35,7 @@ class ErrorBoundary extends PureComponent<ErrorBoundaryProps, ErrorBoundaryState
             {this.state.errorInfo.componentStack}
           </details>
           <div className="error-boundary-content_img">
-            <img src={sadnessDog} alt="sadness Dog" />
+            <Image src={sadnessDog.src} alt="sadness Dog" />
           </div>
         </div>
       );

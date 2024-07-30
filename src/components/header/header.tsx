@@ -1,5 +1,6 @@
 import './header.scss';
-import headerLogo from '../../assets/header-logo.svg';
+import Image from 'next/image';
+import headerLogo from '../../../src/assets/header-logo.svg';
 import { SearchForm } from '../searchForm/searchForm';
 import { useNavigate } from 'react-router-dom';
 import { ITheme } from '../../interfaces/themeProps';
@@ -28,7 +29,7 @@ function Header() {
             data-testid="header-logo-button"
             onReset={handleClick}
           >
-            <img className="header_logo-img" src={headerLogo} alt="dog picture"></img>
+            <Image className="header_logo-img" src={headerLogo.src} alt="dog picture"></Image>
           </ResetButton>
         </div>
         <p className="header_title">Cute dogs</p>{' '}

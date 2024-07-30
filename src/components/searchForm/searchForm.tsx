@@ -1,9 +1,10 @@
 import './searchForm.scss';
+import Image from 'next/image';
 import { LoadingSnippet } from '../loadingSnippet/loadingSnippet';
 import { IBreedProps } from '../../interfaces/breedProps';
 import { ModalBoundary } from '../../modalBoundary/modalBoundary';
-import search from '../../assets/button-search-dog.svg';
-import resetSearchImg from '../../assets/button-search-dog-v2.svg';
+import search from '../../../src/assets/button-search-dog.svg';
+import resetSearchImg from '../../../src/assets/button-search-dog-v2.svg';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSearchQuery } from '../../userHooks/useSearchQuery';
@@ -88,11 +89,15 @@ function SearchForm() {
         ></input>
         <button className="search-form_button" type="submit">
           Search
-          <img className="search-form_button__svg" src={search} alt="dog svg" />
+          <Image className="search-form_button__svg" src={search.src} alt="dog svg" />
         </button>
         <ResetButton onReset={resetSearch} className="search-form_button" type="button">
           Reset
-          <img className="search-form_button__svg" src={resetSearchImg} alt="dog svg crossed out" />
+          <Image
+            className="search-form_button__svg"
+            src={resetSearchImg.src}
+            alt="dog svg crossed out"
+          />
         </ResetButton>
       </form>
 

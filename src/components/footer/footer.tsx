@@ -1,6 +1,7 @@
 import './footer.scss';
-import rsLogo from '../../assets/rs_school_js.svg';
-import apiLogo from '../../assets/thedogapi-logo.svg';
+import Image from 'next/image';
+import rsLogo from '../../../src/assets/rs_school_js.svg';
+import apiLogo from '../../../src/assets/thedogapi-logo.svg';
 import { useContext } from 'react';
 import { ThemeContext } from '../../App';
 import { ITheme } from '../../interfaces/themeProps';
@@ -10,7 +11,7 @@ function Footer() {
   return (
     <footer className={`footer ${theme}`}>
       <a className="footer_rs-logo" href="https://rs.school/" target="_blank" rel="noreferrer">
-        <img src={rsLogo} alt="RS Logo" />
+        <Image src={rsLogo.src} alt="RS Logo" />
       </a>
       <a
         className="footer_author-link"
@@ -23,7 +24,7 @@ function Footer() {
       </a>
 
       <a className="footer_api" href="https://thedogapi.com/" target="_blank" rel="noreferrer">
-        <img src={apiLogo} alt="dog api logo" />
+        <Image src={apiLogo.src} alt="dog api logo" />
       </a>
     </footer>
   );

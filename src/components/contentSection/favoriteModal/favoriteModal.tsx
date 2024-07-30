@@ -1,13 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux';
 import './favoriteModal.scss';
+import Image from 'next/image';
+import { useDispatch, useSelector } from 'react-redux';
 import { removeFavorite } from '../../../app/slices/favoriteSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ResetButton } from '../../resetButton/resetButton';
 import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../../../App';
 import { ITheme } from '../../../interfaces/themeProps';
-import close from '../../../assets/close-button-dog.svg';
-import resetSvg from '../../../assets/paw-empty.svg';
+import close from '../../../../src/assets/close-button-dog.svg';
+import resetSvg from '../../../../src/assets/paw-empty.svg';
 import { DownloadButton } from './downloadButton';
 import { RootState } from '../../../app/store';
 
@@ -63,13 +64,13 @@ function FavoriteModal() {
           onReset={handleResetClick}
         >
           Reset store
-          <img className="favorite-modal_button-reset_svg" src={resetSvg} alt="dog svg" />
+          <Image className="favorite-modal_button-reset_svg" src={resetSvg.src} alt="dog svg" />
         </ResetButton>
         <span>Fed to the dogs: {favoriteDogsArray.initFavoriteArr.length} </span>
         <DownloadButton />
       </div>
       <button className="favorite-modal_button-close" type="button" onClick={handleClose}>
-        <img className="favorite-modal_button-close__svg" src={close} alt="dog svg" />
+        <Image className="favorite-modal_button-close__svg" src={close.src} alt="dog svg" />
       </button>
     </div>
   );
