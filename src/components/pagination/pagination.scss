@@ -1,4 +1,4 @@
-@import '../../App.scss';
+@import '../../pages/App.scss';
 
 .pagination {
   @include flex-positioning($justify-content: space-around);

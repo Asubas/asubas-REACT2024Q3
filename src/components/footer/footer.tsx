@@ -3,8 +3,8 @@ import Image from 'next/image';
 import rsLogo from '../../../src/assets/rs_school_js.svg';
 import apiLogo from '../../../src/assets/thedogapi-logo.svg';
 import { useContext } from 'react';
-import { ThemeContext } from '../../App';
 import { ITheme } from '../../interfaces/themeProps';
+import { ThemeContext } from '../../pages/[slug]';
 
 function Footer() {
   const { theme } = useContext<ITheme>(ThemeContext);

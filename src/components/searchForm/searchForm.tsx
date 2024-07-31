@@ -6,7 +6,7 @@ import { ModalBoundary } from '../../modalBoundary/modalBoundary';
 import search from '../../../src/assets/button-search-dog.svg';
 import resetSearchImg from '../../../src/assets/button-search-dog-v2.svg';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useSearchQuery } from '../../userHooks/useSearchQuery';
 import { useDispatch, useSelector } from 'react-redux';
 import { setData } from '../../app/slices/dataSlice';
@@ -27,7 +27,7 @@ function SearchForm() {
   const [inputValue, setInputValue] = useState(searchQuery);
   const [isLoading, setIsLoading] = useState(false);
   const [isHaveDog, setIsHaveDog] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     setInputValue(searchQuery);
@@ -42,7 +42,7 @@ function SearchForm() {
   const resetSearch = () => {
     setSearchQuery('');
     setIsLoading(true);
-    navigate('/page0');
+    // navigate('/page0');
     setInputValue('');
     setIsLoading(false);
   };
@@ -89,7 +89,13 @@ function SearchForm() {
         ></input>
         <button className="search-form_button" type="submit">
           Search
-          <Image className="search-form_button__svg" src={search.src} alt="dog svg" />
+          <Image
+            className="search-form_button__svg"
+            src={search.src}
+            alt="dog svg"
+            width={20}
+            height={20}
+          />
         </button>
         <ResetButton onReset={resetSearch} className="search-form_button" type="button">
           Reset
@@ -97,6 +103,8 @@ function SearchForm() {
             className="search-form_button__svg"
             src={resetSearchImg.src}
             alt="dog svg crossed out"
+            width={20}
+            height={20}
           />
         </ResetButton>
       </form>

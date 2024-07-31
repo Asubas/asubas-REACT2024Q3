@@ -2,19 +2,14 @@ import './header.scss';
 import Image from 'next/image';
 import headerLogo from '../../../src/assets/header-logo.svg';
 import { SearchForm } from '../searchForm/searchForm';
-import { useNavigate } from 'react-router-dom';
 import { ITheme } from '../../interfaces/themeProps';
-import { ThemeContext } from '../../App';
 import { useContext } from 'react';
 import { ResetButton } from '../resetButton/resetButton';
+import { ThemeContext } from '../../pages/[slug]';
+import Link from 'next/link';
 
 function Header() {
-  const navigate = useNavigate();
   const { theme, setTheme } = useContext<ITheme>(ThemeContext);
-
-  const handleClick = async () => {
-    navigate('/page0');
-  };
 
   const handleThemeChange = () => {
     theme ? setTheme('') : setTheme('dark');
@@ -23,14 +18,20 @@ function Header() {
     <>
       <header className={`header ${theme}`} data-testid="header">
         <div className="header_logo">
-          <ResetButton
-            className="header_logo__button"
-            type="button"
-            data-testid="header-logo-button"
-            onReset={handleClick}
-          >
-            <Image className="header_logo-img" src={headerLogo.src} alt="dog picture"></Image>
-          </ResetButton>
+          <Link href="/page0">
+            <ResetButton
+              className="header_logo__button"
+              type="button"
+              data-testid="header-logo-button"
+            />
+          </Link>
+          <Image
+            className="header_logo-img"
+            src={headerLogo.src}
+            alt="dog picture"
+            width={100}
+            height={50}
+          />
         </div>
         <p className="header_title">Cute dogs</p>{' '}
         <div className="header_search-container">

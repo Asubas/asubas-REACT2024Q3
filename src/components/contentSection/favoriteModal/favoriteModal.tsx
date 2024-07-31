@@ -5,12 +5,12 @@ import { removeFavorite } from '../../../app/slices/favoriteSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ResetButton } from '../../resetButton/resetButton';
 import { useContext, useEffect, useState } from 'react';
-import { ThemeContext } from '../../../App';
 import { ITheme } from '../../../interfaces/themeProps';
 import close from '../../../../src/assets/close-button-dog.svg';
 import resetSvg from '../../../../src/assets/paw-empty.svg';
 import { DownloadButton } from './downloadButton';
 import { RootState } from '../../../app/store';
+import { ThemeContext } from '../../../pages/[slug]';
 
 function FavoriteModal() {
   const { theme } = useContext<ITheme>(ThemeContext);

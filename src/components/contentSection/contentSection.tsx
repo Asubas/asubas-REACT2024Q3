@@ -1,23 +1,23 @@
 import './contentSection.scss';
 import { IDogItem } from '../../interfaces/dogInterface';
-import { Outlet, useLocation } from 'react-router-dom';
 import { Pagination } from '../pagination/pagination';
 import { ContentItem } from './contentItem/contentItem';
 import { useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setData } from '../../app/slices/dataSlice';
 import { LoadingSnippet } from '../loadingSnippet/loadingSnippet';
-import { Page404 } from '../page404/page404';
+import { Page404 } from '../../pages/404';
 import { setDetails } from '../../app/slices/detailsSlice';
-import { ThemeContext } from '../../App';
 import { ITheme } from '../../interfaces/themeProps';
-import { useFetchDetailsQuery, useFetchImagesQuery } from '../../api/api';
+import { useFetchImagesQuery } from '../../api/api';
 import { FavoriteModal } from './favoriteModal/favoriteModal';
 import { RootState } from '../../app/store';
+import { ThemeContext } from '../../pages/[slug]';
+import router, { useRouter } from 'next/router';
 
 function ContentSection() {
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
+  const { pathname } = useRouter();
   const pathParts = pathname.split('/');
   let pathPartsToPage = pathname.split('page')[1];
   if (pathParts[2]) pathPartsToPage = pathname.split('page')[1].split('/')[0];
@@ -29,14 +29,15 @@ function ContentSection() {
     page: Number(pathPartsToPage),
   });
   const newData = useSelector((state: RootState) => state.data);
-  const {
-    data: details,
-    error: detailsError,
-    isFetching: detailsFetching,
-  } = useFetchDetailsQuery({ sub_id: detailId.initialData }, { skip: !detailId.initialData });
+  // const {
+  //   data: details,
+  //   error: detailsError,
+  //   isFetching: detailsFetching,
+  // } = useFetchDetailsQuery({ sub_id: detailId.initialData }, { skip: !detailId.initialData });
 
   const showDetail = (id: string) => {
     dispatch(setDetails(id));
+    router.push(`/[slug]/${id}`, `/${id}`);
   };
 
   useEffect(() => {
@@ -57,8 +58,8 @@ function ContentSection() {
     e.preventDefault();
   };
 
-  if (isFetching || detailsFetching) return <LoadingSnippet />;
-  if (error || detailsError) return <Page404 />;
+  if (isFetching) return <LoadingSnippet />;
+  if (error) return <Page404 />;
 
   return (
     <>
@@ -76,7 +77,7 @@ function ContentSection() {
               ))}
             <Pagination />
           </section>
-          {detailId.initialData && <Outlet context={{ details: details }} />}
+          {/* {detailId.initialData && <Outlet context={{ details: details }} />} */}
           <FavoriteModal />
         </div>
       </main>

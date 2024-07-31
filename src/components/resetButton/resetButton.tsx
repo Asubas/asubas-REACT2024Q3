@@ -6,7 +6,7 @@ import { useLazyFetchImagesQuery } from '../../api/api';
 import { setIsSearchResult } from '../../app/slices/searchResult';
 
 interface ResetButtonProps {
-  onReset: () => void;
+  onReset?: () => void;
   children?: React.ReactNode;
   className?: string;
   type: 'button' | 'submit';
@@ -26,7 +26,7 @@ function ResetButton(props: ResetButtonProps) {
     <button
       onClick={() => {
         reset();
-        props.onReset();
+        if (props.onReset) props.onReset();
       }}
       {...props}
     >

@@ -1,16 +1,23 @@
 import './detailsPerDog.scss';
-import { IOutletContextProps } from '../../../interfaces/outletContentProps';
-import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import svgDog from '../../../assets/svg-dog-icon.svg';
 import { useDispatch } from 'react-redux';
 import { setDetails } from '../../../app/slices/detailsSlice';
 import { useContext } from 'react';
-import { ThemeContext } from '../../../App';
 import { ITheme } from '../../../interfaces/themeProps';
+import { ThemeContext } from '../../../pages/[slug]';
+import { useRouter } from 'next/router';
+import { useFetchDetailsQuery } from '../../../api/api';
 
 function DetailsPerDog() {
+  const router = useRouter();
+  const { slug } = router.query;
+
+  const {
+    data: details,
+    error: detailsError,
+    isFetching: detailsFetching,
+  } = useFetchDetailsQuery({ sub_id: slug as string }, { skip: !slug });
   const dispatch = useDispatch();
-  const { details } = useOutletContext<IOutletContextProps>();
   const { theme } = useContext<ITheme>(ThemeContext);
   const { pathname } = useLocation();
   const navigate = useNavigate();

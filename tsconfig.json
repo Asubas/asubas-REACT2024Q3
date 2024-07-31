@@ -21,11 +21,11 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     /* next-js- settings*/
-    "esModuleInterop" : true,
+    "esModuleInterop": true,
     "jsx": "preserve",
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
-    "incremental":true,
+    "incremental": true,
     "plugins": [{ "name": "next" }]
   },
   "include": ["./src", "./dist/types/**/*.ts", "./next-env.d.ts"],
