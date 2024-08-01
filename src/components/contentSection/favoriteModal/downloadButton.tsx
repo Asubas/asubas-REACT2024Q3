@@ -43,6 +43,8 @@ function DownloadButton() {
             className="favorite-modal_button-download_svg"
             src={downloadSvg.src}
             alt="dog svg"
+            width={20}
+            height={20}
           />
         </button>
       </a>

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { setDetails } from '../../../app/slices/detailsSlice';
 import { useContext } from 'react';
 import { ITheme } from '../../../interfaces/themeProps';
-import { ThemeContext } from '../../../pages/[slug]';
+import { ThemeContext } from '../../../pages';
 import { useRouter } from 'next/router';
 import { useFetchDetailsQuery } from '../../../api/api';
 

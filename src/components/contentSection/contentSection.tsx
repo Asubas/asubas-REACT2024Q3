@@ -12,15 +12,15 @@ import { ITheme } from '../../interfaces/themeProps';
 import { useFetchImagesQuery } from '../../api/api';
 import { FavoriteModal } from './favoriteModal/favoriteModal';
 import { RootState } from '../../app/store';
-import { ThemeContext } from '../../pages/[slug]';
 import router, { useRouter } from 'next/router';
+import { ThemeContext } from '../../pages/[slug]';
 
 function ContentSection() {
   const dispatch = useDispatch();
-  const { pathname } = useRouter();
-  const pathParts = pathname.split('/');
-  let pathPartsToPage = pathname.split('page')[1];
-  if (pathParts[2]) pathPartsToPage = pathname.split('page')[1].split('/')[0];
+  const { asPath } = useRouter();
+  const pathParts = asPath.split('/');
+  let pathPartsToPage = asPath.split('page')[1];
+  if (pathParts[2]) pathPartsToPage = asPath.split('page')[1].split('/')[0];
   const { theme } = useContext<ITheme>(ThemeContext);
   const detailId = useSelector((state: RootState) => state.details);
   const resultSearch = useSelector((state: RootState) => state.searchResult);

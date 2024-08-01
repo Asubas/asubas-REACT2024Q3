@@ -35,7 +35,7 @@ class ErrorBoundary extends PureComponent<ErrorBoundaryProps, ErrorBoundaryState
             {this.state.errorInfo.componentStack}
           </details>
           <div className="error-boundary-content_img">
-            <Image src={sadnessDog.src} alt="sadness Dog" />
+            <Image src={sadnessDog.src} alt="sadness Dog" width={20} height={20} />
           </div>
         </div>
       );

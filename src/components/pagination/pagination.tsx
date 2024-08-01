@@ -1,21 +1,21 @@
 import './pagination.scss';
 import { useEffect, useState, useCallback } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setDetails } from '../../app/slices/detailsSlice';
+import { useRouter } from 'next/router';
 
 function Pagination() {
   const [currentPage, setCurrentPage] = useState(0);
-  const navigate = useNavigate();
+  const router = useRouter();
   const dispatch = useDispatch();
 
   const handlePageChange = useCallback(
     async (page: number) => {
       setCurrentPage(page);
-      navigate(`/page${page}`);
+      router.push(`/page${page}`);
       dispatch(setDetails(''));
     },
-    [dispatch, navigate],
+    [dispatch, router],
   );
 
   const handlePageChangeClick = (index: number) => (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -35,13 +35,12 @@ function Pagination() {
     }
   };
 
-  const { pathname } = useLocation();
-  let numberPage = pathname.split('page')[1];
-  if (!Number(numberPage)) numberPage = numberPage.split('/')[0];
-
   useEffect(() => {
-    setCurrentPage(Number(numberPage) ? Number(numberPage) : 0);
-  }, [dispatch, numberPage]);
+    const { asPath } = router;
+    const currentPageInUrl = asPath.split('page')[1] || '0';
+
+    setCurrentPage(Number(currentPageInUrl));
+  }, [router]);
 
   return (
     <>

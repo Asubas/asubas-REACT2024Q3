@@ -11,7 +11,7 @@ function Footer() {
   return (
     <footer className={`footer ${theme}`}>
       <a className="footer_rs-logo" href="https://rs.school/" target="_blank" rel="noreferrer">
-        <Image src={rsLogo.src} alt="RS Logo" />
+        <Image src={rsLogo.src} alt="RS Logo" width={50} height={50} />
       </a>
       <a
         className="footer_author-link"
@@ -24,7 +24,7 @@ function Footer() {
       </a>
 
       <a className="footer_api" href="https://thedogapi.com/" target="_blank" rel="noreferrer">
-        <Image src={apiLogo.src} alt="dog api logo" />
+        <Image src={apiLogo.src} alt="dog api logo" width={50} height={50} />
       </a>
     </footer>
   );

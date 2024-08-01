@@ -12,7 +12,7 @@
   position: relative;
 
   .content_item {
-    @include flex-positioning(start);
+    @include flex-positioning(flex-start);
     @include full-border-black;
     flex-direction: column;
     width: 100%;

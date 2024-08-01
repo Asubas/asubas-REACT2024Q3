@@ -2,7 +2,6 @@ import './favoriteModal.scss';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeFavorite } from '../../../app/slices/favoriteSlice';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { ResetButton } from '../../resetButton/resetButton';
 import { useContext, useEffect, useState } from 'react';
 import { ITheme } from '../../../interfaces/themeProps';
@@ -11,20 +10,20 @@ import resetSvg from '../../../../src/assets/paw-empty.svg';
 import { DownloadButton } from './downloadButton';
 import { RootState } from '../../../app/store';
 import { ThemeContext } from '../../../pages/[slug]';
+import { useRouter } from 'next/router';
 
 function FavoriteModal() {
   const { theme } = useContext<ITheme>(ThemeContext);
   const favoriteDogsArray = useSelector((state: RootState) => state.favorite);
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
-  const pathParts = pathname.split('/');
+  const router = useRouter();
+  // const pathParts = pathname.split('/');
   const [isModalOpen, setIsModalOpen] = useState(true);
   const handleResetClick = () => {
     favoriteDogsArray.initFavoriteArr.forEach((el) => {
       dispatch(removeFavorite(el));
-      navigate(`/${pathParts[1]}`);
     });
+    router.push(`/${router.query.slug || '0'}`);
   };
   const handleClose = () => {
     setIsModalOpen(false);
@@ -64,13 +63,25 @@ function FavoriteModal() {
           onReset={handleResetClick}
         >
           Reset store
-          <Image className="favorite-modal_button-reset_svg" src={resetSvg.src} alt="dog svg" />
+          <Image
+            className="favorite-modal_button-reset_svg"
+            src={resetSvg.src}
+            alt="dog svg"
+            width={20}
+            height={20}
+          />
         </ResetButton>
         <span>Fed to the dogs: {favoriteDogsArray.initFavoriteArr.length} </span>
         <DownloadButton />
       </div>
       <button className="favorite-modal_button-close" type="button" onClick={handleClose}>
-        <Image className="favorite-modal_button-close__svg" src={close.src} alt="dog svg" />
+        <Image
+          className="favorite-modal_button-close__svg"
+          src={close.src}
+          alt="dog svg"
+          width={20}
+          height={20}
+        />
       </button>
     </div>
   );

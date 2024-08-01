@@ -13,16 +13,21 @@ const ThemeContext = createContext<ITheme>({
 });
 
 export async function getStaticPaths() {
+  const paths = [];
+  for (let i = 0; i < 10; i++) {
+    paths.push({ params: { slug: `page${i}` } });
+  }
   return {
-    paths: [{ params: { slug: 'pages0' } }],
+    paths,
     fallback: false,
   };
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(context: { params: { slug: string } }) {
+  const { slug } = context.params;
   return {
     props: {
-      slug: 'pages0',
+      slug,
     },
   };
 }

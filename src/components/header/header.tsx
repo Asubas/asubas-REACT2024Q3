@@ -5,8 +5,8 @@ import { SearchForm } from '../searchForm/searchForm';
 import { ITheme } from '../../interfaces/themeProps';
 import { useContext } from 'react';
 import { ResetButton } from '../resetButton/resetButton';
-import { ThemeContext } from '../../pages/[slug]';
 import Link from 'next/link';
+import { ThemeContext } from '../../pages/[slug]';
 
 function Header() {
   const { theme, setTheme } = useContext<ITheme>(ThemeContext);
