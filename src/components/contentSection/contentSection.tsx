@@ -19,6 +19,7 @@ function ContentSection() {
   const dispatch = useDispatch();
   const { asPath } = useRouter();
   const pathParts = asPath.split('/');
+
   let pathPartsToPage = asPath.split('page')[1];
   if (pathParts[2]) pathPartsToPage = asPath.split('page')[1].split('/')[0];
   const { theme } = useContext<ITheme>(ThemeContext);
@@ -37,7 +38,9 @@ function ContentSection() {
 
   const showDetail = (id: string) => {
     dispatch(setDetails(id));
-    router.push(`/[slug]/${id}`, `/${id}`);
+    const currentPage = Number(pathPartsToPage) || 0;
+    // router.push(`/page${currentPage}/${id}`, undefined, { shallow: true });
+    router.replace(`/page${currentPage}/${id}`, undefined, { shallow: true });
   };
 
   useEffect(() => {
@@ -45,6 +48,7 @@ function ContentSection() {
     if (pathParts[2]) {
       dispatch(setData(data));
       dispatch(setDetails(pathParts[2]));
+      console.log(pathParts[2]);
     } else {
       dispatch(setData(data));
     }

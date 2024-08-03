@@ -4,14 +4,14 @@ import { useDispatch } from 'react-redux';
 import { setDetails } from '../../../app/slices/detailsSlice';
 import { useContext } from 'react';
 import { ITheme } from '../../../interfaces/themeProps';
-import { ThemeContext } from '../../../pages';
 import { useRouter } from 'next/router';
 import { useFetchDetailsQuery } from '../../../api/api';
+import { ThemeContext } from '../../../pages/[slug]';
 
 function DetailsPerDog() {
   const router = useRouter();
   const { slug } = router.query;
-
+  console.log(slug);
   const {
     data: details,
     error: detailsError,
@@ -19,13 +19,13 @@ function DetailsPerDog() {
   } = useFetchDetailsQuery({ sub_id: slug as string }, { skip: !slug });
   const dispatch = useDispatch();
   const { theme } = useContext<ITheme>(ThemeContext);
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
-  const pathParts = pathname.split('/');
+  // const { pathname } = useLocation();
+  // const navigate = useNavigate();
+  // const pathParts = pathname.split('/');
 
   const handleClose = () => {
     dispatch(setDetails(''));
-    navigate(`/${pathParts[1]}`);
+    // navigate(`/${pathParts[1]}`);
   };
 
   if (!details.id) return;

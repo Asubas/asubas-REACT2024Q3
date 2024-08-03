@@ -6,6 +6,7 @@ import { ErrorBoundary } from '../components/errorBoundary/errorBoundary';
 import { LoadingSnippet } from '../components/loadingSnippet/loadingSnippet';
 import { ITheme } from '../interfaces/themeProps';
 import { RootState } from '../app/store';
+import { useRouter } from 'next/router';
 
 const ThemeContext = createContext<ITheme>({
   theme: '',
@@ -31,10 +32,10 @@ export async function getStaticProps(context: { params: { slug: string } }) {
     },
   };
 }
-
 export default function App({ slug }: { slug: string }) {
   const data = useSelector((state: RootState) => state.data);
   const [theme, setTheme] = useState('');
+  const router = useRouter();
 
   return (
     <>

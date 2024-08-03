@@ -8,12 +8,9 @@ import { useRouter } from 'next/router';
 
 const ContentItem = memo(
   function ContentItem({ item, showDetail }: IContentItemProps) {
-    // const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isChecked, setChecked] = useState(false);
     const favoriteDogsArray = useSelector((state: RootState) => state.favorite);
-    // const { pathname } = useLocation();
-    // const pathParts = pathname.split('/');
     const router = useRouter();
     const handleClick = async (e: React.MouseEvent) => {
       if (
@@ -26,8 +23,7 @@ const ContentItem = memo(
         e.preventDefault();
         e.stopPropagation();
         showDetail(item.id);
-        // navigate(`/${pathParts[1]}/${item.id}`);
-        await router.push(`/page/${router.query.slug}/${item.id}`);
+        // await router.push(`/${router.query.slug}/${item.id}`);
       }
     };
     const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
