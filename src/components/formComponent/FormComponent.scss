@@ -94,6 +94,12 @@
     background-color: #859ec0;
   }
 
+  &:disabled {
+    pointer-events: none;
+    cursor: auto;
+    background-color: #ea7474;
+  }
+
   &::before {
     content: ' ';
     position: absolute;
