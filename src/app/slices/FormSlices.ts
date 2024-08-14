@@ -1,21 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+export interface FormData {
+  name: string;
+  age: number;
+  email: string;
+  password1: string;
+  password2: string;
+  gender: boolean;
+  termsAccepted: boolean;
+  profilePicture: string | null;
+  country: string;
+}
+
 const initialState = {
-  data: [{}, {}],
+  data: [] as FormData[],
 };
 
 const formSlice = createSlice({
   name: 'formReducer',
   initialState,
   reducers: {
-    regularFormReducer: (state, action) => {
-      state.data[0] = action.payload;
-    },
-    hookFormReducer: (state, action) => {
-      state.data[1] = action.payload;
+    formReducer: (state, action) => {
+      state.data.push(action.payload);
     },
   },
 });
 
-export const { regularFormReducer, hookFormReducer } = formSlice.actions;
+export const { formReducer } = formSlice.actions;
 export default formSlice.reducer;

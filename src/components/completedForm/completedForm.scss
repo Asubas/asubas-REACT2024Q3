@@ -1,0 +1,69 @@
+.contentForms {
+  display: flex;
+  margin: 20px;
+  justify-content: space-around;
+  height: 100%;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.completedForms-title {
+  text-align: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::before {
+    content: ' ';
+    position: absolute;
+    top: 100%;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background: url('../../assets/pirate-ship.svg') no-repeat center / cover;
+    margin-right: 10px;
+  }
+}
+
+.completedForm {
+  border: 1px solid black;
+  cursor: pointer;
+  transition: 0.5s;
+  max-width: 300px;
+  &:hover {
+    scale: 1.1;
+  }
+
+  &:last-child {
+    border: 2px solid lightgreen;
+  }
+}
+
+.cart-title,
+.cart-content {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid grey;
+  font-size: 150%;
+}
+
+.cart-content {
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 110%;
+}
+
+.randomImg {
+  width: 50px;
+  height: 50px;
+  align-self: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}

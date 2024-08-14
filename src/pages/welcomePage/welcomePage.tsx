@@ -8,10 +8,9 @@ function WelcomePage() {
         <img src={piratePicture} alt="pirate man" />
       </div>
       <p className="welcomeTitle">
-        Ahoy, young pirate! This playful website is created so that you can prepare for your
-        seafaring journey and submit your application to join a pirate crew! You are invited to fill
-        out 2 forms: one for your &quot;true self&quot; and one for your &quot;pirate self&quot;!
-        Enjoy!
+        Hey young pirate! This fun website is designed to help you prepare for your sea voyage and
+        apply to join a pirate crew! You are asked to fill out 2 forms: in fact, they are no
+        different, just point where you like! Gather your pirate crew! Enjoy!
       </p>
     </div>
   );

@@ -108,6 +108,38 @@
 .error-message {
   color: #ff0000;
   position: relative;
-  top: -5%;
-  left: -30%;
+
+  max-width: 300px;
+}
+
+span.empty {
+  position: relative;
+
+  &::before {
+    content: ' ';
+    position: absolute;
+    background: url('../../assets/showPassword.svg') no-repeat center / contain;
+    width: 20px;
+    height: 20px;
+    top: -10px;
+    left: -40px;
+    z-index: 2;
+    cursor: pointer;
+  }
+}
+
+span.not-empty {
+  position: relative;
+
+  &::before {
+    content: ' ';
+    position: absolute;
+    background: url('../../assets/unShowPassword.svg') no-repeat center / contain;
+    width: 20px;
+    height: 20px;
+    top: -10px;
+    left: -40px;
+    z-index: 2;
+    cursor: pointer;
+  }
 }
