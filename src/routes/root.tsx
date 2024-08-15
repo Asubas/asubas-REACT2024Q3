@@ -1,5 +1,3 @@
-// import { useState } from 'react';
-// import reactLogo from '../assets/react.svg';
 import { useSelector } from 'react-redux';
 import { Footer } from '../components/footer/footer';
 import { Header } from '../components/header/header';

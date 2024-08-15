@@ -11,10 +11,10 @@ function Header() {
       <nav className="selectForm">
         <ul className="selectForm-formList">
           <li>
-            <Link to={`forms/1`}>Enter your details from regular form</Link>
+            <Link to={`forms/uncontrolledForm`}>Enter your details from regular form</Link>
           </li>
           <li>
-            <Link to={`forms/2`}>Enter your details from react-hook form</Link>
+            <Link to={`forms/reactHookForm`}>Enter your details from react-hook form</Link>
           </li>
         </ul>
       </nav>

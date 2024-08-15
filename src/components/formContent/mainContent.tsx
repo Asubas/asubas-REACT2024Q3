@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom';
-import { RegularFormComponent } from '../formComponent/regularFormComponent';
+import { RegularFormComponent } from '../regularFormComponent/regularFormComponent';
+import { HookFormComponent } from '../hookFormComponent/hookFormComponent';
 
 function MainContent() {
   const location = useLocation();
@@ -7,11 +8,9 @@ function MainContent() {
 
   return (
     <>
-      {urlParts[2] === '2' && (
-        <div className="content">Тут будет ваша форма с использованием React Hook Form</div>
-      )}
+      {urlParts[2] === 'reactHookForm' && <HookFormComponent />}
 
-      {urlParts[2] === '1' && <RegularFormComponent />}
+      {urlParts[2] === 'uncontrolledForm' && <RegularFormComponent />}
     </>
   );
 }
