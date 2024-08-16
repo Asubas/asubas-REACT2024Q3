@@ -1,0 +1,21 @@
+.welcomePage {
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.welcomePicture {
+  width: 40%;
+  height: auto;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.welcomeTitle {
+  text-align: center;
+  font-size: 200%;
+}
