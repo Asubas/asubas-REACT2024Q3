@@ -5,10 +5,13 @@ import { RootState } from '../../app/store';
 import { setCountries } from '../../app/slices/CountrySlices';
 import { useEffect, useState } from 'react';
 import { useFormSubmit } from './submitForm';
+import { Meter } from '../hookFormComponent/meter';
 
 function RegularFormComponent() {
   const [errors, setErrors] = useState<{ [key: string]: string | undefined }>({});
   const [file, setFile] = useState<File | null>(null);
+  const [meter, setMeter] = useState(false);
+  const [passwordMeter, setPasswordMeter] = useState('');
   const dispatch = useDispatch();
   const countries = useSelector((state: RootState) => state.country.countries);
   useEffect(() => {
@@ -77,14 +80,22 @@ function RegularFormComponent() {
       />
       {errors.email && <span className="error-message">{errors.email}</span>}
 
-      <label htmlFor="password">Come up with password:</label>
+      <label htmlFor="password">
+        Come up with password:
+        {meter && <Meter password={passwordMeter} />}
+      </label>
       <input
         id="password"
         type={type}
         name="password"
         placeholder="Please enter your password"
         autoComplete="on"
-        onChange={resetError}
+        onFocus={() => setMeter(true)}
+        onChange={(e) => {
+          const newPassword = e.target.value;
+          setPasswordMeter(newPassword);
+          resetError();
+        }}
       />
       <span className={`${type === 'password' ? 'empty' : 'not-empty'}`} onClick={showPassword} />
 
@@ -98,10 +109,6 @@ function RegularFormComponent() {
         placeholder="Please confirm your password"
         autoComplete="new-password"
         onChange={resetError}
-      />
-      <span
-        className={`${typeConfirm === 'password' ? 'empty' : 'not-empty'}`}
-        onClick={showPassword}
       />
       {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
 

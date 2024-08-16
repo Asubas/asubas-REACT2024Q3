@@ -150,3 +150,11 @@ span.not-empty {
     cursor: pointer;
   }
 }
+.password-strength-meter_container {
+  width: 150px;
+  height: 10px;
+  margin-left: 50px;
+  position: relative;
+  top: -3px;
+  pointer-events: none;
+}

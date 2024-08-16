@@ -7,15 +7,20 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { FormInputData, schema } from './schemaForHookForm';
 import { formReducer } from '../../app/slices/FormSlices';
 import { useNavigate } from 'react-router-dom';
+import { Meter } from './meter';
 
 function HookFormComponent() {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
+  const [meter, setMeter] = useState(false);
+  const [passwordMeter, setPasswordMeter] = useState('');
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
+    trigger,
   } = useForm<FormInputData>({ mode: 'onChange', resolver: yupResolver(schema) });
 
   const handleFormSubmit = async (data: FormInputData) => {
@@ -64,11 +69,9 @@ function HookFormComponent() {
         {...register('name')}
       />
       {errors.name && <span className="error-message">{errors.name.message}</span>}
-
       <label htmlFor="age">Enter your age:</label>
       <input type="number" id="age" placeholder="Please enter your age" {...register('age')} />
       {errors.age && <span className="error-message">{errors.age.message}</span>}
-
       <label htmlFor="email">Enter your email:</label>
       <input
         id="email"
@@ -78,18 +81,26 @@ function HookFormComponent() {
         {...register('email')}
       />
       {errors.email && <span className="error-message">{errors.email.message}</span>}
-
-      <label htmlFor="password">Come up with password:</label>
+      <label htmlFor="password" className="label-password">
+        Come up with password:
+        {meter && <Meter password={passwordMeter} />}
+      </label>
       <input
         id="password"
         type={type}
         placeholder="Please enter your password"
         autoComplete="on"
         {...register('password')}
+        onFocus={() => setMeter(true)}
+        onChange={(e) => {
+          const newPassword = e.target.value;
+          setPasswordMeter(newPassword);
+          setValue('password', newPassword);
+          trigger('password');
+        }}
       />
       <span className={`${type === 'password' ? 'empty' : 'not-empty'}`} onClick={showPassword} />
       {errors.password && <span className="error-message">{errors.password.message}</span>}
-
       <label htmlFor="confirmPassword">Confirm your password:</label>
       <input
         id="confirmPassword"
@@ -97,10 +108,6 @@ function HookFormComponent() {
         placeholder="Please confirm your password"
         autoComplete="on"
         {...register('confirmPassword')}
-      />
-      <span
-        className={`${typeConfirm === 'password' ? 'empty' : 'not-empty'}`}
-        onClick={showPassword}
       />
       {errors.confirmPassword && (
         <span className="error-message">{errors.confirmPassword.message}</span>
@@ -115,7 +122,6 @@ function HookFormComponent() {
       <label htmlFor="tc">Please read TS (Open the chest):</label>
       <input className="tc" id="tc" type="checkbox" {...register('TC')} />
       {errors.TC && <span className="error-message">{errors.TC.message}</span>}
-
       <label htmlFor="fileLoader">Choose your avatar from png/jpeg type:</label>
       <input type="file" id="fileLoader" accept="image/jpeg,image/png" {...register('file')} />
       {errors.file && <span className="error-message">{errors.file.message}</span>}
@@ -132,7 +138,6 @@ function HookFormComponent() {
           <option key={index} value={country} />
         ))}
       </datalist>
-
       <button
         className="submitButton"
         type="submit"
