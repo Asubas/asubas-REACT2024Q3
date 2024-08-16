@@ -11,13 +11,11 @@ function RegularFormComponent() {
   const [file, setFile] = useState<File | null>(null);
   const dispatch = useDispatch();
   const countries = useSelector((state: RootState) => state.country.countries);
-  console.log(errors);
   useEffect(() => {
     const fetchCountries = () => {
       const allCountries = ['Russia', 'USA', 'Canada', 'UK', 'Germany', 'France'];
       dispatch(setCountries(allCountries));
     };
-
     fetchCountries();
   }, [dispatch]);
 
@@ -54,7 +52,7 @@ function RegularFormComponent() {
         id="name"
         type="text"
         name="name"
-        placeholder="Please enter you origin name"
+        placeholder="Please enter your origin name"
         autoComplete="on"
         onChange={resetError}
       />
@@ -122,7 +120,14 @@ function RegularFormComponent() {
       />
       {errors.file && <span className="error-message">{errors.file}</span>}
       <label htmlFor="country">Select a country:</label>
-      <input name="country" id="country" list="countries" placeholder="Type to select country" />
+      <input
+        name="country"
+        id="country"
+        list="countries"
+        placeholder="Type to select country"
+        onChange={resetError}
+      />
+      {errors.country && <span className="error-message">{errors.country}</span>}
       <datalist id="countries">
         {countries.map((country, index) => (
           <option key={index} value={country} />

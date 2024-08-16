@@ -40,6 +40,7 @@ export const useFormSubmit = (
         if (file) return file.type === 'image/jpeg' || file.type === 'image/png';
       }),
     TC: Yup.bool().oneOf([true], 'You need open chest!').required('Required'),
+    country: Yup.string().required('This field is required!'),
   });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -58,6 +59,7 @@ export const useFormSubmit = (
           confirmPassword: formData.get('confirmPassword'),
           file: formData.get('fileLoader'),
           TC: TC,
+          country: formData.get('country'),
         },
         { abortEarly: false },
       );

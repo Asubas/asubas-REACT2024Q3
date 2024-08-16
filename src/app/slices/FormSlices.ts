@@ -4,12 +4,13 @@ export interface FormData {
   name: string;
   age: number;
   email: string;
-  password1: string;
-  password2: string;
+  password: string;
+  confirmPassword: string;
   gender: boolean;
-  termsAccepted: boolean;
+  TC: boolean;
   profilePicture: string | null;
   country: string;
+  fileBase64?: string;
 }
 
 const initialState = {
