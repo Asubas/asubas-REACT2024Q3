@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store';
 import { setCountries } from '../../app/slices/CountrySlices';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FormInputData, schema } from './schemaForHookForm';
+import { FormInputData, schema } from './formComponents/schemaForHookForm';
 import { formReducer } from '../../app/slices/FormSlices';
 import { useNavigate } from 'react-router-dom';
-import { Meter } from './meter';
+import { Meter } from './formComponents/meter';
 
 function HookFormComponent() {
   const dispatch: AppDispatch = useDispatch();

@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
-import { RegularFormComponent } from '../regularFormComponent/regularFormComponent';
-import { HookFormComponent } from '../hookFormComponent/hookFormComponent';
+import { RegularFormComponent } from '../forms/regularFormComponent';
+import { HookFormComponent } from '../forms/hookFormComponent';
 
 function MainContent() {
   const location = useLocation();

@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
-import { formReducer } from '../../app/slices/FormSlices';
+import { formReducer } from '../../../app/slices/FormSlices';
 import { Dispatch, SetStateAction } from 'react';
-import { AppDispatch } from '../../app/store';
+import { AppDispatch } from '../../../app/store';
 import { useNavigate } from 'react-router-dom';
 
 export const useFormSubmit = (

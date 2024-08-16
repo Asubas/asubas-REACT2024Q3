@@ -1,11 +1,11 @@
+import './formComponents/FormComponent.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import './FormComponent.scss';
 import { Form } from 'react-router-dom';
 import { RootState } from '../../app/store';
 import { setCountries } from '../../app/slices/CountrySlices';
 import { useEffect, useState } from 'react';
-import { useFormSubmit } from './submitForm';
-import { Meter } from '../hookFormComponent/meter';
+import { useFormSubmit } from './formComponents/submitForm';
+import { Meter } from './formComponents/meter';
 
 function RegularFormComponent() {
   const [errors, setErrors] = useState<{ [key: string]: string | undefined }>({});
@@ -115,7 +115,7 @@ function RegularFormComponent() {
       <label htmlFor="sex">Enter your sex (male / female):</label>
       <input className="sex" id="sex" type="checkbox" name="sex" />
       <label htmlFor="tc">Please read TS (Open the chest):</label>
-      <input className="tc" id="tc" type="checkbox" name="TC" />
+      <input className="tc" id="tc" type="checkbox" name="TC" onChange={resetError} />
       {errors.TC && <span className="error-message">{errors.TC}</span>}
       <label htmlFor="file">Choose your avatar from png/jpeg type:</label>
       <input

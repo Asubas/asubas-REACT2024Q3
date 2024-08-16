@@ -4,7 +4,7 @@ import firstImage from '../../assets/pirate-hook.svg';
 import secondImage from '../../assets/pirate-key.svg';
 import thirdImage from '../../assets/pirate-rum.svg';
 import fourthImage from '../../assets/pirate-sword.svg';
-import { FormInputData } from '../hookFormComponent/schemaForHookForm';
+import { FormInputData } from '../forms/formComponents/schemaForHookForm';
 
 const images = [firstImage, secondImage, thirdImage, fourthImage];
 const getRandomImage = () => {
@@ -26,17 +26,9 @@ function CompletedForm({ data }: { data: FormData | FormInputData }) {
               style={{ width: '100px', height: '100px' }}
             />
           )}{' '}
-          |
           {data.fileBase64 && (
             <img
               src={data.fileBase64}
-              alt={`${data.name}'s profile`}
-              style={{ width: '100px', height: '100px' }}
-            />
-          )}
-          {data.profilePicture && (
-            <img
-              src={data.profilePicture}
               alt={`${data.name}'s profile`}
               style={{ width: '100px', height: '100px' }}
             />
